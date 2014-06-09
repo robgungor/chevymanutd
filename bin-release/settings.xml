@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--
+
+
+
+
+
+									NOTE NOTE NOTE NOTE
+									
+									
+										for the TEMPLATE, any change you make here will be overwritten in the next
+										deployment... instead send change requests to Mihai to update the source
+
+
+
+
+
+
+-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<data>
+	<ALLOW_DOMAINS>host|host-vd|host-vs|host-vp|host-d-vd|host-d-vs|host-d-vp|host-d</ALLOW_DOMAINS>
+	<API_ODDCAST_FAN>api/oddcastFan.php</API_ODDCAST_FAN>
+	<API_TTS_INIT>php/ttsAPI/getTTSInfo/doorId=</API_TTS_INIT>
+	<ODDCAST_FAN_DEFAULT>false</ODDCAST_FAN_DEFAULT>
+	<TTS_RESTRICT_TEXT><![CDATA[^~`@#$%&()<>{}[]|\\\\_+=\\\^]]></TTS_RESTRICT_TEXT>
+	<TTS_DEFAULT_TEXT>Enter your message here</TTS_DEFAULT_TEXT>
+	<TTS_DEFAULT_LANG>english</TTS_DEFAULT_LANG>
+	<TTS_REPLACE_BAD_WORD>true</TTS_REPLACE_BAD_WORD> <!-- false will alert on a bad word -->
+	<!--TTS_DEFAULT_VOICE>munc</TTS_DEFAULT_VOICE> <!-- comment out for random voice selection -->
+	<USE_BAD_WORDS>true</USE_BAD_WORDS>
+	<MAX_EMAILS_SELECTABLE>1000</MAX_EMAILS_SELECTABLE>
+	<MAX_EMAIL_RECIPIENTS>100</MAX_EMAIL_RECIPIENTS>
+	<EMAIL_DEFAULT_OPTIN_VALUE>false</EMAIL_DEFAULT_OPTIN_VALUE>
+	<EMAIL_ALLOW_MULTIPLE_EMAILS>false</EMAIL_ALLOW_MULTIPLE_EMAILS>
+	<EMAIL_SINGLE_TF_RESTRICT><![CDATA[.a-zA-Z0-9_\\-.@\"]]></EMAIL_SINGLE_TF_RESTRICT>
+	<EMAIL_MULTIPLE_TF_RESTRICT><![CDATA[.a-zA-Z0-9_\\-.@\";, \n\r\t]]></EMAIL_MULTIPLE_TF_RESTRICT>
+	<EMAIL_REPLACE_BAD_WORDS>false</EMAIL_REPLACE_BAD_WORDS> <!-- false will alert on a bad word -->
+	<MIC_SECONDS_REC_LIMIT>60</MIC_SECONDS_REC_LIMIT>
+	<MIC_APP_PARAM>Workshop</MIC_APP_PARAM>
+	<MIC_UID_PARAM>1204065764</MIC_UID_PARAM>
+	<MIC_RECORD_FORMAT>MP3</MIC_RECORD_FORMAT>
+	<LOAD_MODEL_THUMBS>true</LOAD_MODEL_THUMBS>
+	<LOAD_BG_THUMBS>true</LOAD_BG_THUMBS>
+	<LOAD_ACC_THUMBS>true</LOAD_ACC_THUMBS>
+	<SHARE_APP_TITLE>Template F9</SHARE_APP_TITLE>
+	<DIGG_SHARE_TOPIC>comedy</DIGG_SHARE_TOPIC>
+	<DIGG_SHARE_DESC>This is the flash 9 template</DIGG_SHARE_DESC>
+	<APC_POLLING_TIME>5000</APC_POLLING_TIME>
+	<APC_MASKING_INCLUDE_EARS>false</APC_MASKING_INCLUDE_EARS>
+	<APC_MOVE_AMT>10</APC_MOVE_AMT>
+	<APC_ROT_AMT>1</APC_ROT_AMT>
+	<APC_ZOOM_AMT>5</APC_ZOOM_AMT>
+	<APC_REPEAT_TIME>50</APC_REPEAT_TIME>
+	<APC_PROCESSING_MESSAGE_RETRIEVING>Retrieving Photo..</APC_PROCESSING_MESSAGE_RETRIEVING>
+	<APC_PROCESSING_MESSAGE_SUBMITTING>Submitting..</APC_PROCESSING_MESSAGE_SUBMITTING>
+	<APC_PROCESSING_MESSAGE_QUEUED>Queued For Processing..</APC_PROCESSING_MESSAGE_QUEUED>
+	<APC_PROCESSING_MESSAGE_ANALYZING>Analyzing..</APC_PROCESSING_MESSAGE_ANALYZING>
+	<APC_PROCESSING_MESSAGE_CONVERTING>Converting..</APC_PROCESSING_MESSAGE_CONVERTING>
+	<AVATAR_POS_X>0</AVATAR_POS_X>
+	<AVATAR_POS_Y>40</AVATAR_POS_Y>
+	<AVATAR_SCALE>.7</AVATAR_SCALE>
+	<PRIVACY_POLICY_TEXT>Privacy Policy body goes here...</PRIVACY_POLICY_TEXT>
+	<TERMS_CONDITIONS_TEXT>Terms and Conditions body goes here...</TERMS_CONDITIONS_TEXT>
+	<ALERT_ON_LINK>true</ALERT_ON_LINK>
+	<ALERT_SHOW_CODE>true</ALERT_SHOW_CODE>
+	<EVENT_TIMEOUT_MS>30000</EVENT_TIMEOUT_MS>
+	<FLAGGING_BAN_MIN>60</FLAGGING_BAN_MIN>
+	<BG_MIN_SIZE_KB>1</BG_MIN_SIZE_KB>
+	<BG_MAX_SIZE_MB>6</BG_MAX_SIZE_MB>
+	<UPLOAD_TIMEOUT_SEC>120</UPLOAD_TIMEOUT_SEC>
+	<UPLOAD_MAX_FILES>10</UPLOAD_MAX_FILES>
+	<SCHEDULER_TASK_NAME>sendVideoToYoutube</SCHEDULER_TASK_NAME>
+	<SCHEDULER_URL>api/saveSchedularTask.php</SCHEDULER_URL>
+	<TWITTER_DEFAULT_TEXT>I just danced with  #DanceMoms Abby Lee Miller! Check out my moves </TWITTER_DEFAULT_TEXT>
+	
+	<FACEBOOK_CONNECT_USER_FRONT_OF_LIST>true</FACEBOOK_CONNECT_USER_FRONT_OF_LIST> <!-- keeps the user at the front of the friends list -->
+	<FACEBOOK_POST_MESSAGE></FACEBOOK_POST_MESSAGE> <!-- message that the user types in -->
+	<FACEBOOK_POST_NAME>Abby Lee Me</FACEBOOK_POST_NAME>
+	<FACEBOOK_POST_CAPTION></FACEBOOK_POST_CAPTION>
+	<FACEBOOK_POST_DESCRIPTION> I just got Dance-Mom-ified! Check out my moves and create your own dance here {pickUpLink} and don't miss the season 2 premiere of Dance Moms on January 10th at 9/8c on Lifetime!</FACEBOOK_POST_DESCRIPTION>
+	<FACEBOOK_POST_DISPLAY>popup</FACEBOOK_POST_DISPLAY> <!-- The display mode in which to render the dialog. page/popup/iframe -->
+	<!-- 
+		USAGE
+		- enter absolute url (include http://) to hardcode the url
+		- enter relative url (eg "image.jpg") which will be appended to the doors misc folder like 
+					http://content.dev.oddcast.com/ccs1/customhost/239/misc/image.jpg
+	-->
+	<FACEBOOK_POST_IMAGE_URL></FACEBOOK_POST_IMAGE_URL>
+	<FACEBOOK_POST_GENERATE_IMAGE>true</FACEBOOK_POST_GENERATE_IMAGE> <!-- true will auto generate an image for facebook posting, false will use value from FACEBOOK_POST_IMAGE_URL -->
+	<TERMS_CONDITIONS_LINK>http://content.oddcast.com/ccs6/customhost/1009/misc/terms.html</TERMS_CONDITIONS_LINK>
+	<USE_THIRD_DANCE>false</USE_THIRD_DANCE>
+</data>
