@@ -213,14 +213,12 @@
 			// sharing
 			//new Share_Digg				( art.panel_buttons.diggBtn );
 			//new Share_Delicious			( art.panel_buttons.deliciousBtn );
-			new Share_Misc				(dummy, art.mainPlayer.get_url_btn, dummy, dummy);
-			
-			
-			
-			new Email					( art.email_btn, art.email, art.emailSuccess );
+			new Share_Misc				(dummy, art.preview.btn_googleplus, dummy, dummy);
+
+			new Email					( art.preview.email_btn, art.email, art.emailSuccess );
 			//new Gallery_Post			( art.panel_buttons.postBtn, art.gallery_post );
 			new Facebook_Friend_Search	( art.facebook_btn, art.facebook_friend );
-			new Facebook_Friend_Post	( art.facebook_btn, art.post_to_facebook );
+			new Facebook_Friend_Post	( art.preview, art.post_to_facebook );
 			//new GIF_Export				( art.panel_buttons.btn_animated_gif, art);
 			//new JPG_Export				( art.panel_buttons.saveJpegBtn, art, art);//.player_holder.player.hostMask );
 			//new Audio_To_Phone			( art.panel_buttons.audioToPhoneBtn, art.audio_to_phone );
@@ -229,7 +227,7 @@
 			new Youtube					( art.panel_buttons.btn_youtube, art.youtube );
 			new Paypal					( art.panel_buttons.btn_paypal, art.paypal );
 			new MoGreet					( art.panel_buttons.btn_mogreet, art.mogreet );*/
-			new Share_Twitter			( art.twitter_btn );
+			new Share_Twitter			( art.twitter_btn, art.twitter_share );
 			
 			// background
 			/*new BG_Browse				( art.panel_buttons.btn_browse_popup, art.browse_image ); 

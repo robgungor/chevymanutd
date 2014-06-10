@@ -58,9 +58,7 @@
 			_imageHold 	= App.ws_art.auto_photo_position.placeholder_apc.image_hold;
 			_mask		= App.ws_art.auto_photo_position.placeholder_apc.mask_mc;
 			_changeHairstyle(0);
-			
-			//starts off at 1, let's make it .3
-			_changeContrast(-.7);
+			_changeContrast(1);
 			
 			App.mediator.autophoto_set_apc_display_size( new Point(_imageHold.width, _imageHold.height ) );
 			
@@ -137,7 +135,7 @@
 		
 		protected function _onContrastChangeClick(e:Event):void
 		{
-			var direction:Number = e.currentTarget == ui.btn_contrast_less ? -.1 : .1;
+			var direction:Number = e.currentTarget == ui.btn_contrast_less ? -1 : 1;
 			_changeContrast( direction );
 		}
 		
@@ -236,7 +234,7 @@
 													break;
 				case ui.btn_next:			var snapshot:Bitmap = take_snapshot();
 													close_win();
-													App.mediator.save_masked_photo(snapshot, cutPoint);	
+													App.mediator.save_masked_photo(snapshot, _currentContrast);//cutPoint);	
 													//App.mediator.autophoto_submit_photo_position();
 					
 													break;
@@ -343,6 +341,7 @@
 		*/
 		protected var _currentHairstyle:Number = 0;
 		protected var _currentOutline:DisplayObject;
+		protected var _currentContrast:Number = 1;
 		protected function _changeHairstyle( direction:Number =1 ):void
 		{
 			// can be +- 1
@@ -376,10 +375,14 @@
 			
 		}
 		
-		protected function _changeContrast( direction:Number = .1 ):void
+		protected function _changeContrast( direction:Number = 1 ):void
 		{
+			_currentContrast += direction;
+			_currentContrast = Math.min(Math.max(_currentContrast, 0), 4);
+			
 			var currentAlpha:Number = ui.neck.getChildByName("skin").alpha;		
-			currentAlpha += direction;
+			
+			currentAlpha = _currentContrast*.1;
 			
 			ui.neck.getChildByName("skin").alpha = Math.max(Math.min(currentAlpha, 1), 0);			
 			_enableContrastBtns();
@@ -387,8 +390,8 @@
 		
 		protected function _enableContrastBtns():void
 		{
-			ui.btn_contrast_less.enabled =  ui.neck.getChildByName("skin").alpha > 0;
-			ui.btn_contrast_more.enabled =  ui.neck.getChildByName("skin").alpha < 1;
+			ui.btn_contrast_less.enabled =  _currentContrast > 0;
+			ui.btn_contrast_more.enabled =  _currentContrast < 4;
 			ui.btn_contrast_less.alpha = ui.btn_contrast_less.enabled ? 1 : .5;
 			ui.btn_contrast_more.alpha = ui.btn_contrast_more.enabled ? 1 : .5;
 		}

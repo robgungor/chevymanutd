@@ -668,6 +668,39 @@
 				App.ws_art.processing.authored_creation.visible = true;
 			}
 		}
+		
+		
+		public function saveScreenshot( bmp:Bitmap, makePersistant:Boolean = true, cutPoint:Number = -1 ):void
+		{
+		
+			var img_data:ByteArray = PNGEncoder.encode( bmp.bitmapData );
+			var saver:HeadSaver = new HeadSaver(_currentHeadIndex, cutPoint);
+			saver.addEventListener(Event.COMPLETE, onSaved);
+			
+			function onSaved(e:Event):void
+			{
+				var struct:HeadStruct = new HeadStruct(bmp, (e.target as HeadSaver).url, null, (e.target as HeadSaver).cutPoint);
+				_savedHeads[(e.target as HeadSaver).index] =  struct;
+				App.asset_bucket.last_mid_saved = null;
+				App.ws_art.processing.authored_creation.visible = false;
+				
+				if(makePersistant)	addPersistantImage( struct );	
+				
+				App.mediator.gotoPreview();
+				App.mediator.processing_ended( PROCESS_UPLOADING );
+			}
+			
+			if (img_data == null)
+				App.mediator.alert_user(new AlertEvent(AlertEvent.ERROR, 'f9t201', 'Error saving image.'));
+			else
+			{
+				App.mediator.processing_start( PROCESS_UPLOADING);
+				App.utils.image_uploader.upload_binary( new Callback_Struct( saver.fin, saver.progress, saver.error ), img_data, "png");
+				App.ws_art.processing.authored_creation.visible = true;
+			}
+		}
+		
+		
 		public function addPersistantImage(head:HeadStruct):void
 		{
 			if( _persistantImages == null ) _persistantImages = [];

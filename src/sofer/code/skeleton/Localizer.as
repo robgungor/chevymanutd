@@ -11,7 +11,7 @@ package code.skeleton
 		public function Localizer()
 		{
 			_translations = new Dictionary();
-			_translations["homescreen_btn_facebook"] = "LCL FACEBOOK"; 
+			//_translations["homescreen_btn_facebook"] = "LCL FACEBOOK"; 
 		}
 		private var _language		:String = 'en';
 		private var _translations	:Dictionary;

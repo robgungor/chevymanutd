@@ -12,6 +12,7 @@ package code.controllers.facebook_connect
 	import com.oddcast.workshop.ExternalInterface_Proxy;
 	import com.oddcast.workshop.ServerInfo;
 	import com.oddcast.workshop.WSEventTracker;
+	import com.oddcast.workshop.WorkshopMessage;
 	
 	import flash.display.Loader;
 	import flash.events.Event;
@@ -105,7 +106,7 @@ package code.controllers.facebook_connect
 				ExternalInterface_Proxy.addCallback("fbcSetUserInfo"			, fbcSetUserInfo);
 				ExternalInterface_Proxy.addCallback("fbcSetUserPictures"		, fbcSetUserPictures);
 				ExternalInterface_Proxy.addCallback("fbcSetConnectState"		, fbcSetConnectState);
-				ExternalInterface_Proxy.addCallback("fbcSetProfileAlbumCover"		, fbcSetProfileAlbumCover);
+				ExternalInterface_Proxy.addCallback("fbcSetProfileAlbumCover"	, fbcSetProfileAlbumCover);
 				
 				ExternalInterface_Proxy.call("fbcGetConnectState");
 			}
@@ -433,7 +434,10 @@ package code.controllers.facebook_connect
 			 */
 			function post_to_user( _user_id:String, _mid:String, _thumb_url:String ):void
 			{
+				// TO DO - get uploaded image url from workshop message... either do that here or pass in the url 
+				var message:WorkshopMessage = App.asset_bucket.mid_message;
 				
+				//http://content.oddcast.com/ccs6/customhost/1221/m/bg/bb/81/140237946992682.png
 				var url:String = (_mid != "" && _mid != null) ? ServerInfo.pickup_url + '?mId=' + _mid : ServerInfo.pickup_url;
 				var defaultURL:String = _mid != "" ? ServerInfo.default_url + 'swf/player_embed.swf?mId=' + _mid + '&stem=' + ServerInfo.stem_gwi : ServerInfo.default_url + 'swf/player_embed.swf?stem=' + ServerInfo.stem_gwi;
 				// javascript function fbcPublishStream2(nFriendId, strTitle, strMessageContent, strName, strCaption, strDescription, strVideSource, strImageSource, strHref, strImgW, strImgH, strVidW, strVidH)
@@ -444,24 +448,24 @@ package code.controllers.facebook_connect
 				var strDescription	:String = App.settings.FACEBOOK_POST_DESCRIPTION.split("{pickUpLink}").join(ServerInfo.pickup_url);
 				var strDisplay		:String = App.settings.FACEBOOK_POST_DISPLAY;
 				 
-				ExternalInterface_Proxy.call
-					(
-						'fbcPublishFlashStream',
-					/*nFriendId*/			_user_id,
-					/*strTitle*/			strName,
-					/*strMessageContent*/	strMessage,
-					/*strName*/				strName,
-					/*strCaption*/			strCaption,
-					/*strDescription*/		strDescription,
-					/*strVideSource*/		defaultURL,
-					/*strImageSource*/		_thumb_url,
-					/*strHref*/				url,
-					/*strImgW*/				425,
-					/*strImgH*/				425,
-					/*strVidW*/				425,
-					/*strVidH*/				425, "true"
-					/*bForcePopupWindow*/	
-					);
+//				ExternalInterface_Proxy.call
+//					(
+//						'fbcPublishFlashStream',
+//					/*nFriendId*/			_user_id,
+//					/*strTitle*/			strName,
+//					/*strMessageContent*/	strMessage,
+//					/*strName*/				strName,
+//					/*strCaption*/			strCaption,
+//					/*strDescription*/		strDescription,
+//					/*strVideSource*/		defaultURL,
+//					/*strImageSource*/		_thumb_url,
+//					/*strHref*/				url,
+//					/*strImgW*/				425,
+//					/*strImgH*/				425,
+//					/*strVidW*/				425,
+//					/*strVidH*/				425, "true"
+//					/*bForcePopupWindow*/	
+//					);
 				/*nFriendId	UserId to post the stream to.
 					strTitle	Title for the dialog
 				strMessageContent	Default message to show in the dialog.
@@ -476,7 +480,7 @@ package code.controllers.facebook_connect
 				strVidW	Width of the swf file
 				strVidH	Height of the swf file
 				bForcePopupWindow	Forces the dialog window to popup*/
-				return;
+				//return;
 				// javascript function fbcPublishStream2(nFriendId, strTitle, strMessageContent, strName, strCaption, strDescription, strVideSource, strImageSource, strHref, strImgW, strImgH, strVidW, strVidH)
 //				ExternalInterface_Proxy.call
 //					(

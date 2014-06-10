@@ -218,8 +218,8 @@
 			}*/
 			msgParams.optIn = "1";
 			
-			extraData.danceIndex = App.mediator.danceIndex;
-			extraData.registerData = App.mediator.optInMessage;
+			//extraData.danceIndex = App.mediator.danceIndex;
+			//extraData.registerData = App.mediator.optInMessage;
 			// save bg position and size
 				/*if (App.mediator.scene_editing.bg != null) 
 				{	var bgX			:String = App.asset_bucket.bg_controller.zoomer.x.toFixed(1);
@@ -238,47 +238,48 @@
 					}
 				}*/
 			
-				var scenes:Array = [];
+				//var scenes:Array = [];
 				var scene:SceneStruct;
 				// if sharing from the big show
 				if(App.asset_bucket.is_playback_mode && App.asset_bucket.mid_message)
 				{
 					var message:WorkshopMessage = App.asset_bucket.mid_message;
 
-					for(var i:Number = 0; i<message.sceneArr.length; i++)
-					{
-						var image:WSBackgroundStruct = message.sceneArr[i].bg as WSBackgroundStruct;
-						scene = new SceneStruct(null, image);
-						scenes.push(scene);
-					}
-					saver.saveWorkshop(_e, scenes, extraData, tags, msgParams);
+//					for(var i:Number = 0; i<message.sceneArr.length; i++)
+//					{
+//						var image:WSBackgroundStruct = message.sceneArr[i].bg as WSBackgroundStruct;
+//						scene = new SceneStruct(null, image);
+//						scenes.push(scene);
+//					}
+//					saver.saveWorkshop(_e, scenes, extraData, tags, msgParams);
+					
+					
 					return;
 				} 
-				for( i = 0; i<App.mediator.savedHeads.length; i++)
-				{
-					var head:HeadStruct = App.mediator.savedHeads[i];
-					if(head)
-					{
-						extraData['mouthCutPoint_'+i] = head.mouthCutPoint;
-						var bg:WSBackgroundStruct = new WSBackgroundStruct(head.url, 0, String(i), String(i), i, i);
-						scene = new SceneStruct(null, bg, null, new Matrix(head.mouthCutPoint), new Matrix(head.mouthCutPoint));
-						scenes.push(scene);
-					}
-				}
-				var dances:Array = ["Classic","Soul","Hip_Hop","80s","Charleston"];
+				
+				//var dances:Array = ["Classic","Soul","Hip_Hop","80s","Charleston"];
 				//extraData.audioFile = "misc/"+dances[App.mediator.danceIndex]+"_"+scenes.length+".mp3";
-				extraData.audioFile = "misc/"+dances[App.mediator.danceIndex]+".mp3";
-				if(scenes.length > 0)
+				//extraData.audioFile = "misc/"+dances[App.mediator.danceIndex]+".mp3";
+				
+				function onUploadComplete(url:String):void
 				{
-					saver.saveWorkshop(_e, scenes, extraData, tags, msgParams);
-				} else
-				{
-					saver.saveWorkshop(_e, new SceneStruct(), extraData, tags, msgParams);
-					//App.asset_bucket.last_mid_saved = "111";
-					//report_mid( "111" );
-					//saver.dispatchEvent( new SendEvent(SendEvent.DONE, "true") );
-					
+					var bg:WSBackgroundStruct = new WSBackgroundStruct(url);//, 0, String(i), String(i), i, i);
+					scene = new SceneStruct(null, bg);//, null, new Matrix(head.mouthCutPoint), new Matrix(head.mouthCutPoint));
+					saver.saveWorkshop(_e, scene, extraData, tags, msgParams);
 				}
+				App.mediator.uploadPhoto(onUploadComplete);
+				
+//				if(scenes.length > 0)
+//				{
+//					saver.saveWorkshop(_e, scenes, extraData, tags, msgParams);
+//				} else
+//				{
+//					saver.saveWorkshop(_e, new SceneStruct(), extraData, tags, msgParams);
+//					//App.asset_bucket.last_mid_saved = "111";
+//					//report_mid( "111" );
+//					//saver.dispatchEvent( new SendEvent(SendEvent.DONE, "true") );
+//					
+//				}
 			// save or resave scene
 				/*if (App.asset_bucket.is_playback_mode && ServerInfo.hasMessage)	// resend the same MID in playback mode
 				{	

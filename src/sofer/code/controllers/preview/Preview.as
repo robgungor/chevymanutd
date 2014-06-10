@@ -3,9 +3,13 @@ package code.controllers.preview
 	import code.skeleton.App;
 	
 	import flash.display.Bitmap;
+	import flash.display.BitmapData;
 	import flash.display.DisplayObject;
+	import flash.display.MovieClip;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
+	import flash.geom.Matrix;
+	import flash.geom.Point;
 	import flash.geom.Rectangle;
 	import flash.ui.Keyboard;
 	
@@ -208,21 +212,43 @@ package code.controllers.preview
 		 * 
 		 * 
 		 */
-		public function placeHead( bmp:Bitmap ):void
+		public function placeHead( bmp:Bitmap, contrast:Number ):void
 		{
 
 			if(bmp.bitmapData) bmp = new Bitmap(bmp.bitmapData, "auto", true);
 			
-			var size:Rectangle = new Rectangle( ui.face.x, ui.face.y, ui.face.width, ui.face.height )
+			var size:Rectangle = new Rectangle( ui.photo.face.x, ui.photo.face.y, ui.photo.face.width, ui.photo.face.height )
+							
 			var headSize	:Rectangle 	= RatioUtil.scaleToFill( new Rectangle(0,0,bmp.width, bmp.height), size);
 
 			//set size
 //			bmp.width 				= headSize.width;
 //			bmp.scaleY 				= bmp.scaleX;
-						
-			if(ui.face.numChildren > 0) ui.face.removeChildAt( 0 );
-			ui.face.addChild( bmp );
+			var body:BodyImage = ui.photo.body;
+			// set body contras
+			for (var i:int = 0; i < body.numChildren; i++){				
+				body.getChildAt(i).visible = false;
+			}			
+			body.getChildByName("photo_"+contrast).visible = true;
+			//center the bitmap in the head
+			var hold:MovieClip = ui.photo.face.head_hold;
+			bmp.x = (hold.width/2)-(bmp.width/2);
+			for(i = 0; i<hold.numChildren; i++)
+			{
+				if(hold.getChildAt(i) != null) hold.removeChildAt(i);
+			}
+			hold.addChild(bmp);
+			//if(ui.photo.face.numChildren > 0) ui.photo.face.removeChildAt( 0 );
+			//ui.photo.face.addChild( bmp );
+		}
+		public  function take_snapshot():Bitmap{
 			
+			var data:BitmapData = new BitmapData(ui.photo.width, ui.photo.height, true, 0x000000);	
+			var mat:Matrix = new Matrix();	
+			data.draw(ui.photo);//,null,null,null,new Rectangle(face_masker.getMask().x, face_masker.getMask().y, face_masker.getMask().width, face_masker.getMask().height), true);
+			var map:Bitmap = new Bitmap(data, "auto", true);			
+				
+			return map;
 		}
 	}
 	

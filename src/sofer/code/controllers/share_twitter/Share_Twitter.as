@@ -18,7 +18,7 @@
 	public class Share_Twitter
 	{
 		private var btn_open			:InteractiveObject;
-		
+		private var ui					:ShareTwitterUI;
 		/*
 		* 
 		* 
@@ -32,7 +32,7 @@
 		/**
 		 * Constructor
 		 */
-		public function Share_Twitter( _btn_open:InteractiveObject ) 
+		public function Share_Twitter( _btn_open:InteractiveObject, _ui:ShareTwitterUI ) 
 		{
 			// listen for when the app is considered to have loaded and initialized all assets
 			var loaded_event:String = App.mediator.EVENT_WORKSHOP_LOADED;
@@ -40,7 +40,7 @@
 			
 			// reference to controllers UI
 			btn_open		= _btn_open;
-			
+			ui 				= _ui;
 			// provide the mediator a reference to send data to this controller
 			var registered:Boolean = App.mediator.register_controller(this);
 			
@@ -59,6 +59,7 @@
 		{	
 			App.listener_manager.add( btn_open, MouseEvent.CLICK, mouse_click_handler, this );
 			App.listener_manager.add( App.ws_art.mainPlayer.twitter_btn, MouseEvent.CLICK, mouse_click_handler, this );
+			close_win();
 		}
 		/************************************************
 		* 
@@ -110,6 +111,14 @@
 					share_to_twitter();
 					break;
 			}
+		}
+		private function open_win():void
+		{
+			ui.visible = true;
+		}
+		private function close_win():void
+		{
+			ui.visible = false;
 		}
 		private function share_to_twitter(  ) : void
 		{

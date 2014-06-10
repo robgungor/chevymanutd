@@ -45,7 +45,7 @@
 			var loaded_event:String = App.mediator.EVENT_WORKSHOP_LOADED_EDITING_STATE;
 			App.listener_manager.add(App.mediator, loaded_event, app_initialized, this);
 			App.listener_manager.add(App.mediator, App.mediator.EVENT_WORKSHOP_LOADED_PLAYBACK_STATE, app_initialized, this);
-			
+			trace("SHARE MISC");
 			// reference to controllers UI
 			btn_embed			= _btn_embed;
 			btn_get_url			= _btn_get_url;
@@ -72,6 +72,7 @@
 		{	
 			App.listener_manager.add( btn_embed, MouseEvent.CLICK, _onEmbedClicked, this );
 			//App.listener_manager.add( App.ws_art.mainPlayer.link_btn, MouseEvent.CLICK, _onBigShowGetURLClicked, this );
+			trace("INIT: "+btn_get_url);
 			App.listener_manager.add( btn_get_url, MouseEvent.CLICK, _onGetURLClicked, this );
 			//App.listener_manager.add( btn_facebook, MouseEvent.CLICK, share_to_facebook, this );
 			App.listener_manager.add( App.ws_art.mainPlayer.facebook_btn, MouseEvent.CLICK, share_to_facebook_bigshow, this );
@@ -142,6 +143,7 @@
 		}
 		private function _onGetURLClicked(e:MouseEvent):void
 		{
+			trace("GET URL CLICKED");
 			WSEventTracker.event("ce12");
 			//App.mediator.checkOptIn(get_url);
 			get_url();
@@ -153,7 +155,7 @@
 			get_url();
 		}
 		private function get_url( ):void 
-		{	if (!App.mediator.checkPhotoExpired()) 	return;
+		{	//if (!App.mediator.checkPhotoExpired()) 	return;
 			// App.mediator.scene_editing.stopAudio();
 			App.utils.mid_saver.save_message(new SendEvent(SendEvent.SEND, SendEvent.GET_PLAYER_URL), new Callback_Struct( fin, null, null ) );
 			

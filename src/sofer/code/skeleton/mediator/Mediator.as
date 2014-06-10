@@ -28,6 +28,7 @@
 	import code.skeleton.Utils;
 	import code.utils.Image_Uploader;
 	
+	import com.adobe.images.PNGEncoder;
 	import com.oddcast.audio.*;
 	import com.oddcast.event.*;
 	import com.oddcast.host.api.morph.*;
@@ -784,14 +785,43 @@
 		{
 			controller_pool.auto_photo_mask.mask( bmp );
 		}
-		public function save_masked_photo( bmp:Bitmap, cutPoint:Number = -1 ):void
+		public function save_masked_photo( bmp:Bitmap, contrast:Number = 0):void
 		{
 			//App.utils.image_uploader.upload_binary(
-			processing_show_authored_creation = true;
-			controller_pool.auto_photo_apc.saveHead( bmp, true, cutPoint );
+			//processing_show_authored_creation = true;
+			//we don't need to do this, in this instance
+			//controller_pool.auto_photo_apc.saveHead( bmp, true, cutPoint );
 			
 			//controller_pool.dance_scene.swapHead( bmp, controller_pool.auto_photo_apc.headIndex, cutPoint);
-			controller_pool.preview.placeHead(bmp);
+			controller_pool.preview.placeHead(bmp, contrast);
+			gotoPreview();
+		}
+		public function uploadPhoto(callback:Function):void
+		{
+			
+			var bmp:Bitmap = controller_pool.preview.take_snapshot();			
+			var img_data:ByteArray = PNGEncoder.encode( bmp.bitmapData );
+			
+			var PROCESS_UPLOADING:String = "uploading photo";
+			
+			function onSaved(e:*):void
+			{
+				//var struct:HeadStruct = new HeadStruct(bmp, (e.target as HeadSaver).url, null, (e.target as HeadSaver).cutPoint);
+				App.asset_bucket.last_mid_saved = null;
+				App.ws_art.processing.authored_creation.visible = false;
+				App.mediator.processing_ended( PROCESS_UPLOADING);
+				callback(e.url);
+			}
+			
+			if (img_data == null)
+				App.mediator.alert_user(new AlertEvent(AlertEvent.ERROR, 'f9t201', 'Error saving image.'));
+			else
+			{
+				App.mediator.processing_start( PROCESS_UPLOADING);
+				App.utils.image_uploader.upload_binary( new Callback_Struct( onSaved, function():void{}, function():void{}), img_data, "png");
+				App.ws_art.processing.authored_creation.visible = true;
+			}
+			
 		}
 		public function hideDancers():void
 		{

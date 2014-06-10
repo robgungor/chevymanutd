@@ -197,7 +197,7 @@
 		private function toggle_capture_btn( _btn:InteractiveObject ):void
 		{
 			ui.btn_capture.visible		= _btn == ui.btn_capture;
-			ui.btn_clear.visible		= _btn == ui.btn_clear;
+			ui.btn_recapture.visible		= _btn == ui.btn_recapture;
 		}
 		/**
 		 *instantiate a new webcam, and size it to the size of the placeholder
@@ -283,18 +283,18 @@
 		{
 			ui.shutter.addEventListener("shoot", _onShutter);
 			ui.shutter.gotoAndPlay(2);
-			toggle_capture_btn( ui.btn_clear );
+			toggle_capture_btn( ui.btn_recapture );
 			ui.btn_capture.visible = false;
-			ui.btn_clear.mouseEnabled = ui.btn_next.mouseEnabled = ui.btn_back.mouseEnabled = false;
-			ui.btn_clear.alpha = ui.btn_next.alpha = ui.btn_back.alpha = .5;
-			//ui.btn_clear.visible = false;
+			ui.btn_recapture.mouseEnabled = ui.btn_next.mouseEnabled = ui.btn_back.mouseEnabled = false;
+			ui.btn_recapture.alpha = ui.btn_next.alpha = ui.btn_back.alpha = .5;
+			//ui.btn_recapture.visible = false;
 			function _onShutter(e:Event = null):void
 			{
 				ui.shutter.removeEventListener("shoot", _onShutter);
 				webcam_capture.capture();
 				ui.shutter.gotoAndStop(1);
-				ui.btn_clear.mouseEnabled = ui.btn_next.mouseEnabled = ui.btn_back.mouseEnabled = true;
-				ui.btn_clear.alpha = ui.btn_next.alpha = ui.btn_back.alpha = 1;
+				ui.btn_recapture.mouseEnabled = ui.btn_next.mouseEnabled = ui.btn_back.mouseEnabled = true;
+				ui.btn_recapture.alpha = ui.btn_next.alpha = ui.btn_back.alpha = 1;
 				WSEventTracker.event('uiwcc');
 				if(continueAfter)  upload_captured_image();
 			}
