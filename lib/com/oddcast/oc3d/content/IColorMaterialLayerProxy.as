@@ -1,0 +1,10 @@
+package com.oddcast.oc3d.content
+{
+	import com.oddcast.oc3d.shared.Color;
+
+	public interface IColorMaterialLayerProxy extends IMaterialLayerProxy
+	{
+		function defaultColor():Color;
+		function color():Color;
+	}
+}

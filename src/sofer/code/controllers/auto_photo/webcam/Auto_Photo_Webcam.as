@@ -87,6 +87,7 @@
 		***************************** INTERFACE */
 		public function open_win(  ):void
 		{
+			App.localizer.localize(this.ui, "webcam");
 			clear_webcam();
 			toggle_capture_btn( ui.btn_capture );
 			if (!webcam_is_initialized)
@@ -121,8 +122,8 @@
 				App.listener_manager.add(webcam_capture, Webcamera.WEBCAM_DEACTIVATE, webcam_active_handler, this);
 				webcam_capture.activate( true );
 				prepare_webcam_size(false);
-				webcam_capture.width 	= scaled_width;
-				webcam_capture.height	= scaled_height;
+				//webcam_capture.width 	= scaled_width;
+				//webcam_capture.height	= scaled_height;
 				center_camera();
 				webcam_capture.bitmap = null;
 				if (webcam_capture.activated)	activate_camera_ui( true );

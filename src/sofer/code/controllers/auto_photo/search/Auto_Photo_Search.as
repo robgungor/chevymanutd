@@ -44,6 +44,9 @@
 		public static const PROCESS_UPLOADING	:String = 'PROCESS_UPLOADING uploading autophoto image';
 		public static const PROCESS_SEARCHING	:String = 'PROCESS_SEARCHING';
 		
+		public static const GOOGLE_PLUS:String = "GooglePlus";
+		public static const FACEBOOK:String = "Facebook";
+		
 		public function Auto_Photo_Search( _ui:Search_UI ) 
 		{
 			// listen for when the app is considered to have loaded and initialized all assets
@@ -82,7 +85,7 @@
 															ui.btn_facebook_user,
 															ui.btn_facebook_user_album,
 															ui.btn_facebook_tagged_albums,
-															ui.btn_close,
+															//ui.btn_close,
 															ui.btn_back] , MouseEvent.CLICK, click_event_handler, this);
 			
 			ui.tf_search.maxChars = TF_MAX_CHARS;
@@ -126,7 +129,7 @@
 			
 		
 		}
-		public function startSearch():void
+		public function startSearch(searchType:String = ""):void
 		{
 			// fix for back button on search because this doesn't actually show first
 			ui.visible = false;
@@ -134,7 +137,12 @@
 			reset();
 			set_focus();
 			//App.mediator.facebook_search_friends( facebook_friend_selected, true );	
-			retrieve_facebook_user_tagged_and_albums();//isaac
+			if(searchType == GOOGLE_PLUS)
+			{
+				retrieve_googlePlus_images();
+			}else{
+				retrieve_facebook_user_tagged_and_albums();//isaac
+			}
 			App.mediator.autophoto_image_source_type( Auto_Photo_Constants.IMAGE_SOURCE_TYPE_SOCIAL_MEDIA );
 		}
 		public function close_win(  ):void
@@ -362,6 +370,13 @@
 				image_searcher.getFacebookUserTaggedAndAlbums();
 			}
 		}
+		
+		private function retrieve_googlePlus_images(  ):void
+		{
+			start_search_processing();
+			image_searcher.getGooglePlusImages();
+		}
+		
 		private function friend_selected( _e:Event ):void
 		{
 			select_image();

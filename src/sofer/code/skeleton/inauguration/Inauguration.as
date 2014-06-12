@@ -66,7 +66,8 @@
 			msm.register_sequence( /*call this*/	set_context_menu, 	/*when done call these*/		[load_gwi]);
 			msm.register_sequence( /*call this*/	load_gwi, 			/*when done call these*/		[init_shared_objects,
 																										load_errors, 
-																										load_settings, 
+																										load_settings,
+																										load_localization,
 																										init_scene_controller, 
 																										init_error_reporting,
 																										init_tracking,
@@ -344,6 +345,22 @@
 			Gateway.retrieve_XML( url, new Callback_Struct( fin, progress, error ));
 			function fin( _content:XML ):void 
 			{	App.settings.parse_xml( _content );
+				_continue(_key);// continue sequence
+			}
+			function progress( _percent:int ):void
+			{	App.mediator.main_loading_process_status_update( Main_Loader.TYPE_SETTINGS, _percent );
+			}
+			function error( _msg:String ):void 
+			{	error_initializing( _msg );
+			}
+		}
+		private function load_localization(_continue:Function, _key:Function):void
+		{
+			var url:String = ServerInfo.default_url + "xml/us_english.xml";// App.settings.SETTINGS_XML_PATH;
+			progress( 0 );
+			Gateway.retrieve_XML( url, new Callback_Struct( fin, progress, error ));
+			function fin( _content:XML ):void 
+			{	App.localizer.parse_xml( _content );
 				_continue(_key);// continue sequence
 			}
 			function progress( _percent:int ):void

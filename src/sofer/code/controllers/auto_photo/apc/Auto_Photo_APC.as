@@ -133,7 +133,7 @@
 			_croppedBitmaps = [];
 			_savedHeads = [null,null,null,null,null];
 			App.listener_manager.add_multiple_by_object(_uploadBtns, MouseEvent.CLICK, _onUploadBtnsClicked, this);
-			App.ws_art.makeAnother.btn_upload.addEventListener(MouseEvent.CLICK, _startUploadProcess);
+			//App.ws_art.makeAnother.btn_upload.addEventListener(MouseEvent.CLICK, _startUploadProcess);
 			//App.ws_art.dancers.visible = true;
 			expiryTimer = new Timer(ServerInfo.sessionTimeoutSeconds*1000, 1);
 			//_setInitialPersistantImages();
@@ -223,9 +223,9 @@
 			if(bitmap) _imageLoaded(bitmap);
 			else App.mediator.alert_user(new AlertEvent(AlertEvent.ALERT, "0001", "Your image has a problem, please try again"));
 		}
-		protected function _imageLoaded( bmp:Bitmap ):void
+		protected function _imageLoaded( _bmp:Bitmap ):void
 		{
-			trace("BITMAP LOADED BEFORE RESIZE: width:"+bmp.width);
+			trace("BITMAP LOADED BEFORE RESIZE: width:"+_bmp.width+"; h: "+_bmp.height);
 			
 			//var bmp:Bitmap = new Bitmap(((evt.target as LoaderInfo).content as Bitmap).bitmapData, "auto", true);
 			if(_zoomer) 	_zoomer.destroy();
@@ -233,9 +233,9 @@
 			
 			_photoHold = new CasaSprite();
 			
-			var scaled:Rectangle = RatioUtil.scaleToFill(bmp.bitmapData.rect, new Rectangle(0,0,display_size.x, display_size.y));
+			var scaled:Rectangle = RatioUtil.scaleToFill(_bmp.bitmapData.rect, new Rectangle(0,0,display_size.x, display_size.y));
 			// create a new smooth guy
-			bmp = new Bitmap(bmp.bitmapData.clone(), "auto", true);
+			var bmp:Bitmap = new Bitmap(_bmp.bitmapData.clone(), "auto", true);
 			bmp.width = scaled.width;
 			bmp.height = scaled.height;
 			

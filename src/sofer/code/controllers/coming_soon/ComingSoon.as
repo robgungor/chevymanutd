@@ -131,8 +131,8 @@ package code.controllers.coming_soon
 			{
 				App.listener_manager.add_multiple_by_object( 
 					[
-						ui.btn_ok, 
-						ui.btn_close 
+//						ui.btn_ok, 
+//						ui.btn_close 
 					], MouseEvent.CLICK, mouse_click_handler, this );
 			}
 			/**

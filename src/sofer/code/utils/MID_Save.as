@@ -266,6 +266,8 @@
 					var bg:WSBackgroundStruct = new WSBackgroundStruct(url);//, 0, String(i), String(i), i, i);
 					scene = new SceneStruct(null, bg);//, null, new Matrix(head.mouthCutPoint), new Matrix(head.mouthCutPoint));
 					saver.saveWorkshop(_e, scene, extraData, tags, msgParams);
+					App.asset_bucket.lastPhotoSavedURL = url;
+					
 				}
 				App.mediator.uploadPhoto(onUploadComplete);
 				
@@ -312,8 +314,11 @@
 				if (cur_mid != App.asset_bucket.last_mid_saved)	WSEventTracker.event("edsv");
 				//if (App.mediator.scene_editing.full_body_ready())
 				//	App.mediator.scene_editing.full_body.scene_was_saved();
-				
+				trace("MID_Save::save_complete::"+_msg_event.messageXML);
 			App.asset_bucket.last_mid_saved = cur_mid;
+			
+			//image:WSBackgroundStruct = mid_message.sceneArr[i].bg as WSBackgroundStruct;
+			//App.asset_bucket.lastPhotoSavedURL = _msg_event.messageXML.@bg
 			report_mid( cur_mid );
 		}
 		/**

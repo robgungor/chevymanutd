@@ -33,13 +33,16 @@ package code.controllers.facebook_connect
 		
 		private const EVENT_GET_PHOTOS_KEY	:String = 'EVENT_GET_PHOTOS_KEY';
 		private const PROCESSING_LOADING_FACEBOOK_DATA :String = 'Loading facebook data';
+		
 		private const POSTING_TO_FACEBOOK	:String = 'POSTING_TO_FACEBOOK';
 		private const POSTING_MSG			:String = 'Posting your scene.';
 		
 		private var ui					:Facebook_Connect_Status_UI;
 		
-		private var facebookId	:Number = 0;
+		private var facebookId	:Number = 0;		
+		
 		public var user		:FacebookUser;
+		
 		/** current user thumb */
 		private var cur_thumb				: Loader;
 		/** get user pictures callback */
@@ -109,6 +112,7 @@ package code.controllers.facebook_connect
 				ExternalInterface_Proxy.addCallback("fbcSetProfileAlbumCover"	, fbcSetProfileAlbumCover);
 				
 				ExternalInterface_Proxy.call("fbcGetConnectState");
+				
 			}
 			catch (e:Error) 
 			{
@@ -344,6 +348,12 @@ package code.controllers.facebook_connect
 		}
 		public function post_to_own_wall():void
 		{
+			
+			
+			//var scene:SceneStruct = mid_message.sceneArr[i];
+			//var image:WSBackgroundStruct = mid_message.sceneArr[i].bg as WSBackgroundStruct;
+			
+			
 			post_new_mid_to_user( user_id() );
 		}
 		/**
@@ -447,64 +457,16 @@ package code.controllers.facebook_connect
 				var strCaption		:String = App.settings.FACEBOOK_POST_CAPTION;
 				var strDescription	:String = App.settings.FACEBOOK_POST_DESCRIPTION.split("{pickUpLink}").join(ServerInfo.pickup_url);
 				var strDisplay		:String = App.settings.FACEBOOK_POST_DISPLAY;
-				 
-//				ExternalInterface_Proxy.call
-//					(
-//						'fbcPublishFlashStream',
-//					/*nFriendId*/			_user_id,
-//					/*strTitle*/			strName,
-//					/*strMessageContent*/	strMessage,
-//					/*strName*/				strName,
-//					/*strCaption*/			strCaption,
-//					/*strDescription*/		strDescription,
-//					/*strVideSource*/		defaultURL,
-//					/*strImageSource*/		_thumb_url,
-//					/*strHref*/				url,
-//					/*strImgW*/				425,
-//					/*strImgH*/				425,
-//					/*strVidW*/				425,
-//					/*strVidH*/				425, "true"
-//					/*bForcePopupWindow*/	
-//					);
-				/*nFriendId	UserId to post the stream to.
-					strTitle	Title for the dialog
-				strMessageContent	Default message to show in the dialog.
-					strName	Name of the stream
-				strCaption	Caption of the stream
-				strDescription	Description of the stream
-				strVideSource	URL of the swf file
-				strImageSource	URL of the image
-				strHref	Target URL to visit when the image is clicked.
-					strImgW	Width of the image
-				strImgH	Height of the image
-				strVidW	Width of the swf file
-				strVidH	Height of the swf file
-				bForcePopupWindow	Forces the dialog window to popup*/
-				//return;
-				// javascript function fbcPublishStream2(nFriendId, strTitle, strMessageContent, strName, strCaption, strDescription, strVideSource, strImageSource, strHref, strImgW, strImgH, strVidW, strVidH)
-//				ExternalInterface_Proxy.call
-//					(
-//						'fbcPublishFeedStory',
-//						/*strToId*/ 			_user_id, 
-//						/*strMessage*/ 			strMessage, 
-//						/*strLink*/ 			url,////ServerInfo.pickup_url, 
-//						/*strPicture*/ 			_thumb_url, 
-//						/*strSwfSource*/ 		"",//ServerInfo.default_url + 'swf/player_embed.swf?stem=' + ServerInfo.stem_gwi, 
-//						/*strName*/ 			strName,
-//						/*strCaption*/ 			strCaption,
-//						/*strDescription*/ 		strDescription,
-//						/*strDisplay*/ 			strDisplay
-//					);
-//				
-//				WSEventTracker.event("uiebfb");
-//				return;
+				
+				defaultURL = App.asset_bucket.lastPhotoSavedURL;
+				
 				ExternalInterface_Proxy.call
 					(
 						'fbcPublishFeedStory',
 /*strToId*/ 			_user_id, 
 /*strMessage*/ 			App.settings.FACEBOOK_POST_MESSAGE, 
 /*strLink*/ 			url, 
-/*strPicture*/ 			_thumb_url, 
+/*strPicture*/ 			defaultURL, 
 /*strSwfSource*/ 		defaultURL, 
 /*strName*/ 			App.settings.FACEBOOK_POST_NAME,
 /*strCaption*/ 			App.settings.FACEBOOK_POST_CAPTION,
@@ -782,7 +744,7 @@ package code.controllers.facebook_connect
 				photo.userId		= parseInt(photoXML.owner.toString());
 				photo.name			= photoXML.caption.toString();
 				photo.url			= photoXML.src_big.toString();
-				photo.thumbUrl		= photoXML.src.toString();//photoXML.src_small.toString(); // too small
+				photo.thumbUrl		= photoXML.src.toString();//photoXML.square.toString();photoXML.src_small.toString(); // too small
 				photo.linkUrl		= photoXML.link.toString();
 				photo.creationTime	= parseInt(photoXML.created.toString());
 				photo.modifyTime	= parseInt(photoXML.modified.toString());
@@ -828,6 +790,7 @@ package code.controllers.facebook_connect
 			return result;
 			
 		}
+				
 	}
 	
 }

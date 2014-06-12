@@ -65,6 +65,7 @@
 			function app_initialized(_e:Event):void
 			{
 				App.listener_manager.remove_caught_event_listener( _e, arguments );
+				
 			}
 		}
 		/**
@@ -133,6 +134,7 @@
 		}
 		private function update_texts(  ):void
 		{
+			App.localizer.localize(this.ui, "loading_screen");
 			var total_percent:int;
 			var num_of_tiers:int = 5;
 			

@@ -30,11 +30,11 @@ package code.controllers.facebook_friend
 		
 		private var friends_list			:Array;
 		private var btn_open				:InteractiveObject;
-		private var ui						:PostToFacebook_UI;
+		private var ui						:*;
 		private var selected_list			:Array	= new Array();
 		private var select_friend_callback	:Function;
 		
-		public function Facebook_Friend_Post( _btn_open:InteractiveObject, _ui:PostToFacebook_UI ) 
+		public function Facebook_Friend_Post( _btn_open:InteractiveObject, _ui:* ) 
 		{
 			// listen for when the app is considered to have loaded and initialized all assets
 			var loaded_event:String = App.mediator.EVENT_WORKSHOP_LOADED_EDITING_STATE;

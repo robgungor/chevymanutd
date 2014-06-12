@@ -99,12 +99,12 @@
 		* ************************************* GENERAL OR SARGENT PEPPER */
 		public function playScene():void
 		{	
-			scene_editing.playSceneAudio();
-			track_audio_playback_type(scene_editing.audio);
+			//scene_editing.playSceneAudio();
+			//track_audio_playback_type(scene_editing.audio);
 		}
 		public function stopScene():void
 		{	//scene_editing.stopAudio();
-			controller_pool.dance_scene.stop();
+			//controller_pool.dance_scene.stop();
 		}
 		/**
 		 * called when the status of the checkbox changes	
@@ -287,6 +287,12 @@
 			if (controller_pool.facebook_connect)
 				controller_pool.facebook_connect.post_to_own_wall();
 		}
+		
+		public function postToGooglePlus():void
+		{
+			if (controller_pool.google_connect)
+				controller_pool.google_connect.post_to_GooglePlus();
+		}
 		/**
 		 * logs a user in, creates a thumb url, creates an mid, posts data
 		 * @param	_user_id if null then posts to your own wall
@@ -296,6 +302,13 @@
 		{
 			if (controller_pool.facebook_connect)
 				controller_pool.facebook_connect.post_new_mid_to_user( _user_id, _thumb_url );
+		}
+		
+		
+		public function googlePlus_connect_get_user_photos(_fin:Function):void
+		{	trace("Mediator::googlePlus_connect_get_user_photos - ");
+			if (controller_pool.google_connect)
+				controller_pool.google_connect.gpcGetPictures(_fin);
 		}
 		/**********************************************************
 		* 
@@ -373,8 +386,8 @@
 				controller_pool.vhost_selection.close_win();
 			if (controller_pool.vhost_selection_back)	
 				controller_pool.vhost_selection_back.close_win();*/
-			if (controller_pool.dance_scene)
-				controller_pool.dance_scene.load_and_play_message( ServerInfo.mid, _edit_state_starter_callback );
+			if (controller_pool.bigShow)
+				controller_pool.bigShow.load_and_play_message( ServerInfo.mid, _edit_state_starter_callback );
 		}
 		/**
 		 * usually for closing the bigshow and setting the workshop up for small show
@@ -753,7 +766,7 @@
 				autophoto_used_to_upload = controller_pool.auto_photo_webcam;
 			}
 		}
-		public function autophoto_mode_search():void 
+		public function autophoto_mode_search(searchType:String = ""):void 
 		{	autophoto_require_confirmation_on_close = false;
 			processing_show_authored_creation = false;
 			autophoto_close_all_subpanels();
@@ -762,7 +775,7 @@
 			if (controller_pool.auto_photo_search)
 			{	
 				
-				controller_pool.auto_photo_search.startSearch();
+				controller_pool.auto_photo_search.startSearch(searchType);
 				controller_pool.auto_photo_search.open_win();
 				autophoto_used_to_upload = controller_pool.auto_photo_search;
 			}
@@ -785,7 +798,7 @@
 		{
 			controller_pool.auto_photo_mask.mask( bmp );
 		}
-		public function save_masked_photo( bmp:Bitmap, contrast:Number = 0):void
+		public function save_masked_photo( bmp:Bitmap, contrast:Number = 0, chinPoint:Point = null):void
 		{
 			//App.utils.image_uploader.upload_binary(
 			//processing_show_authored_creation = true;
@@ -793,7 +806,7 @@
 			//controller_pool.auto_photo_apc.saveHead( bmp, true, cutPoint );
 			
 			//controller_pool.dance_scene.swapHead( bmp, controller_pool.auto_photo_apc.headIndex, cutPoint);
-			controller_pool.preview.placeHead(bmp, contrast);
+			controller_pool.preview.placeHead(bmp, contrast, chinPoint);
 			gotoPreview();
 		}
 		public function uploadPhoto(callback:Function):void

@@ -50,9 +50,9 @@
 		}
 		private function init(  ):void 
 		{	ui.tf_filename.text = '';
-			App.listener_manager.add_multiple_by_object( [	ui.btn_browse,
-															ui.btn_upload,
-															ui.btn_close ] , MouseEvent.CLICK, btn_handler, this);
+			App.listener_manager.add_multiple_by_object( [	//ui.btn_browse,
+															ui.btn_upload
+															 ] , MouseEvent.CLICK, btn_handler, this);
 			
 			init_file_ref();
 		}

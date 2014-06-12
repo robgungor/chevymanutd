@@ -1,8 +1,11 @@
 ﻿package code.controllers.auto_photo.mode_selector 
 {
 	import code.HeadStruct;
+	import code.controllers.auto_photo.auto_photo.Auto_Photo;
+	import code.controllers.auto_photo.search.Auto_Photo_Search;
 	import code.models.*;
 	import code.skeleton.*;
+	import code.utils.ImageSearcher;
 	
 	import com.oddcast.data.ThumbSelectorData;
 	import com.oddcast.event.SelectorEvent;
@@ -45,6 +48,7 @@
 				// init this after the application has been inaugurated
 				
 				init();
+				
 				open_win();
 			}
 		}
@@ -53,7 +57,8 @@
 			App.listener_manager.add_multiple_by_object([
 				ui.btn_upload, 
 				ui.btn_facebook, 
-				ui.btn_webcam, 
+				ui.btn_webcam,
+				ui.btn_googleplus
 				 ], MouseEvent.CLICK, btn_handler, this);
 					
 		}
@@ -145,6 +150,9 @@
 					//App.mediator.autophoto_mode_search();
 					//close_win();
 					break;
+				case ui.btn_googleplus: 
+					App.mediator.autophoto_mode_search( Auto_Photo_Search.GOOGLE_PLUS );
+					break;
 				case ui.btn_webcam:			
 					
 					App.mediator.checkOptIn(_webCamConfirm);
@@ -155,7 +163,8 @@
 		}
 		private function _optInSearchConfirm():void
 		{
-			App.mediator.autophoto_mode_search();
+			
+			App.mediator.autophoto_mode_search( Auto_Photo_Search.FACEBOOK );
 			WSEventTracker.event("ce3");
 			close_win();
 		}

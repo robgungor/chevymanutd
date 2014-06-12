@@ -1,0 +1,56 @@
+package com.oddcast.host.api {
+	public class API_Constant {
+		static public var FACE_CENTER_OFFSET_X : int = 200;
+		static public var FACE_CENTER_OFFSET_Y : int = 200;
+		static public var EXPRESSION_PERMENANT : Number = -0.01;
+		static public var CURRENT_TIME : Number = -0.01;
+		static public var READY : int = 0;
+		static public var BUSY : int = 1;
+		static public var NO_CTL : int = 2;
+		static public var NO_FG : int = 4;
+		static public var NO_UNDO : int = 8;
+		static public var NO_RANDOM : int = 16;
+		static public var NO_COSTUME : int = 32;
+		static public var BASIC : String = "BASIC";
+		static public var ADVANCED : String = "ADVANCED";
+		static public var URLS : String = "URLS";
+		static public var BUTTON : String = "BUTTON";
+		static public var COLOR : String = "COLOR";
+		static public var EXPRESSION : String = "EXPRESSION";
+		static public var HAIR : String = "DEBUG_HAIR";
+		static public var GLASSES : String = "DEBUG_GLASSES";
+		static public var COSTUME : String = "DEBUG_COSTUME";
+		static public var NECKLACE : String = "DEBUG_NECKLACE";
+		static public var FGLIST : String = "DEBUG_FGLIST";
+		static public var OPTIMIZED_HOST : String = "OPTIMIZED_HOST";
+		static public var UNDO_FLAGS_NONE : int = 0;
+		static public var UNDO_FLAGS_DYNAMIC : int = 1;
+		static public var UNDO_FLAGS_SAVE : int = 2;
+		static public var UNDO_FLAGS_NOCHANGEHOST : int = 4;
+		static public var UNDO_FLAGS_UNDO_AND_REDO_BUTTONS : int = 0;
+		static public var UNDO_FLAGS_SCROLLING : int = 1;
+		static public var UNDO_FLAGS_SCROLLING_FINISHED : int = 3;
+		static public var UNDO_FLAGS_UNDOABLE_BUTTONS : int = 2;
+		static public var UNDO_FLAGS_COLOR_CHOICE : int = 2;
+		static public var UNDO_FLAGS_LOAD_URL : int = 2;
+		static public var UNDO_FLAGS_LOAD_ZIP : int = 0;
+		static public var UNDO_FLAGS_RESET : int = 0;
+		static public var UNDO_FLAGS_LOAD_CTL : int = 0;
+		static public var UNDO_FLAGS_READ_FROM_FG : int = 0;
+		static public var UNDO_FLAGS_SWITCH_TORSO_DEBUG : int = 2;
+		static public var FREE_FORM_DEFORM_STATE_INQUIRE : int = 0;
+		static public var FREE_FORM_DEFORM_STATE_BEGIN : int = 1;
+		static public var FREE_FORM_DEFORM_STATE_DEFORM : int = 2;
+		static public var FREE_FORM_DEFORM_STATE_END : int = 3;
+		static public var FREE_FORM_DEFORM_SYMMETRIC : int = 0;
+		static public var FREE_FORM_DEFORM_ASYMMETRIC : int = 1;
+		static public var FREE_FORM_DEFORM_POWER_DEFAULT : Number = 0.6;
+		static public var FREE_FORM_DEFORM_RETURN_INVALID : int = 0;
+		static public var FREE_FORM_DEFORM_RETURN_AVAILABLE : int = 1;
+		static public var FREE_FORM_DEFORM_RETURN_DEFORMING : int = 2;
+		static public var MESH_SCREEN_EXTENTS_TYPE_FACE : int = 0;
+		static public var MESH_SCREEN_EXTENTS_TYPE_OUTER : int = 1;
+		static public var MESH_SCREEN_EXTENTS_TYPE_RIGHTEYE : int = 2;
+		static public var MESH_SCREEN_EXTENTS_TYPE_LEFTEYE : int = 3;
+	}
+}

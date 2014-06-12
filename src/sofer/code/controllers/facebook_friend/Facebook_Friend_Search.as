@@ -66,7 +66,7 @@
 															ui.tf_filter, 
 															ui.btn_all,
 															ui.btn_none, 
-															ui.btn_clear_search,
+															//ui.btn_clear_search,
 															ui.btn_back ], MouseEvent.CLICK, click_event_handler, this);
 			
 			

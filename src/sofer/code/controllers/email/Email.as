@@ -57,14 +57,15 @@
 				App.listener_manager.remove(App.mediator, App.mediator.EVENT_WORKSHOP_LOADED_EDITING_STATE, app_initialized);
 				// init this after the application has been inaugurated
 				init();
+				
 			}
 		}
 		private function init(  ):void 
 		{
 			init_shortcuts();
 			init_oddcast_fan();
-			App.listener_manager.add_multiple_by_object( [_emailSuccessWindow.btn_ok, _emailSuccessWindow.btn_close], MouseEvent.CLICK, _emailSuccessWindowClose, this );
-			App.listener_manager.add_multiple_by_object( [btn_open, App.ws_art.mainPlayer.email_btn, ui.btn_send], MouseEvent.CLICK, mouse_click_handler, this );
+			App.listener_manager.add_multiple_by_object( [_emailSuccessWindow.btn_ok], MouseEvent.CLICK, _emailSuccessWindowClose, this );
+			App.listener_manager.add_multiple_by_object( [btn_open, App.ws_art.preview.email_btn, ui.btn_send], MouseEvent.CLICK, mouse_click_handler, this );
 //			Bridge_Engine.listener_manager.add( ui.btn_popular_media, MouseEvent.CLICK, mouse_click_handler, this );
 			App.listener_manager.add_multiple_by_object( [ui.tf_fromEmail, ui.tf_toEmail, ui.tf_toEmail2, ui.tf_toEmail3], Event.CHANGE, change_characters_for_international_keyboards, this );
 			_fields = [	ui.tf_fromEmail, 
@@ -83,7 +84,10 @@
 			App.listener_manager.add_multiple_by_object(_fields, FocusEvent.FOCUS_IN, _onTfFocus, this );
 			App.listener_manager.add_multiple_by_object(_fields, FocusEvent.FOCUS_OUT, _onTfFocusOut, this );
 			
-			App.listener_manager.add( ui.btn_add, MouseEvent.CLICK, add_user_typed_email, this );
+			// RESTORE THIS AFTER ALPHA
+			//App.listener_manager.add( ui.btn_add, MouseEvent.CLICK, add_user_typed_email, this );
+			
+			
 			App.listener_manager.add( ui.closeBtn, MouseEvent.CLICK, close_win, this );
 			App.listener_manager.add( ui.tf_fromEmail, Event.CHANGE, validate_from_email, this );
 			App.listener_manager.add( ui.tf_toEmail, Event.CHANGE, validate_to_email, this );
@@ -221,13 +225,14 @@
 					//App.mediator.checkOptIn(open_win);
 					open_win();
 					break;
-				case  App.ws_art.mainPlayer.email_btn:
+				case  App.ws_art.preview.email_btn:
 					WSEventTracker.event("gce4");
 					WSEventTracker.event("ce11");
 					//App.mediator.checkOptIn(open_win);
 					open_win();
 					break;
 				case ui.btn_send:
+					trace("SEND");
 					send();
 					break;
 //				case ui.btn_popular_media:
@@ -265,6 +270,7 @@
 		}
 		private function open_win():void 
 		{
+			App.localizer.localize(this.ui, "email");
 			if (App.mediator.checkPhotoExpired())
 			{
 				//App.mediator.scene_editing.stopAudio();
@@ -451,7 +457,7 @@
 		}
 		
 		private function add_user_typed_email( _e:MouseEvent = null ):Boolean 
-		{
+		{			
 			ui.tf_toEmail.text = StringUtil.trim(ui.tf_toEmail.text);
 			ui.tf_toEmail2.text = StringUtil.trim(ui.tf_toEmail2.text);
 			ui.tf_toEmail3.text = StringUtil.trim(ui.tf_toEmail3.text);

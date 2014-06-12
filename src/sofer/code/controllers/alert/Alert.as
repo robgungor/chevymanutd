@@ -66,11 +66,11 @@
 		private function init(  ):void 
 		{	
 			ui.btn_ok.tabEnabled = true;
-			ui.btn_cancel.tabEnabled = true;
+			//ui.btn_cancel.tabEnabled = true;
 			
 			init_shortcuts();
 			
-			App.listener_manager.add_multiple_by_object( [ui.btn_ok, ui.btn_cancel], 	MouseEvent.CLICK, btn_handler, this );
+			App.listener_manager.add_multiple_by_object( [ui.btn_ok], 	MouseEvent.CLICK, btn_handler, this );
 			App.listener_manager.add( ui.tf_msg, MouseEvent.CLICK, highlight_text, this);
 			
 			new Custom_Scrollbar_Skinner(ui.tf_scrollbar);
@@ -137,7 +137,7 @@
 			}
 			ui.titleFacebookShare.visible 	= _e.alertType == AlertEvent.FACEBOOK_CONFIRM;
 			ui.title_alert.visible 			= !ui.titleFacebookShare.visible;
-			ui.btn_cancel.visible = _e.code == "startOver";
+			//ui.btn_cancel.visible = _e.code == "startOver";
 			// show message
 			ui.tf_msg.text = alert_pretext(_e.code) + alertText.split("Alert").join("ALERT");
 			if(_e.alertType == AlertEvent.FACEBOOK_CONFIRM) ui.tf_msg.text = 	'Press OK to share on Facebook.';
@@ -149,7 +149,9 @@
 				report_error( _e, alertText );
 			
 			// button status
-			ui.btn_cancel.visible 	= ui.btn_ok.visible 		= !_e.block_user_feedback;
+			//ui.btn_cancel.visible 	= 
+			ui.btn_close.visible 	= 
+			ui.btn_ok.visible 		= !_e.block_user_feedback;
 			//ui.btn_close.visible 	= 
 			
 			

@@ -41,6 +41,8 @@
 			// reference to controllers UI
 			btn_open		= _btn_open;
 			ui 				= _ui;
+			ui.visible 		= false;
+			
 			// provide the mediator a reference to send data to this controller
 			var registered:Boolean = App.mediator.register_controller(this);
 			
@@ -50,6 +52,7 @@
 				App.listener_manager.remove_caught_event_listener( _e, arguments );
 				// init this after the application has been inaugurated
 				init();
+				
 			}
 		}
 		/**
@@ -58,7 +61,9 @@
 		private function init(  ):void 
 		{	
 			App.listener_manager.add( btn_open, MouseEvent.CLICK, mouse_click_handler, this );
-			App.listener_manager.add( App.ws_art.mainPlayer.twitter_btn, MouseEvent.CLICK, mouse_click_handler, this );
+			App.listener_manager.add( ui.btn_profile, MouseEvent.CLICK, mouse_click_handler, this );
+			App.listener_manager.add( ui.btn_close, MouseEvent.CLICK, mouse_click_handler, this );
+			App.listener_manager.add( ui.btn_tweet, MouseEvent.CLICK, mouse_click_handler, this );
 			close_win();
 		}
 		/************************************************
@@ -99,21 +104,23 @@
 		{
 			switch ( _e.currentTarget )
 			{	
-				case btn_open:
-					WSEventTracker.event("ce10");
-					//App.mediator.checkOptIn(share_to_twitter);
+				case btn_open:					
+					open_win();
+					break;
+				case  ui.btn_tweet:					
 					share_to_twitter();
 					break;
-				case  App.ws_art.mainPlayer.twitter_btn:
-					WSEventTracker.event("ce10");
-					WSEventTracker.event("gce5");
-					//App.mediator.checkOptIn(share_to_twitter);
+				case  ui.btn_profile:					
 					share_to_twitter();
+					break;
+				case  ui.btn_close:					
+					close_win();
 					break;
 			}
 		}
 		private function open_win():void
 		{
+			App.localizer.localize(this.ui, "twitter_share");
 			ui.visible = true;
 		}
 		private function close_win():void
@@ -139,7 +146,11 @@
 				 * Example
 				 * http://twitter.com/share?url=http://host-d-vd.oddcast.com/php/application_UI/doorId=860/clientId=317/?mId=203509.3&text=Check%20out%20my%20Monk-E-Mail!
 				 */
+				var asset:* = App.asset_bucket;
+				
+				var mid:String = App.asset_bucket.last_mid_saved;
 				var message_id		:String =  App.asset_bucket.last_mid_saved ? '?mId=' + App.asset_bucket.last_mid_saved + '.3' : "";
+				trace("Share_Twitter::fin::"+message_id);
 				var embed_url 		:String = ServerInfo.pickup_url + message_id;
 				var twitter_base	:String = "http://twitter.com/share";
 				var default_message	:String = escape(App.settings.TWITTER_DEFAULT_TEXT);//"Default message goes here with a link."

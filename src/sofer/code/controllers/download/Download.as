@@ -150,6 +150,7 @@ package code.controllers.download
 		 */
 		private function set_ui_listeners():void 
 		{
+			return;
 			App.listener_manager.add_multiple_by_object( 
 				[
 					btn_open, 

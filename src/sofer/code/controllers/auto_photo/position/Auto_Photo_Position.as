@@ -57,8 +57,8 @@
 		{	
 			_imageHold 	= App.ws_art.auto_photo_position.placeholder_apc.image_hold;
 			_mask		= App.ws_art.auto_photo_position.placeholder_apc.mask_mc;
-			_changeHairstyle(0);
-			_changeContrast(1);
+			_changeHairstyle(1);
+			_changeContrast(0);
 			
 			App.mediator.autophoto_set_apc_display_size( new Point(_imageHold.width, _imageHold.height ) );
 			
@@ -157,6 +157,7 @@
 		protected var _mask:DisplayObject;
 		public function open_win():void 
 		{	ui.visible = true;
+			App.localizer.localize(this.ui, "adjust");
 			if(_imageHold.numChildren > 0)
 			{
 				for(var i:Number = 0; i<_imageHold.numChildren; i++)
@@ -234,7 +235,10 @@
 													break;
 				case ui.btn_next:			var snapshot:Bitmap = take_snapshot();
 													close_win();
-													App.mediator.save_masked_photo(snapshot, _currentContrast);//cutPoint);	
+													var chinPoint:Point = new Point(Math.max(ui.placeholder_apc.hairstyle_1.x-_currentOutline.x, 0), Math.max(ui.placeholder_apc.hairstyle_1.y-_currentOutline.y, 0));
+													trace("current Contrast in position: "+_currentContrast);
+													App.mediator.save_masked_photo(snapshot, _currentContrast, chinPoint);//cutPoint);	
+													
 													//App.mediator.autophoto_submit_photo_position();
 					
 													break;
@@ -254,7 +258,7 @@
 			_imageHold.x -=  maskPosition.x;
 			_imageHold.y -=  maskPosition.y;
 						
-			var data:BitmapData = new BitmapData(_mask.width, _mask.height, true, 0x000000);	
+			var data:BitmapData = new BitmapData(_mask.width, _mask.height+5, true, 0x000000);	
 			var mat:Matrix = new Matrix();
 			//mat.translate( -p.x, -p.y);	
 			data.draw(_imageHold.parent);//,null,null,null,new Rectangle(face_masker.getMask().x, face_masker.getMask().y, face_masker.getMask().width, face_masker.getMask().height), true);
@@ -341,35 +345,27 @@
 		*/
 		protected var _currentHairstyle:Number = 0;
 		protected var _currentOutline:DisplayObject;
-		protected var _currentContrast:Number = 1;
+		protected var _currentContrast:Number = 0;
 		protected function _changeHairstyle( direction:Number =1 ):void
 		{
 			// can be +- 1
 			_currentHairstyle += direction;
 			
 			//loop around
-			if(_currentHairstyle > 3) _currentHairstyle = 0;
-			if(_currentHairstyle < 0) _currentHairstyle = 3;
-			
-			var masks:Array = [ui.placeholder_apc.hairstyle_1,
-								ui.placeholder_apc.hairstyle_2,
-								ui.placeholder_apc.hairstyle_3,
-								ui.placeholder_apc.hairstyle_4];
-			
-			var outlines:Array = [ui.placeholder_apc.outline_1,
-								ui.placeholder_apc.outline_2,
-								ui.placeholder_apc.outline_3,
-								ui.placeholder_apc.outline_4];
+			if(_currentHairstyle > 8) _currentHairstyle = 1;
+			if(_currentHairstyle < 1) _currentHairstyle = 8;
+						
 			
 			// set to visible and invisible according to current hairstyle
-			for(var i:int = 0; i<masks.length; i++)
+			for(var i:int = 1; i<=8; i++)
 			{				
-				(masks[i] as DisplayObject).visible = (i == _currentHairstyle);
-				(outlines[i] as DisplayObject).visible = (i == _currentHairstyle);				
+				ui.placeholder_apc.getChildByName("hairstyle_"+i).visible = (i == _currentHairstyle);
+				ui.placeholder_apc.getChildByName("outline_"+i).visible = (i == _currentHairstyle);				
 			}
 			
-			_currentOutline = outlines[_currentHairstyle];
-			_mask = masks[_currentHairstyle];
+			// indexed according to 1 instead of 0
+			_currentOutline = ui.placeholder_apc.getChildByName("outline_"+_currentHairstyle);
+			_mask 			= ui.placeholder_apc.getChildByName("hairstyle_"+_currentHairstyle);
 			_mask.cacheAsBitmap = true;
 			_imageHold.mask = _mask;
 			
@@ -380,11 +376,21 @@
 			_currentContrast += direction;
 			_currentContrast = Math.min(Math.max(_currentContrast, 0), 4);
 			
-			var currentAlpha:Number = ui.neck.getChildByName("skin").alpha;		
+//			var currentAlpha:Number = ui.neck.getChildByName("skin").alpha;		
+//			
+//			currentAlpha = _currentContrast*.1;
+//			
+//			ui.neck.getChildByName("skin").alpha = Math.max(Math.min(currentAlpha, 1), 0);
+			var necks:Array = [ui.neck.neck_1,
+								ui.neck.neck_2,
+								ui.neck.neck_3,
+								ui.neck.neck_4,
+								ui.neck.neck_5];
 			
-			currentAlpha = _currentContrast*.1;
-			
-			ui.neck.getChildByName("skin").alpha = Math.max(Math.min(currentAlpha, 1), 0);			
+			for(var i:int = 0; i<necks.length; i++)
+			{				
+				(necks[i] as DisplayObject).visible = (i == _currentContrast);							
+			}
 			_enableContrastBtns();
 		}
 		

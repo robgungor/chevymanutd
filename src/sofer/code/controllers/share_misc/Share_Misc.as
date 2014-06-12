@@ -72,11 +72,13 @@
 		{	
 			App.listener_manager.add( btn_embed, MouseEvent.CLICK, _onEmbedClicked, this );
 			//App.listener_manager.add( App.ws_art.mainPlayer.link_btn, MouseEvent.CLICK, _onBigShowGetURLClicked, this );
-			trace("INIT: "+btn_get_url);
+			
 			App.listener_manager.add( btn_get_url, MouseEvent.CLICK, _onGetURLClicked, this );
 			//App.listener_manager.add( btn_facebook, MouseEvent.CLICK, share_to_facebook, this );
-			App.listener_manager.add( App.ws_art.mainPlayer.facebook_btn, MouseEvent.CLICK, share_to_facebook_bigshow, this );
+			//App.listener_manager.add( App.ws_art.mainPlayer.facebook_btn, MouseEvent.CLICK, share_to_facebook_bigshow, this );
 			App.listener_manager.add( btn_download_video, MouseEvent.CLICK, download_video, this );
+			
+			App.localizer.localize(App.ws_art.copyURL, "copy_url");
 		}
 		/************************************************
 		* 
@@ -171,7 +173,7 @@
 				WSEventTracker.event("uiebws");
 				App.ws_art.copyURL.btn_copy.addEventListener(MouseEvent.CLICK, url_user_response);
 				App.ws_art.copyURL.btn_ok.addEventListener(MouseEvent.CLICK, onclose);
-				App.ws_art.copyURL.btn_close.addEventListener(MouseEvent.CLICK, onclose);
+				//App.ws_art.copyURL.btn_close.addEventListener(MouseEvent.CLICK, onclose);
 				function url_user_response( e:MouseEvent ):void 
 				{	
 					System.setClipboard( embed_url );
@@ -181,7 +183,7 @@
 					System.setClipboard( embed_url );
 					App.ws_art.copyURL.btn_copy.removeEventListener(MouseEvent.CLICK, url_user_response);
 					App.ws_art.copyURL.btn_ok.removeEventListener(MouseEvent.CLICK, onclose);
-					App.ws_art.copyURL.btn_close.addEventListener(MouseEvent.CLICK, onclose);
+					//App.ws_art.copyURL.btn_close.addEventListener(MouseEvent.CLICK, onclose);
 					App.ws_art.copyURL.visible = false;
 				}
 			}	

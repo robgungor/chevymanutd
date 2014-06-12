@@ -57,6 +57,7 @@ package code.controllers
 				App.listener_manager.remove_caught_event_listener( _e, arguments );
 				// init this after the application has been inaugurated
 				init();
+				
 			}
 		}
 		/**
@@ -111,6 +112,7 @@ package code.controllers
 		 */
 		private function open_win(  ):void 
 		{	
+			
 			ui.visible = true;
 			set_tab_order();
 			set_focus();
@@ -132,7 +134,7 @@ package code.controllers
 				[
 					btn_open, 
 					ui.btn_ok, 
-					ui.btn_close
+					//ui.btn_close
 				], MouseEvent.CLICK, mouse_click_handler, this );
 		}
 		/**
@@ -149,9 +151,9 @@ package code.controllers
 				case ui.btn_ok:	
 					close_win();	
 					break;
-				case ui.btn_close:	
-					close_win();	
-					break;
+//				case ui.btn_close:	
+//					close_win();	
+//					break;
 			}
 		}
 		/**

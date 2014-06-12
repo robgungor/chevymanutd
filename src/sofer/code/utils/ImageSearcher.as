@@ -351,6 +351,21 @@
 			bgArr = arr;
 			dispatchEvent(new Event(Event.COMPLETE));
 		}
+		//--------------------------------- GooglePlus -------------------------------------
+		
+		public function getGooglePlusImages():void{
+			trace("ImageSearcher::getGooglePlusImages - ");
+			App.mediator.googlePlus_connect_get_user_photos(gotGooglePlusImages);
+		}
+		
+		private function gotGooglePlusImages(arr:Array):void {
+			if (arr == null || arr.length == 0){
+				dispatchEvent(new AlertEvent(AlertEvent.ERROR, "", "We could not retreive any GooglePlus images.  Please make sure you are tagged in your photos."));//f9t220
+				return;
+			}
+			bgArr = arr;
+			dispatchEvent(new Event(Event.COMPLETE));
+		}
 		
 		//--------------------------------- THE END -------------------------------------
 		

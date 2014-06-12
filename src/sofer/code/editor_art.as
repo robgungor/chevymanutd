@@ -3,71 +3,36 @@
 	import code.controllers.CopyURL;
 	import code.controllers.Embed;
 	import code.controllers.MakeAnother;
-	import code.controllers.accessories.Accessories;
 	import code.controllers.alert.Alert;
-	import code.controllers.audio_to_phone.Audio_To_Phone;
-	import code.controllers.audio_volume.Audio_Volume;
 	import code.controllers.auto_photo.apc.Auto_Photo_APC;
 	import code.controllers.auto_photo.auto_photo.Auto_Photo;
 	import code.controllers.auto_photo.browse.Auto_Photo_Browse;
-	import code.controllers.auto_photo.mask.Auto_Photo_Mask;
 	import code.controllers.auto_photo.mode_selector.Auto_Photo_Mode_Selector;
-	import code.controllers.auto_photo.points.Auto_Photo_Points;
 	import code.controllers.auto_photo.position.Auto_Photo_Position;
 	import code.controllers.auto_photo.search.Auto_Photo_Search;
 	import code.controllers.auto_photo.webcam.Auto_Photo_Webcam;
-	import code.controllers.backgrounds.BG_Selector;
-	import code.controllers.bg_browse.BG_Browse;
-	import code.controllers.bg_multiple_upload.BG_Multiple_Upload;
-	import code.controllers.bg_type_selector.BG_Type_Selector;
-	import code.controllers.bitly_url.Bitly_Url;
-	import code.controllers.body_position.Body_Position;
-	import code.controllers.canned_audio.Canned_Audios;
-	import code.controllers.color.Color;
+	import code.controllers.bigshow.BigShow;
 	import code.controllers.coming_soon.ComingSoon;
 	import code.controllers.download.Download;
 	import code.controllers.email.Email;
 	import code.controllers.expiration.Expiration;
 	import code.controllers.facebook_connect.Facebook_Connect;
-	import code.controllers.facebook_friend.Facebook_Friend_Post;
 	import code.controllers.facebook_friend.Facebook_Friend_Search;
-	import code.controllers.facial_expressions.Facial_Expressions;
-	import code.controllers.gallery_post.Gallery_Post;
-	import code.controllers.gif_export.GIF_Export;
-	import code.controllers.gigya.Gigya;
-	import code.controllers.jpg_export.JPG_Export;
+	import code.controllers.google_connect.Google_Connect;
 	import code.controllers.main_loader.Main_Loader;
-	import code.controllers.message_player.Message_Player;
-	import code.controllers.microphone.Microphone;
-	import code.controllers.mogreet.MoGreet;
 	import code.controllers.myspace_connect.MySpace_Connect;
-	import code.controllers.paypal.Paypal;
-	import code.controllers.persistent_image.Persistent_Image;
-	import code.controllers.phone.Phone;
-	import code.controllers.player.Player;
-	import code.controllers.player_holder.Player_Holder;
-	import code.controllers.privacy_policy.Privacy_Policy;
-	import code.controllers.processing.Processing;
 	import code.controllers.preview.Preview;
-	import code.controllers.share_delicious.Share_Delicious;
-	import code.controllers.share_digg.Share_Digg;
+	import code.controllers.processing.Processing;
+	import code.controllers.share_facebook.Share_Facebook;
 	import code.controllers.share_misc.Share_Misc;
 	import code.controllers.share_twitter.Share_Twitter;
 	import code.controllers.terms_conditions.Terms_Conditions;
-	import code.controllers.tts.TTS;
-	import code.controllers.vhost_back_selection.VHost_Selection_Back;
-	import code.controllers.vhost_proportions.VHost_Proportions;
-	import code.controllers.vhost_selection.VHost_Selection;
-	import code.controllers.vhost_type_selection.VHost_Type_Selection;
-	import code.controllers.youtube.Youtube;
 	import code.skeleton.App;
 	import code.skeleton.inauguration.Inauguration;
-	import code.utils.MID_Save;
 	
 	import com.greensock.plugins.TweenPlugin;
 	import com.greensock.plugins.VisiblePlugin;
 	import com.oddcast.utils.TextFieldScrollKeyFix;
-	import com.oddcast.workshop.Body_Controller;
 	import com.oddcast.workshop.SceneController2D;
 	import com.oddcast.workshop.SceneController3D;
 	import com.oddcast.workshop.WSEventTracker;
@@ -81,13 +46,12 @@
 	import flash.display.StageScaleMode;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
-	import flash.net.URLVariables;
 
 	
 	// Documentation found at http://livedocs.adobe.com/flex/3/html/help.html?content=app_container_2.html
 	[SWF(
-		width="1300",					// Stage width
-		height="569",					// Stage height
+		width="810",					// Stage width
+		height="420",					// Stage height
 //		usePreloader="true"				// Specifies whether to disable the application preloader (false) or not (true). The default value is true. To use the default preloader, your application must be at least 160 pixels wide.
 //		preloader="path"				// Specifies the path of a SWC component class or ActionScript component class that defines a custom progress bar.
 //		widthPercent="#",				// 
@@ -208,17 +172,19 @@
 		//	new Message_Player			( art.message_player, art.player_holder.player );
 			new MySpace_Connect			( art.myspace_connect_status );
 			new Facebook_Connect		( art.facebook_connect_status );
+			new Google_Connect			();
 			
 			var dummy:InteractiveObject = new Sprite();
 			// sharing
 			//new Share_Digg				( art.panel_buttons.diggBtn );
 			//new Share_Delicious			( art.panel_buttons.deliciousBtn );
-			new Share_Misc				(dummy, art.preview.btn_googleplus, dummy, dummy);
+			new Share_Misc				(dummy, art.preview.btn_copy_url, dummy, dummy);
 
 			new Email					( art.preview.email_btn, art.email, art.emailSuccess );
 			//new Gallery_Post			( art.panel_buttons.postBtn, art.gallery_post );
 			new Facebook_Friend_Search	( art.facebook_btn, art.facebook_friend );
-			new Facebook_Friend_Post	( art.preview, art.post_to_facebook );
+			//new Facebook_Friend_Post	( art.preview, art.post_to_facebook );
+			new Share_Facebook			( art.preview.facebook_btn, art.share_facebook );
 			//new GIF_Export				( art.panel_buttons.btn_animated_gif, art);
 			//new JPG_Export				( art.panel_buttons.saveJpegBtn, art, art);//.player_holder.player.hostMask );
 			//new Audio_To_Phone			( art.panel_buttons.audioToPhoneBtn, art.audio_to_phone );
@@ -227,7 +193,7 @@
 			new Youtube					( art.panel_buttons.btn_youtube, art.youtube );
 			new Paypal					( art.panel_buttons.btn_paypal, art.paypal );
 			new MoGreet					( art.panel_buttons.btn_mogreet, art.mogreet );*/
-			new Share_Twitter			( art.twitter_btn, art.twitter_share );
+			new Share_Twitter			( art.preview.twitter_btn, art.twitter_share );
 			
 			// background
 			/*new BG_Browse				( art.panel_buttons.btn_browse_popup, art.browse_image ); 
@@ -239,13 +205,16 @@
 			new Terms_Conditions		( art.terms_conditions );
 			//new Privacy_Policy			( art.panel_buttons.btn_privacy );
 			new Expiration				( art.expired );
-			art.addChildAt(new DanceScene(), art.getChildIndex(art.main_bg)+1);
+			//art.addChildAt(new DanceScene(), art.getChildIndex(art.main_bg)+1);
 			new MakeAnother(dummy, art.makeAnother);
-			new Embed(art.mainPlayer.embed_btn, art.embed);
+			//new Embed(art.mainPlayer.embed_btn, art.embed);
 			new ComingSoon(art.comingSoon);
 			
 			new Preview					(art.preview);
-/*			
+			
+			new BigShow					();
+			/*					
+			
 			
 			// misc
 			new Player					( art.player_holder.player );
@@ -280,8 +249,8 @@
 			new Auto_Photo_Webcam		( art.auto_photo_webcam );
 			new PhotoMaskingScreen();
 			new Auto_Photo_Search		( art.auto_photo_search );
-			new Download 				(art.mainPlayer.btn_storedownload, art.download);
-			//new CopyURL					(art.mainPlayer.get_url_btn, art.copyURL);
+			//new Download 				(art.mainPlayer.btn_storedownload, art.download);
+			//new CopyURL					(art.preview.btn_copy_url, art.copyURL);
 			
 			
 			// popular media contact import
@@ -345,7 +314,7 @@
 		}
 		private function _onResize(e:Event=null):void
 		{
-			art.x = Math.round(stage.stageWidth/2)- 500;
+			art.x = Math.round(stage.stageWidth/2)- 405;
 			//art.main_bg.x = stage.stageWidth - art.main_bg.x;
 		}
 	}

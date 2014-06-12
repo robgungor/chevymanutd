@@ -1,0 +1,58 @@
+package com.oddcast.host.api {
+	import flash.geom.Point;
+	import com.oddcast.host.api.animate.AnimationValues;
+	import com.oddcast.host.api.animate.ISetAnimationCallback;
+	import flash.display.Bitmap;
+	import com.oddcast.host.api.fullbody.IHeadPlugin;
+	import com.oddcast.vhost.engine.IEngineAPI;
+	import flash.display.Sprite;
+	import com.oddcast.host.api.AccessoryTween;
+	import com.oddcast.host.api.morph.MorphInfluencePlayback;
+	import com.oddcast.host.api.animate.VideoLoader;
+	public interface IHostAPI extends com.oddcast.vhost.engine.IEngineAPI{
+		function getEditValue(type : String,controlName : String) : Number ;
+		function pauseAudio(pause : Boolean) : void ;
+		function setEditValue(type : String,controlName : String,value : Number,undoFlags : int) : Number ;
+		function getAccessoryControls(accessoryTypeID : String) : Array ;
+		function getAllAccessoryControls() : Array ;
+		function setAccessoryAnimation(accessoryTypeID : String,tween : com.oddcast.host.api.AccessoryTween) : void ;
+		function setAccessoryVisible(accessoryTypeID : String,visible : Boolean) : void ;
+		function getAccessoryAnimationValue(accessoryTypeID : String,plabel : String) : com.oddcast.host.api.AccessoryTween ;
+		function createFaceGenHeadPlugIn() : com.oddcast.host.api.fullbody.IHeadPlugin ;
+		function getCurrentFaceGenHeadPlugIn() : com.oddcast.host.api.fullbody.IHeadPlugin ;
+		function getAvailableExpressions() : Array ;
+		function clearExpressionList() : void ;
+		function setExpression(name : String,amount : Number,startTime : Number,endTime : Number,attackDuration : Number = NaN,decayDuration : Number = NaN) : void ;
+		function sayNoAutoStart(url : String,offset : Number = NaN) : void ;
+		function sayMultiple(multipleAudios : Array,autoStartBool : Boolean = false) : void ;
+		function getAudioTime() : Number ;
+		function loadURLwithProgress(url : String,type : String,undoFlags : int) : Array ;
+		function loadURL(url : String,type : String,undoFlags : int) : String ;
+		function makeItemVisibleByLabel(samLabel : String,bVisible : Boolean) : int ;
+		function allowRender(render : Boolean,bClearBuffer : Boolean) : void ;
+		function addPhoneme(str : String) : void ;
+		function prepareHostBeforeScreenGrab(flags : int) : void ;
+		function restoreHostAfterScreenGrab() : void ;
+		function ArrangeHostAsIfAtTimeMillis(millis : Number) : void ;
+		function enableFrameUpdates(enable : Boolean) : void ;
+		function forceOneFrameUpdate() : void ;
+		function getMorphTarget(plabel : String) : com.oddcast.host.api.morph.MorphInfluencePlayback ;
+		function setHostToVideoStar(video : com.oddcast.host.api.animate.VideoLoader,keyFrameFileURL : String = null,maskName : String = null) : void ;
+		function renderInto(bitmap : flash.display.Bitmap) : void ;
+		function calcReferencePosition(point : flash.geom.Point,dimension : flash.geom.Point = null) : Number ;
+		function addAnimationCallback(icallback : com.oddcast.host.api.animate.ISetAnimationCallback,actsOnName : String) : Boolean ;
+		function removeAnimationCallback(icallback : com.oddcast.host.api.animate.ISetAnimationCallback) : Boolean ;
+		function setVideoRecordingAcceleration(speedup : Number) : void ;
+		function setFaceMoveRange(range : Number) : void ;
+		function isTalking() : Boolean ;
+		function setHostVolume(v : Number) : void ;
+		function setDisplayObject3DProperty(actsOnName : String,animationValues : com.oddcast.host.api.animate.AnimationValues) : Boolean ;
+		function hostHasAlpha() : String ;
+		function setRandomMovementParameters(frequency : Number,radius : Number) : void ;
+		function addSpriteRenderLayer(name : String,bSort : Boolean) : flash.display.Sprite ;
+		function setAccessoryTypeToRenderLayer(name : String,AccTypeId : String) : void ;
+		function removeAccessoryTypeFromRenderLayer(AccTypeId : String) : void ;
+		function removeSpriteRenderLayer(name : String) : flash.display.Sprite ;
+		function setGazeIncludingWhileTalking(p0 : uint,p1 : Number,p2 : Number,p3 : Boolean = false) : void ;
+	}
+}

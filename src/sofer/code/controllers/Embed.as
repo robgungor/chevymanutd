@@ -161,9 +161,9 @@ package code.controllers
 			{
 				App.listener_manager.add_multiple_by_object( 
 					[
-						btn_open, 
+//						btn_open, 
 						ui.btn_ok, 
-						ui.btn_close,
+//						ui.btn_close,
 						ui.btn_copy
 					], MouseEvent.CLICK, mouse_click_handler, this );
 			}

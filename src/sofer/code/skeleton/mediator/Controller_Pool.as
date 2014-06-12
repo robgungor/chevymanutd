@@ -15,6 +15,7 @@ package code.skeleton.mediator
 	import code.controllers.auto_photo.search.IAuto_Photo_Search;
 	import code.controllers.auto_photo.webcam.IAuto_Photo_Webcam;
 	import code.controllers.backgrounds.IBG_Selector;
+	import code.controllers.bigshow.BigShow;
 	import code.controllers.bitly_url.IBitly_Url;
 	import code.controllers.body_position.IBody_Position;
 	import code.controllers.email.IEmail;
@@ -22,13 +23,14 @@ package code.skeleton.mediator
 	import code.controllers.facebook_connect.IFacebook_Connect;
 	import code.controllers.facebook_friend.Facebook_Friend_Post;
 	import code.controllers.facebook_friend.IFacebook_Friend_Search;
+	import code.controllers.google_connect.Google_Connect;
 	import code.controllers.jpg_export.IJPG_Export;
 	import code.controllers.main_loader.IMain_Loader;
 	import code.controllers.message_player.IMessage_Player;
 	import code.controllers.myspace_connect.IMyspace_Connect;
 	import code.controllers.persistent_image.IPersistent_Image;
-	import code.controllers.processing.IProcessing;
 	import code.controllers.preview.Preview;
+	import code.controllers.processing.IProcessing;
 	import code.controllers.terms_conditions.Terms_Conditions;
 	import code.controllers.vhost_back_selection.IVhost_Back_Selection;
 	import code.controllers.vhost_selection.IVhost_Selection;
@@ -83,6 +85,8 @@ package code.skeleton.mediator
 		public var facebook_friend_post		:Facebook_Friend_Post;
 		public var makeAnother				:MakeAnother;
 		public var preview					:Preview;
+		public var google_connect			:Google_Connect;
+		public var bigShow					:BigShow;
 		// popular media
 //		public var pupular_media_contact_selector	:IPopular_Media_Contact_Selector;
 //		public var pupular_media_login				:IPopular_Media_Login;

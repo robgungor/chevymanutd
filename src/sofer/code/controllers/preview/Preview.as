@@ -51,6 +51,7 @@ package code.controllers.preview
 			
 			// reference to the controllers UI
 			ui			= _ui;
+			
 			//btn_open	= _btn_open;
 			
 			// provide the mediator a reference to communicate with this controller
@@ -72,6 +73,7 @@ package code.controllers.preview
 		 */
 		private function init(  ):void 
 		{	
+			_faceSize = new Rectangle( ui.photo.face.x, ui.photo.face.y, ui.photo.face.width, ui.photo.face.height );
 			init_shortcuts();
 			set_ui_listeners();
 		}
@@ -138,7 +140,8 @@ package code.controllers.preview
 		{
 			App.listener_manager.add_multiple_by_object( 
 				[
-					//btn_open, 
+					//btn_open,
+					ui.btn_googleplus,
 					ui.btn_upload_new 
 				], MouseEvent.CLICK, mouse_click_handler, this );
 			
@@ -155,6 +158,9 @@ package code.controllers.preview
 //				case btn_open:		
 //					open_win();		
 //					break;
+				case ui.btn_googleplus:
+					App.mediator.postToGooglePlus();
+					break;
 				case ui.btn_upload_new:	
 					close_win();
 					App.mediator.autophoto_open_mode_selector();
@@ -212,14 +218,15 @@ package code.controllers.preview
 		 * 
 		 * 
 		 */
-		public function placeHead( bmp:Bitmap, contrast:Number ):void
+		protected var _faceSize:Rectangle;
+		public function placeHead( bmp:Bitmap, contrast:Number, chinPoint:Point):void
 		{
-
+			
 			if(bmp.bitmapData) bmp = new Bitmap(bmp.bitmapData, "auto", true);
 			
-			var size:Rectangle = new Rectangle( ui.photo.face.x, ui.photo.face.y, ui.photo.face.width, ui.photo.face.height )
-							
-			var headSize	:Rectangle 	= RatioUtil.scaleToFill( new Rectangle(0,0,bmp.width, bmp.height), size);
+			//var size:Rectangle = new Rectangle( ui.photo.face.x, ui.photo.face.y, ui.photo.face.width, ui.photo.face.height )
+			
+			var headSize	:Rectangle 	= RatioUtil.scaleToFill( new Rectangle(0,0,bmp.width, bmp.height), _faceSize);
 
 			//set size
 //			bmp.width 				= headSize.width;
@@ -229,10 +236,12 @@ package code.controllers.preview
 			for (var i:int = 0; i < body.numChildren; i++){				
 				body.getChildAt(i).visible = false;
 			}			
-			body.getChildByName("photo_"+contrast).visible = true;
+			// these are indexed at 1, the other is indexed at 0
+			body.getChildByName("photo_"+(contrast+1)).visible = true;
 			//center the bitmap in the head
 			var hold:MovieClip = ui.photo.face.head_hold;
-			bmp.x = (hold.width/2)-(bmp.width/2);
+			bmp.x = (hold.x/hold.scaleX)-(chinPoint.x);//(_faceSize.width/2)-(bmp.width/2);
+			bmp.y = (hold.y/hold.scaleY)-(chinPoint.y);//-_faceSize.y;
 			for(i = 0; i<hold.numChildren; i++)
 			{
 				if(hold.getChildAt(i) != null) hold.removeChildAt(i);

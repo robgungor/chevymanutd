@@ -8,7 +8,7 @@
 	 */
 	public interface IAuto_Photo_Search extends IAuto_Photo_Win
 	{
-		function startSearch():void;
+		function startSearch(searchType:String =""):void;
 	}
 	
 }

@@ -40,6 +40,7 @@
 		public var idleScenes:Array = [];
 		public var idleScene:MovieClip;
 		public var mid_message:WorkshopMessage;
+		public var lastPhotoSavedURL:String;
 		public function Asset_Bucket() 
 		{}
 		
