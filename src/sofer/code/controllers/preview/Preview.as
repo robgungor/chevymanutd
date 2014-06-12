@@ -6,6 +6,7 @@ package code.controllers.preview
 	import flash.display.BitmapData;
 	import flash.display.DisplayObject;
 	import flash.display.MovieClip;
+	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import flash.geom.Matrix;
@@ -252,11 +253,25 @@ package code.controllers.preview
 		}
 		public  function take_snapshot():Bitmap{
 			
-			var data:BitmapData = new BitmapData(ui.photo.width, ui.photo.height, true, 0x000000);	
+			var originalPosition:Point = new Point(ui.photo.x, ui.photo.y);
+			ui.photo.scaleX = 
+			ui.photo.scaleY = 1.16;
+			var hold:Sprite = new Sprite();
+			
+			hold.addChild(ui.photo);
+			ui.photo.x = ui.photo.y = 0;
+			
+			var data:BitmapData = new BitmapData(hold.width, hold.height, true, 0x000000);	
 			var mat:Matrix = new Matrix();	
-			data.draw(ui.photo);//,null,null,null,new Rectangle(face_masker.getMask().x, face_masker.getMask().y, face_masker.getMask().width, face_masker.getMask().height), true);
+			data.draw(hold, null, null, null, null, true);//,null,null,null,new Rectangle(face_masker.getMask().x, face_masker.getMask().y, face_masker.getMask().width, face_masker.getMask().height), true);
 			var map:Bitmap = new Bitmap(data, "auto", true);			
-				
+			ui.photo.scaleX = 
+			ui.photo.scaleY = 1;	
+			
+			ui.photo.x = originalPosition.x;
+			ui.photo.y = originalPosition.y;
+			
+			ui.addChild(ui.photo);
 			return map;
 		}
 	}
