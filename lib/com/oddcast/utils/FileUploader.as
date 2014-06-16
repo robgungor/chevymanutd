@@ -5,6 +5,9 @@
 */
 
 package com.oddcast.utils {
+	import code.skeleton.App;
+	import code.skeleton.Localizer;
+	
 	import com.oddcast.event.FileUploadEvent;
 	
 	import flash.events.DataEvent;
@@ -62,7 +65,10 @@ package com.oddcast.utils {
 		}
 		
 		public function FileUploader(url:String=null) {			
+			
+			_sErrorMsgPreamble = App.localizer.getTranslation(Localizer.ALERT_FILE_IN_USE);
 			//trace("FileUploader::FileUploader ");
+			
 			testForMacBug();
 			uploadFile=new FileReference();
 			uploadFile.addEventListener(Event.SELECT,fileSelected);

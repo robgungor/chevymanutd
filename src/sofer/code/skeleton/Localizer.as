@@ -8,7 +8,9 @@ package code.skeleton
 	import flash.utils.Dictionary;
 	import flash.utils.describeType;
 	
+	import workshop.ui.ILocalizable;
 	import workshop.ui.LocalizedButton;
+	import workshop.ui.LocalizedContainer;
 	
 	
 	public dynamic class Localizer
@@ -24,6 +26,64 @@ package code.skeleton
 		
 		private var _language		:String = 'en';
 		private var _translations	:Dictionary;
+		/** KEYS **/
+		
+		//<alert_size code="59"><![CDATA[You must select a JPEG, PNG, or GIF file. File size can range from 10KB - 6MB. Dimensions can range from 64x64 - 5000x5000. Click OK to continue]]></alert_size>
+		public static const ALERT_SIZE:String = "alert_size";
+		
+		//<ALERT_TERMS code="60"><![CDATA[Please agree to the terms of use before uploading an image]]></alert_terms>
+		public static const ALERT_TERMS:String = "alert_terms";
+		
+//	   <ALERT_EMAIL_INVALID_FROM_EMAIL code="61"><![CDATA[Invalid FROM e-mail address]]></alert_email_invalid_from_email>
+		public static const ALERT_EMAIL_INVALID_FROM_EMAIL:String = "alert_email_invalid_from_email";
+		
+//	   <ALERT_EMAIL_INVALID_TO_EMAIL code="62"><![CDATA[Invalid TO e-mail address]]></alert_email_invalid_to_email>
+		public static const ALERT_EMAIL_INVALID_TO_EMAIL:String = "alert_email_invalid_to_email";
+		
+//	   <ALERT_EMAIL_INVALID_FROM_NAME code="63"><![CDATA[Invalid FROM name]]></alert_email_invalid_from_name>
+		public static const ALERT_EMAIL_INVALID_FROM_NAME:String = "alert_email_invalid_from_name";
+		
+//	   <ALERT_EMAIL_INVALID_TO_NAME code="64"><![CDATA[Invalid TO name]]></alert_email_invalid_to_name>
+		public static const ALERT_EMAIL_INVALID_TO_NAME:String = "alert_email_invalid_to_name";
+		
+//	   <ALERT_EMAIL_MAX_LIMIT code="65"><![CDATA[You have reached your limit of {maxEmails} recipients.]]></alert_email_max_limit>
+		public static const ALERT_EMAIL_MAX_LIMIT:String = "alert_email_max_limit";
+		
+//	   <ALERT_FAILD_MESSAGE code="66"><![CDATA[Sorry this message could not be loaded.]]></alert_faild_message>
+		public static const ALERT_FAILED_MESSAGE:String = "alert_faild_message";
+		
+//	   <ALERT_SOCIAL_PHOTO_UPLOAD code="67"><![CDATA[This profile does not share images. Please try another.]]></alert_social_photo_upload>
+		public static const ALERT_SOCIAL_PHOTO_UPLOAD:String = "alert_social_photo_upload";
+
+//	   <ALERT_PHOTO_UPLOAD_EXPIRATION code="68"><![CDATA[Your photo has expired. Please upload another photo.]]></alert_photo_upload_expiration>
+		public static const ALERT_PHOTO_UPLOAD_EXPIRATION:String = "alert_photo_upload_expiration";
+		
+//	   <ALERT_BLOCKED_LINK code="69"><![CDATA[If the link was blocked, click OK to copy the URL to your clipboard:]]></alert_blocked_link>
+		public static const ALERT_BLOCKED_LINK:String = "alert_blocked_link";
+		
+//	   <ALERT_WEBCAM_MISSING code="70"><![CDATA[Camera not available]]></alert_webcam_missing>
+		public static const ALERT_WEBCAM_MISSING:String = "alert_webcam_missing";
+		
+//	   <ALERT_WEBCAM_FAILURE code="71"><![CDATA[Error capturing image]]></alert_webcam_failure>
+		public static const ALERT_WEBCAM_FAILURE:String = "alert_webcam_failure";
+		
+//	   <ALERT_WEBCAM_SUPPORT code="72"><![CDATA[Your camera model is not supported]]></alert_webcam_support>
+		public static const ALERT_WEBCAM_SUPPORT:String = "alert_webcam_support";
+		
+//	   <ALERT_FILE_FAILURE code="73"><![CDATA[Could not process your file. Please check the file and try again.]]></alert_file_failure>
+		public static const ALERT_FILE_FAILURE:String = "alert_terms";
+		
+		public static const ALERT_FILE_SELECT_BEFORE_PRECEDING:String = "alert_file_select_before_preceding";
+//	   <ALERT_FILE_IN_USE code="74"><![CDATA[Please check that the file you are uploading is not being used exclusively by another application, and try again.]]></alert_file_in_use>
+		public static const ALERT_FILE_IN_USE:String = "alert_file_in_use";
+		
+//	   <ALERT_CONNECTION_FAILURE code="75"><![CDATA[There seems to be a problem with your Internet connection. Please reconnect and try again.]]></alert_connection_failure>
+		public static const ALERT_CONNECTION_FAILURE:String = "alert_connection_failure";
+		
+//	   <ALERT_GENERIC code="76"><![CDATA[Your request could not be processed, please try again.]]></alert_generic>
+		public static const ALERT_GENERIC:String = "alert_generic";
+		
+		
 		
 //		public var loading_screen_loading:String;
 //		public var loading_screen_hashtag:String;
@@ -106,13 +166,28 @@ package code.skeleton
 		
 		public function localize(ui:DisplayObjectContainer, prefix:String = ''):void
 		{
+			var lang:String = ServerInfo.lang;
+			switch(lang)
+			{
+				case "us_english":
+					lang = "en";
+					break;
+				case "spanish":
+					lang = "es";
+					break;
+				default:
+					break;
+			}
+			
+			if( ui is LocalizedContainer) ui = (ui as LocalizedContainer).setLanguage(lang);
+			
 			for (var i:int = 0; i<ui.numChildren; i++)
 			{
 				var child:* = ui.getChildAt(i);
 				var translation:String = getTranslation(prefix+"_"+child.name);
-				if(child is LocalizedButton)
+				if(child is ILocalizable)
 				{
-					if(translation) (child as LocalizedButton).setText( translation, _language);
+					if(translation) (child as ILocalizable).setText( translation, _language);
 				} else if(child is TextField)
 				{
 					if(translation) (child as TextField).text = translation;
@@ -188,10 +263,9 @@ package code.skeleton
 		
 		public function getTranslation(key:String):String
 		{	
-			trace('getting translation for '+key);
+			
 			if(this[key] != null) 
-			{
-				trace('getting translation for '+key+': '+this[key] );
+			{				
 				return this[key];
 			}else 
 			{

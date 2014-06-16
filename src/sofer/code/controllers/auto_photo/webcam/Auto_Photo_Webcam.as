@@ -103,9 +103,9 @@
 			if (!webcam_is_available)
 			{
 				if (!webcam_capture.cameraAvailable)
-					App.mediator.alert_user( new AlertEvent(AlertEvent.ALERT, 'f9t200', 'Camera not available.'));
+					App.mediator.alert_user( new AlertEvent(AlertEvent.ALERT, 'f9t200', App.localizer.getTranslation(Localizer.ALERT_WEBCAM_MISSING)));
 				else
-					App.mediator.alert_user( new AlertEvent(AlertEvent.ALERT, 'f9t205', 'Your camera model is not supported by Adobe.', { cameras:webcam_capture.cameraNames.join(',') } ));
+					App.mediator.alert_user( new AlertEvent(AlertEvent.ALERT, 'f9t205', App.localizer.getTranslation(Localizer.ALERT_WEBCAM_SUPPORT), { cameras:webcam_capture.cameraNames.join(',') } ));
 				
 				// destroy so that next time this is requested it can reinitialize since the user might have plugged in their webcam
 					webcam_capture.destroy();
@@ -311,14 +311,15 @@
 			//var img_data:ByteArray = webcam_capture.getJPG();
 			
 			if (webcam_capture.bitmap.bitmapData == null)
-				App.mediator.alert_user(new AlertEvent(AlertEvent.ERROR, 'f9t201', 'Error capturing image.'));
+				App.mediator.alert_user(new AlertEvent(AlertEvent.ERROR, "f9t201", App.localizer.getTranslation(Localizer.ALERT_WEBCAM_FAILURE)));				
+				//App.mediator.alert_user(new AlertEvent(AlertEvent.ERROR, 'f9t201', 'Error capturing image.'));
 			else
 			{
 				//App.mediator.processing_start( PROCESS_UPLOADING );
 				
 			
 				
-				App.mediator.autophoto_begin_process(webcam_capture.bitmap);
+				App.mediator.autophoto_begin_process(webcam_capture.bitmap, true);
 				
 				/*App.utils.image_uploader.upload_binary( new Callback_Struct( fin, progress, error ), img_data, SAVED_IMAGE_TYPE);
 				function fin(_bg:BackgroundStruct):void 

@@ -57,8 +57,9 @@
 			scene_controller_2d = _2d_class;
 			scene_controller_3d = _3d_class;
 			scene_controller_FB = _fb_class;
-			
+			trace("WHAT");
 			ServerInfo.setLoaderInfo(_loader_info);
+			trace("INAUG LANG: "+_loader_info.parameters.lang);
 			var mid:* = ServerInfo.mid;
 			App.asset_bucket.is_playback_mode = ServerInfo.hasMessage;
 			
@@ -105,11 +106,7 @@
 			//App.mediator.show_editing_state();
 			App.asset_bucket.is_playback_mode = false;
 			allDone();
-			//loadFirstDance(allDone);
-			
-			//loadFirstIdle(loadFirstDance, sequence_complete);
-			//loadDances(sequence_complete);
-			
+						
 			return;
 			
 			var msm:Method_Sequence_Manager = new Method_Sequence_Manager( sequence_complete );
@@ -235,7 +232,7 @@
 		}
 		private function error_initializing( _msg:String ):void
 		{
-			App.mediator.alert_user(new AlertEvent(AlertEvent.ERROR, '', 'Cannot Initialize\n\n\n\n\n\n\n\n\n\n' + _msg, null, user_response));
+			App.mediator.alert_user(new AlertEvent(AlertEvent.ERROR, '', 'Cannot Initialize\n\n' + _msg, null, user_response));
 			function user_response( _ok:Boolean ):void
 			{
 				try					{	ExternalInterface_Proxy.call('window.location.reload()');	}
@@ -356,7 +353,7 @@
 		}
 		private function load_localization(_continue:Function, _key:Function):void
 		{
-			var url:String = ServerInfo.default_url + "xml/us_english.xml";// App.settings.SETTINGS_XML_PATH;
+			var url:String = ServerInfo.default_url + "xml/"+ ServerInfo.lang + '.xml';// App.settings.SETTINGS_XML_PATH;
 			progress( 0 );
 			Gateway.retrieve_XML( url, new Callback_Struct( fin, progress, error ));
 			function fin( _content:XML ):void 
@@ -367,7 +364,7 @@
 			{	App.mediator.main_loading_process_status_update( Main_Loader.TYPE_SETTINGS, _percent );
 			}
 			function error( _msg:String ):void 
-			{	error_initializing( _msg );
+			{	error_initializing( 'Language XML file not found: '+ServerInfo.lang + '.xml');
 			}
 		}
 		private function load_profanity_filter(_continue:Function, _key:Function):void

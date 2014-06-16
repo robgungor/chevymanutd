@@ -170,7 +170,8 @@
 			var max_recipients:Number=App.settings.MAX_EMAIL_RECIPIENTS
 			if (all_selected_contacts.length>=max_recipients)
 			{	
-				App.mediator.alert_user(new AlertEvent(AlertEvent.ERROR,'f9t114','you have reached the limit of '+max_recipients,{maxEmails:max_recipients}));
+				//App.mediator.alert_user(new AlertEvent(AlertEvent.ERROR,'f9t114','you have reached the limit of '+max_recipients,{maxEmails:max_recipients}));
+				App.mediator.alert_user(new AlertEvent(AlertEvent.ERROR,'f9t114',App.localizer.getTranslation(Localizer.ALERT_EMAIL_MAX_LIMIT)+max_recipients,{maxEmails:max_recipients}));
 				return false;
 			}
 			else
@@ -330,7 +331,7 @@
 				ui.tf_fromEmail.text = StringUtil.trim(ui.tf_fromEmail.text);
 				if (!EmailValidator.validate(ui.tf_fromEmail.text))
 				{
-					App.mediator.alert_user(new AlertEvent(AlertEvent.ERROR, "f9t106", "Invalid from e-mail address"));
+					App.mediator.alert_user(new AlertEvent(AlertEvent.ERROR, "f9t106", App.localizer.getTranslation(Localizer.ALERT_EMAIL_INVALID_FROM_EMAIL)));
 					return false;
 				}
 /*				if (ui.tf_fromName.text == '')
@@ -348,7 +349,9 @@
 					}
 					else 
 					{
-						App.mediator.alert_user(new AlertEvent(AlertEvent.ERROR, "f9t111", "You must specify an address to send the message to."));
+						
+						//App.mediator.alert_user(new AlertEvent(AlertEvent.ERROR, "f9t111", "You must specify an address to send the message to."));
+						App.mediator.alert_user(new AlertEvent(AlertEvent.ERROR, "f9t111", App.localizer.getTranslation(Localizer.ALERT_EMAIL_INVALID_TO_EMAIL)));
 						return false;
 					}
 				}
@@ -467,7 +470,9 @@
 			if(!boo) boo = EmailValidator.validate(ui.tf_toEmail2.text);
 			if(!boo) boo = EmailValidator.validate(ui.tf_toEmail3.text);
 			if (!boo) {
-				App.mediator.alert_user(new AlertEvent(AlertEvent.ERROR,"f9t107","Invalid e-mail address(es)"));
+				
+//				App.mediator.alert_user(new AlertEvent(AlertEvent.ERROR,"f9t107","Invalid e-mail address(es)"));
+				App.mediator.alert_user(new AlertEvent(AlertEvent.ERROR,"f9t107",App.localizer.getTranslation(Localizer.ALERT_EMAIL_INVALID_TO_EMAIL)));
 				return false;				
 			}
 			var success:Boolean = true;

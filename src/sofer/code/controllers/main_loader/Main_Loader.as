@@ -99,6 +99,7 @@
 		{	
 			ui.visible = false;
 			percentage_increment_force.destroy();
+			App.ws_art.overlay.visible = false;
 		}
 		public function process_status_update( _type:String, _percent:int ):void
 		{
@@ -130,7 +131,7 @@
 			else
 				arr_processes.push( process_item( _type, _percent ) );
 				
-			update_texts()
+			update_texts();
 		}
 		private function update_texts(  ):void
 		{

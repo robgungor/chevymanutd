@@ -174,7 +174,7 @@ package com.oddcast.utils {
 			else return(true);
 		}
 		
-		private function forceInBounds() : void
+		public function forceInBounds() : void
 		{
 			if (checkBounds()) return;
 			var mcBounds:Rectangle=mc.getBounds(mc.parent);

@@ -5,6 +5,7 @@
 	import code.skeleton.*;
 	
 	import com.oddcast.event.*;
+	import com.oddcast.photo.OFCWrapper;
 	import com.oddcast.utils.*;
 	
 	import custom.SlideBar;
@@ -19,6 +20,7 @@
 	import flash.utils.*;
 	
 	import org.casalib.util.NumberUtil;
+	import org.casalib.util.RatioUtil;
 	
 
 	
@@ -26,9 +28,11 @@
 	 * ...
 	 * @author Me^
 	 */
-	public class Auto_Photo_Position implements IAuto_Photo_Position
+	public class Auto_Photo_Position //implements IAuto_Photo_Position
 	{
 		private var ui			:Position_UI;
+		private var face_finding_utility:OFCWrapper;
+		protected var image_positioner:MoveZoomUtil;
 		
 		public function Auto_Photo_Position( _ui:Position_UI ) 
 		{	
@@ -84,7 +88,11 @@
 			
 			ui.cutter.addEventListener(MouseEvent.MOUSE_DOWN, _onCutterMouseDown);
 			ui.cutter.addEventListener(MouseEvent.MOUSE_UP, _onCutterMouseUp);
-			ui.cutter.buttonMode = true;
+			ui.cutter.buttonMode = true;			
+			
+			face_finding_utility = new OFCWrapper();
+			face_finding_utility.load_face_finder();
+		
 		}
 		protected function _onCutterMouseDown(e:MouseEvent):void
 		{
@@ -155,31 +163,82 @@
 		protected var _zoomSlider:SlideBar;
 		
 		protected var _mask:DisplayObject;
-		public function open_win():void 
-		{	ui.visible = true;
+		public function open_win(fromWebcam:Boolean):void 
+		{	
+			ui.visible = true;
 			App.localizer.localize(this.ui, "adjust");
+			
 			if(_imageHold.numChildren > 0)
 			{
 				for(var i:Number = 0; i<_imageHold.numChildren; i++)
 				{
-					_imageHold.removeChild(_imageHold.getChildAt(i));
-					
+					_imageHold.removeChild(_imageHold.getChildAt(i));					
 				}
 			}
-			
-//			App.mediator.autophoto_get_apc_display().x = 0;
-//			App.mediator.autophoto_get_apc_display().y = 0;
-			//_imageHold.scaleX = _imageHold.scaleY = 1;
-			_imageHold.addChild( App.mediator.autophoto_get_apc_display() );
 			
 			_mask.cacheAsBitmap = true;
 			_imageHold.mask = _mask;
 			App.mediator.autophoto_get_apc_display().addEventListener(MouseEvent.MOUSE_DOWN, _onImageMouseDown);
 			
+			_imageHold.addChild( App.mediator.autophoto_get_apc_display() );
+			
 			_resetPosition();
-			//App.mediator.autophoto_get_apc_display().addEventListener(MouseEvent.MOUSE_DOWN, _onImageDown);
+			
+			if(!fromWebcam) _findAndPositionFace();				
+		}
+		
+		public function reopen_win():void
+		{
+			ui.visible = true;
+			
+			_imageHold.buttonMode = true;
+			App.mediator.autophoto_get_apc_display().addEventListener(MouseEvent.MOUSE_DOWN, _onImageMouseDown);
 			
 		}
+		
+		protected function _findAndPositionFace():void
+		{				
+				var _bmp:Bitmap = App.mediator.autophoto_get_apc_oriBitmap();
+				
+				var curX:Number;
+				var curY:Number;
+				var curRot:Number;
+				var curScale:Number;
+				var face_location:Array = ( face_finding_utility.find_face(_bmp.bitmapData) );
+				if (face_location != null) {	
+					trace("face_location 111===> "+face_location[0]+"  "+face_location[1]+"  "+face_location[2]+"  "+face_location[3]);
+					curX= -face_location[0];
+					curY= -face_location[1]-25;
+					curRot = ( -180 * face_location[3] / Math.PI);
+					curScale = (face_location[2] / 14);
+					
+					_bmp.scaleX = _bmp.scaleY = curScale;
+					_bmp.x = curX;
+					_bmp.y = curY;
+					
+					App.mediator.autophoto_rotate_to(curRot);
+					
+				}else {
+					trace("face_location 222===> null: "+_bmp.width+"  "+_bmp.height);
+					curX = _bmp.x//-_bmp.width  * 0.5;
+					curY = -_bmp.y;
+					curRot=0;
+					curScale = _bmp.scaleY;//Math.max((256 / _bmp.width), (256 / _bmp.height));
+								
+					var scaled:Rectangle = RatioUtil.scaleToFill(_bmp.bitmapData.rect, new Rectangle(0,0,App.mediator.autophoto_get_apc_display_size().x, App.mediator.autophoto_get_apc_display_size().y));
+					
+					_bmp.width = scaled.width;
+					_bmp.height = scaled.height;
+					
+					_bmp.x = -Math.round(_bmp.width/2);
+					_bmp.y = -Math.round(_bmp.height/2);
+					
+				}
+				
+				trace("App.mediator.autophoto_get_apc_display().x: "+App.mediator.autophoto_get_apc_display().x);
+			//+++++++++++++++++++++++++++++++++
+		}
+		
 		protected function _resetPosition():void
 		{
 			_rotationSlider.value = NumberUtil.map(0, -MAX_ROTATION, MAX_ROTATION, 0, 1);			
@@ -188,11 +247,12 @@
 			App.mediator.autophoto_get_apc_display().y = Math.round(App.mediator.autophoto_get_apc_display_size().y/2);
 		}
 		public function close_win():void 
-		{	ui.visible = false;
-			//trace("POSITION UI x: "+ui.x+"; y: "+ui.y);
+		{	
+			ui.visible = false;
+			
 			if(App.mediator.autophoto_get_apc_display())	
 			{
-			trace("CLOSE autophoto_get_apc_display x: "+App.mediator.autophoto_get_apc_display().x+"; y: "+App.mediator.autophoto_get_apc_display().y);
+				trace("CLOSE autophoto_get_apc_display x: "+App.mediator.autophoto_get_apc_display().x+"; y: "+App.mediator.autophoto_get_apc_display().y);
 		
 				App.mediator.autophoto_get_apc_display().removeEventListener(MouseEvent.MOUSE_DOWN, _onImageMouseDown);
 				_imageHold.buttonMode = true;
@@ -208,6 +268,7 @@
 		{
 			(App.mediator.autophoto_get_apc_display() as Sprite).stopDrag();
 			App.mediator.autophoto_get_apc_display().removeEventListener(MouseEvent.MOUSE_UP, _onImageMouseUp);
+			App.mediator.autophoto_update_zoomer_bounds();
 			App.ws_art.stage.removeEventListener(MouseEvent.MOUSE_UP, _onImageMouseUp);
 			
 		}

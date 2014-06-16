@@ -5,7 +5,7 @@ package workshop.ui
 	import flash.display.SimpleButton;
 	import flash.text.TextField;
 	
-	public class LocalizedButton extends MovieClip
+	public class LocalizedButton extends MovieClip implements ILocalizable
 	{
 		private var _textValue:String;
 		

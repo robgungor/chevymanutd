@@ -25,6 +25,7 @@
 	import code.controllers.vhost_back_selection.IVhost_Back_Selection;
 	import code.controllers.vhost_selection.IVhost_Selection;
 	import code.skeleton.App;
+	import code.skeleton.Localizer;
 	import code.skeleton.Utils;
 	import code.utils.Image_Uploader;
 	
@@ -789,10 +790,15 @@
 			if(controller_pool.auto_photo_apc)
 				controller_pool.auto_photo_apc.beginMasking(_url);
 		}
-		public function autophoto_begin_process(bmp:Bitmap):void
+		public function autophoto_get_apc_oriBitmap():Bitmap{	
+			if (controller_pool.auto_photo_apc)	
+				return controller_pool.auto_photo_apc.oriBitmap;
+			return null;
+		}
+		public function autophoto_begin_process(bmp:Bitmap, fromWebcam:Boolean = false):void
 		{
 			if(controller_pool.auto_photo_apc)
-				controller_pool.auto_photo_apc.imageLoaded(bmp);
+				controller_pool.auto_photo_apc.imageLoaded(bmp, fromWebcam);
 		}
 		public function autophoto_mask( bmp:Bitmap ):void
 		{
@@ -809,6 +815,7 @@
 			controller_pool.preview.placeHead(bmp, contrast, chinPoint);
 			gotoPreview();
 		}
+		
 		public function uploadPhoto(callback:Function):void
 		{
 			
@@ -868,12 +875,19 @@
 			if (controller_pool.auto_photo_apc)		
 				controller_pool.auto_photo_apc.set_model_type( _type );
 		}
-		public function autophoto_position_photo():void 
+		public function autophoto_position_photo( fromWebCam:Boolean = false ):void 
 		{	
 			autophoto_require_confirmation_on_close = false;
 			autophoto_close_all_subpanels();
 			if (controller_pool.auto_photo_position)	
-				controller_pool.auto_photo_position.open_win();
+				controller_pool.auto_photo_position.open_win(fromWebCam);
+		}
+		public function autophoto_back_to_position( ):void 
+		{	
+			autophoto_require_confirmation_on_close = false;
+			autophoto_close_all_subpanels();
+			if (controller_pool.auto_photo_position)	
+				controller_pool.auto_photo_position.reopen_win();
 		}
 		public function autophoto_position_points(  ):void
 		{
@@ -918,6 +932,11 @@
 		{
 			if (controller_pool.auto_photo_apc)	
 				controller_pool.auto_photo_apc.rotateTo(degrees);
+		}
+		public function autophoto_update_zoomer_bounds():void
+		{
+			if (controller_pool.auto_photo_apc)	
+				controller_pool.auto_photo_apc.updateZoomerBounds();
 		}
 		public function autophoto_back_to_upload(  ):void 
 		{	
@@ -1221,7 +1240,8 @@
 			
 			if (controller_pool.auto_photo_apc.photoHasExpired) 
 			{	
-				alert_user(new AlertEvent(AlertEvent.ERROR, "f9t313", "Your photo has expired.  Please upload a new one."));
+				
+				alert_user(new AlertEvent(AlertEvent.ERROR, "f9t313", App.localizer.getTranslation(Localizer.ALERT_PHOTO_UPLOAD_EXPIRATION)));
 				return(false);
 			}
 			else	return(true);
@@ -1395,7 +1415,7 @@
 		
 			if (App.settings.ALERT_ON_LINK)
 			{	
-				var alert:AlertEvent = new AlertEvent(AlertEvent.CONFIRM, '', 'If the link was blocked, click OK to copy the URL to your clipboard:\n\n' + _url, null, user_response );
+				var alert:AlertEvent = new AlertEvent(AlertEvent.CONFIRM, '', App.localizer.getTranslation(Localizer.ALERT_BLOCKED_LINK)+'\n\n' + _url, null, user_response );
 				alert.report_error = false;
 				alert_user( alert );
 				

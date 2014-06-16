@@ -2,6 +2,7 @@
 {
 	import code.models.Model_Item;
 	import code.skeleton.App;
+	import code.skeleton.Localizer;
 	
 	import com.oddcast.assets.structures.BackgroundStruct;
 	import com.oddcast.event.AlertEvent;
@@ -178,7 +179,7 @@
 				}
 			}
 			else 
-				App.mediator.alert_user( new AlertEvent(AlertEvent.ERROR, "f9t210", "Please select an image before proceeding.") );
+				App.mediator.alert_user( new AlertEvent(AlertEvent.ERROR, "f9t210", App.localizer.getTranslation(Localizer.ALERT_FILE_SELECT_BEFORE_PRECEDING) ) );
 		}
 		
 		private function toggle_processing_on_waiting( _start:Boolean ):void

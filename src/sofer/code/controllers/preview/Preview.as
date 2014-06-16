@@ -122,6 +122,7 @@ package code.controllers.preview
 		 */
 		public function open_win(  ):void 
 		{	
+			App.ws_art.overlay.visible = true;
 			ui.visible = true;
 			set_tab_order();
 			set_focus();
@@ -133,6 +134,7 @@ package code.controllers.preview
 		private function close_win(  ):void 
 		{	
 			ui.visible = false;
+			App.ws_art.overlay.visible = false;
 		}
 		/**
 		 * adds listeners to the UI
@@ -142,11 +144,10 @@ package code.controllers.preview
 			App.listener_manager.add_multiple_by_object( 
 				[
 					//btn_open,
+					ui.btn_back,
 					ui.btn_googleplus,
 					ui.btn_upload_new 
 				], MouseEvent.CLICK, mouse_click_handler, this );
-			
-			
 		}
 		/**
 		 * handler for Click MouseEvents from the UI
@@ -159,6 +160,10 @@ package code.controllers.preview
 //				case btn_open:		
 //					open_win();		
 //					break;
+				case ui.btn_back:
+					close_win();
+					App.mediator.autophoto_back_to_position();
+					break;
 				case ui.btn_googleplus:
 					App.mediator.postToGooglePlus();
 					break;

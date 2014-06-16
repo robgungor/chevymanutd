@@ -158,6 +158,7 @@
 		{
 			
 			_currentHeadIndex = _uploadBtns.indexOf( e.target );
+			
 			var ub:MovieClip = App.ws_art.upload_btns;
 			var lr:Array =  [	ub.upload_btn1,
 				ub.upload_btn2,
@@ -172,15 +173,17 @@
 		{
 			_zoomer.scaleTo(val);
 		}
+		public function updateZoomerBounds():void
+		{
+			_zoomer.forceInBounds();
+		}
 		public function rotateTo(degrees:Number):void
 		{
 			_zoomer.rotateTo(degrees);
 		}
 		protected function _startUploadProcess(e:MouseEvent):void
 		{
-			App.mediator.autophoto_open_mode_selector();
-		//	_currentHeadIndex++;
-			
+			App.mediator.autophoto_open_mode_selector();			
 		}
 		protected var _imgLoader:Loader;
 		public function beginMasking(url:String):void
@@ -191,14 +194,11 @@
 		private function _loadUploadedImage(url:String):void {
 			try 
 			{
-				//f ( _imgLoader.content ) _imgLoader.unload();
-				
-				//var context:LoaderContext = new LoaderContext( true );	// this is needed -- when doing BitmapData.draw to avoid error 2122
-				//_imgLoader.load(new URLRequest(url), context);
 				Gateway.retrieve_Bitmap( url, new Callback_Struct(_imageLoaded) );
 				App.mediator.processing_start(LOADING_UPLOADED_BITMAP, "");
 			}
-			catch (e:Error) {
+			catch (e:Error) 
+			{
 				onError(new ErrorEvent(ErrorEvent.ERROR, false, false, e.message));
 			}			
 		}
@@ -218,14 +218,15 @@
 			///	dispatchEvent(new ProcessingEvent(ProcessingEvent.DONE, ProcessingEvent.BG));
 			//	dispatchEvent(new AlertEvent(AlertEvent.ERROR, "f9tp311", "Could not load BG : "+evt.text));
 		}
-		public function imageLoaded( bitmap:Bitmap ):void
+		public function imageLoaded( bitmap:Bitmap, fromWebcam:Boolean = false ):void
 		{
-			if(bitmap) _imageLoaded(bitmap);
+			if(bitmap) _imageLoaded(bitmap, fromWebcam);
 			else App.mediator.alert_user(new AlertEvent(AlertEvent.ALERT, "0001", "Your image has a problem, please try again"));
 		}
-		protected function _imageLoaded( _bmp:Bitmap ):void
+		protected function _imageLoaded( _bmp:Bitmap, fromWebcam:Boolean = false ):void
 		{
 			trace("BITMAP LOADED BEFORE RESIZE: width:"+_bmp.width+"; h: "+_bmp.height);
+			
 			
 			//var bmp:Bitmap = new Bitmap(((evt.target as LoaderInfo).content as Bitmap).bitmapData, "auto", true);
 			if(_zoomer) 	_zoomer.destroy();
@@ -236,21 +237,25 @@
 			var scaled:Rectangle = RatioUtil.scaleToFill(_bmp.bitmapData.rect, new Rectangle(0,0,display_size.x, display_size.y));
 			// create a new smooth guy
 			var bmp:Bitmap = new Bitmap(_bmp.bitmapData.clone(), "auto", true);
-			bmp.width = scaled.width;
-			bmp.height = scaled.height;
 			
-			bmp.x = -Math.round((bmp.width/2) );
-			bmp.y = -Math.round(bmp.height/2);
+			if(fromWebcam){
+				bmp.width = scaled.width;
+				bmp.height = scaled.height;
+				
+				bmp.x = -Math.round((bmp.width/2) );
+				bmp.y = -Math.round(bmp.height/2);
+			}
 			_photoHold.x = Math.round(display_size.x/2);
 			_photoHold.y = Math.round(display_size.y/2);
 			
+			_oriBitmap = bmp;
 			_photoHold.addChild(bmp);
 			
 			
 			_zoomer = new MoveZoomUtil( _photoHold );
 			_uploadedBitmap = bmp;
 			
-			App.mediator.autophoto_position_photo();
+			App.mediator.autophoto_position_photo(fromWebcam);
 			App.mediator.processing_ended(LOADING_UPLOADED_BITMAP);
 			
 		}
@@ -335,6 +340,10 @@
 		{
 			return _uploadedBitmap;
 		}
+		public function get oriBitmap():Bitmap
+		{
+			return _oriBitmap;
+		}
 		public function analyze_photo( _url:String ):void 
 		{	
 			points_submitted_tracked_manually = false;
@@ -379,6 +388,7 @@
 		protected var _zoomer			:MoveZoomUtil;
 		protected var _photoHold		:CasaSprite;
 		protected var _uploadedBitmap	:Bitmap;
+		protected var _oriBitmap		:Bitmap;
 		protected var _positionedBitmap	:Bitmap;
 		protected var _currentHeadIndex	:Number = -1;	
 		protected var _uploadBtns:Array;
@@ -420,6 +430,7 @@
 		{
 			_photoHold = null;
 			_uploadedBitmap = null;
+			_oriBitmap = null;
 			_positionedBitmap = null;
 			_zoomer = null;
 		}
@@ -625,7 +636,7 @@
 		}
 		private function photo_has_expired():void 
 		{
-			App.mediator.alert_user(new AlertEvent(AlertEvent.ERROR, "f9t204", "Your photo has expired.  Please submit the photo again."));
+			App.mediator.alert_user(new AlertEvent(AlertEvent.ERROR, "f9t204", App.localizer.getTranslation(Localizer.ALERT_PHOTO_UPLOAD_EXPIRATION)));
 			App.mediator.autophoto_back_to_upload();
 		}
 		private const PROCESS_UPLOADING			:String = 'PROCESS_UPLOADING uploading autophoto image';

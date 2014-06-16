@@ -1,4 +1,7 @@
 ﻿package workshop.uploadphoto {
+	import code.skeleton.App;
+	import code.skeleton.Localizer;
+	
 	import com.oddcast.event.AlertEvent;
 	import com.oddcast.ui.BaseButton;
 	import com.oddcast.workshop.BGUploader;
@@ -70,7 +73,7 @@
 		public function submit() {
 			if (isFileSelected)
 				uploader.uploadFile(fileRef, true);
-			else dispatchEvent(new AlertEvent(AlertEvent.ERROR, "f9t210", "Please select an image before proceeding."));
+			else dispatchEvent(new AlertEvent(AlertEvent.ERROR, "f9t210", App.localizer.getTranslation(Localizer.ALERT_FILE_SELECT_BEFORE_PRECEDING)"));
 		}
 		
 		private function setFilename(s:String) {

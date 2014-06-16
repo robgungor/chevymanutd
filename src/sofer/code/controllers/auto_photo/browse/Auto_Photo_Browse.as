@@ -131,7 +131,7 @@
 												{	//App.mediator.processing_start( PROCESS_UPLOADING );
 													_uploadFileLocally();
 												}
-												else App.mediator.alert_user( new AlertEvent(AlertEvent.ERROR, "f9t210", "Please select an image before proceeding.") );
+												else App.mediator.alert_user( new AlertEvent(AlertEvent.ERROR, "f9t210", App.localizer.getTranslation(Localizer.ALERT_FILE_SELECT_BEFORE_PRECEDING) ) );
 												break;
 				case ui.btn_close:
 					App.mediator.autophoto_close(true);
@@ -202,7 +202,7 @@
 					App.mediator.alert_user(_e);
 				}*/
 			}
-			else App.mediator.alert_user( new AlertEvent(AlertEvent.ERROR, "f9t210", "Please select an image before proceeding.") );
+			else App.mediator.alert_user( new AlertEvent(AlertEvent.ERROR, "f9t210", App.localizer.getTranslation(Localizer.ALERT_FILE_SELECT_BEFORE_PRECEDING)) );
 		}
 		private function user_cancelled_upload( _e:Event ):void
 		{

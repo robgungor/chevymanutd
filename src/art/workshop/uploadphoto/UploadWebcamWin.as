@@ -3,6 +3,9 @@
 */
 	
 package workshop.uploadphoto {
+	import code.skeleton.App;
+	import code.skeleton.Localizer;
+	
 	import com.oddcast.event.AlertEvent;
 	import com.oddcast.ui.BaseButton;
 	import com.oddcast.ui.ToggleButton;
@@ -155,7 +158,9 @@ package workshop.uploadphoto {
 		private function uploadWebcam(evt:MouseEvent) {
 			imageFile=webcam.getJPG();
 			if (imageFile == null) {
-				dispatchEvent(new AlertEvent(AlertEvent.ERROR, "f9t201", "Error capturing image."));
+				//ALERT_WEBCAM_FAILURE
+				//dispatchEvent(new AlertEvent(AlertEvent.ERROR, "f9t201", "Error capturing image."));
+				dispatchEvent(new AlertEvent(AlertEvent.ERROR, "f9t201", App.localizer.getTranslation(Localizer.ALERT_WEBCAM_FAILURE));
 			}
 			else {
 				uploader.uploadBinary(imageFile, "jpg", true);

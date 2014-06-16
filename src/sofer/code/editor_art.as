@@ -94,8 +94,8 @@
 		private function stage_ready_handler( _e:Event=null ) : void
 		{
 			App.listener_manager.remove(this,Event.ADDED_TO_STAGE, stage_ready_handler);
-			stage.scaleMode = StageScaleMode.NO_SCALE;
-			stage.align =StageAlign.LEFT;
+			stage.scaleMode = StageScaleMode.NO_BORDER;
+			stage.align =StageAlign.TOP;
 			stage.addEventListener(Event.RESIZE, _onResize);
 			// trace timestamp even if traces are turned off
 			var force_trace:Function = trace;  force_trace('\n\t********** sofer version: ' + App.settings.BUILD_TIMESTAMP + ' **********\n\n');
@@ -150,6 +150,8 @@
 			{
 				art.danceBtn3.visible = App.settings.USE_THIRD_DANCE;
 				art.shadow_3.visible = App.settings.USE_THIRD_DANCE;
+				
+				App.localizer.localize(App.ws_art.overlay, "loading_screen_");
 			}
 		}
 		
@@ -173,13 +175,11 @@
 			new MySpace_Connect			( art.myspace_connect_status );
 			new Facebook_Connect		( art.facebook_connect_status );
 			new Google_Connect			();
-			
 			var dummy:InteractiveObject = new Sprite();
 			// sharing
 			//new Share_Digg				( art.panel_buttons.diggBtn );
 			//new Share_Delicious			( art.panel_buttons.deliciousBtn );
 			new Share_Misc				(dummy, art.preview.btn_copy_url, dummy, dummy);
-
 			new Email					( art.preview.email_btn, art.email, art.emailSuccess );
 			//new Gallery_Post			( art.panel_buttons.postBtn, art.gallery_post );
 			new Facebook_Friend_Search	( art.facebook_btn, art.facebook_friend );
@@ -194,28 +194,20 @@
 			new Paypal					( art.panel_buttons.btn_paypal, art.paypal );
 			new MoGreet					( art.panel_buttons.btn_mogreet, art.mogreet );*/
 			new Share_Twitter			( art.preview.twitter_btn, art.twitter_share );
-			
 			// background
 			/*new BG_Browse				( art.panel_buttons.btn_browse_popup, art.browse_image ); 
 			new BG_Selector				( art.panel_buttons.bgBtn, art.background_selector );
 			new BG_Multiple_Upload		( art.panel_buttons.btn_upload_bg_multiple );
 			new BG_Type_Selector		( art.background_type_selector );*/
-			
 			new Processing				( art.processing );
 			new Terms_Conditions		( art.terms_conditions );
 			//new Privacy_Policy			( art.panel_buttons.btn_privacy );
 			new Expiration				( art.expired );
-			//art.addChildAt(new DanceScene(), art.getChildIndex(art.main_bg)+1);
-			new MakeAnother(dummy, art.makeAnother);
-			//new Embed(art.mainPlayer.embed_btn, art.embed);
-			new ComingSoon(art.comingSoon);
-			
+			new MakeAnother				(dummy, art.makeAnother);
+			new ComingSoon				(art.comingSoon);
 			new Preview					(art.preview);
-			
 			new BigShow					();
 			/*					
-			
-			
 			// misc
 			new Player					( art.player_holder.player );
 			new Player_Holder			( art.player_holder, art.player_holder.player, art.btn_play, art.btn_stop );

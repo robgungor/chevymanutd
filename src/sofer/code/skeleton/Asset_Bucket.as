@@ -41,6 +41,7 @@
 		public var idleScene:MovieClip;
 		public var mid_message:WorkshopMessage;
 		public var lastPhotoSavedURL:String;
+		public var lang:String = "us_english";
 		public function Asset_Bucket() 
 		{}
 		

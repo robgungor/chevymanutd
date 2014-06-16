@@ -87,6 +87,7 @@
 		{	if (ui.visible)	// dont re-add listeners if panel is already open
 				return;
 			ui.visible = true;
+			App.localizer.localize(ui, "alert_");
 			App.utils.tab_order.set_order( [	ui.btn_ok, ui.btn_cancel	] );
 			set_focus();
 		}

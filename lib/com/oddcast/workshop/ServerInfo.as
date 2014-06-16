@@ -153,6 +153,7 @@ package com.oddcast.workshop
 		/** script for checking server capacities eg: */
 		public static var throttle_capacity_url							:String		= NO_VALUE_STRING;
 		
+		public  static var lang:String = "us_english";
 		
 		public static const PERSISTANT_IMAGE_OFF		:int		= 0;
 		public static const PERSISTANT_IMAGE_READ_ONLY	:int		= 1;
@@ -171,7 +172,8 @@ package com.oddcast.workshop
 			// get the message id for playback or for the parent mid that this session was opened from
 				mid 			= null;
 				var message_id:String;
-				
+				trace("LANG: "+swfInfo.parameters.lang);
+				if (!isEmptyString(swfInfo.parameters.lang))        lang = swfInfo.parameters.lang;	
 				if (!isEmptyString(swfInfo.parameters.mId)) 		message_id = swfInfo.parameters.mId;
 				else if (!isEmptyString(swfInfo.parameters.mid)) 	message_id = swfInfo.parameters.mid;
 				if (message_id)

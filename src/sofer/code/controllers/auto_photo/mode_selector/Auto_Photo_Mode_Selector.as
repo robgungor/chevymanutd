@@ -108,13 +108,14 @@
 			ui.visible = true;
 			App.localizer.localize(this.ui, "homescreen");
 			App.ws_art.dancers.visible = false;
+			App.ws_art.overlay.visible = true;
 			//_onCbClicked();
 			//populate_selector();
 		}
 		public function close_win(  ) : void
 		{
-			ui.visible = false;
-			App.mediator.hideDancers();
+			ui.visible = false;			
+			App.ws_art.overlay.visible = false;
 		}
 		/*****************************************************************
 		 * 

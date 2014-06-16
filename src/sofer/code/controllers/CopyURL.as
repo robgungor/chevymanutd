@@ -134,7 +134,7 @@ package code.controllers
 				[
 					btn_open, 
 					ui.btn_ok, 
-					//ui.btn_close
+					ui.btn_close
 				], MouseEvent.CLICK, mouse_click_handler, this );
 		}
 		/**
@@ -151,9 +151,9 @@ package code.controllers
 				case ui.btn_ok:	
 					close_win();	
 					break;
-//				case ui.btn_close:	
-//					close_win();	
-//					break;
+				case ui.btn_close:	
+					close_win();	
+					break;
 			}
 		}
 		/**
