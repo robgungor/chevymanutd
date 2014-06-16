@@ -122,7 +122,7 @@ package code.controllers.preview
 		 */
 		public function open_win(  ):void 
 		{	
-			App.ws_art.overlay.visible = true;
+			App.ws_art.oddcast.visible = true;
 			ui.visible = true;
 			set_tab_order();
 			set_focus();
@@ -134,7 +134,7 @@ package code.controllers.preview
 		private function close_win(  ):void 
 		{	
 			ui.visible = false;
-			App.ws_art.overlay.visible = false;
+			App.ws_art.oddcast.visible = false;
 		}
 		/**
 		 * adds listeners to the UI

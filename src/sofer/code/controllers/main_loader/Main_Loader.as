@@ -99,7 +99,7 @@
 		{	
 			ui.visible = false;
 			percentage_increment_force.destroy();
-			App.ws_art.overlay.visible = false;
+			//App.ws_art.oddcast.visible = false;
 		}
 		public function process_status_update( _type:String, _percent:int ):void
 		{

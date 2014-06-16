@@ -105,7 +105,7 @@
 		 */
 		public function processing_start( _process_name:String, _display_process:String = null, _display_percent:int = -1, _time_to_animate:Number = -1, _show_authored_creation:Boolean = false ):void 
 		{	
-			App.ws_art.overlay.visible = true;
+			App.ws_art.oddcast.visible = true;
 			//ui.authored_creation.visible = _show_authored_creation;
 			// add process only if its not already present... it can be an update
 			if (process_queue.indexOf( _process_name ) < 0)
@@ -134,7 +134,7 @@
 		 */
 		public function processing_ended( _process_name:String ):void 
 		{	
-			App.ws_art.overlay.visible = false;
+			//App.ws_art.oddcast.visible = false;
 			var item_index:int = process_queue.indexOf(_process_name);
 			if (item_index >= 0)
 			{

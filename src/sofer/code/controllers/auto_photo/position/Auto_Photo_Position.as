@@ -167,7 +167,7 @@
 		{	
 			ui.visible = true;
 			App.localizer.localize(this.ui, "adjust");
-			
+			App.ws_art.oddcast.visible = false;
 			if(_imageHold.numChildren > 0)
 			{
 				for(var i:Number = 0; i<_imageHold.numChildren; i++)
