@@ -1,5 +1,5 @@
 package workshop.ui
-{
+{	
 	import flash.display.DisplayObjectContainer;
 	import flash.display.MovieClip;
 	import flash.display.SimpleButton;
@@ -18,7 +18,7 @@ package workshop.ui
 		protected var _key:String;
 		protected var _translation:String;
 		
-		public function setText(value:String, language:String = ''):void
+		public function setText(value:String, language:String = '', useDeviceFonts:Boolean = false):void
 		{
 			var btn:SimpleButton =  getChildByName(language) as SimpleButton || getChildAt(0) as SimpleButton;
 			
@@ -32,7 +32,11 @@ package workshop.ui
 					for (var i:int = 0; i<state.numChildren; i++)
 					{
 						if(state.getChildAt(i) is TextField) 
-							(state.getChildAt(i) as TextField).text = value;						
+						{
+							var tf:TextField = (state.getChildAt(i) as TextField)
+							tf.embedFonts = !useDeviceFonts;
+							(state.getChildAt(i) as TextField).text = value;
+						}
 					}
 				}
 			}

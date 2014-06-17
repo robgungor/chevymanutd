@@ -187,15 +187,21 @@ package code.skeleton
 				var translation:String = getTranslation(prefix+"_"+child.name);
 				if(child is ILocalizable)
 				{
-					if(translation) (child as ILocalizable).setText( translation, _language);
+					if(translation) (child as ILocalizable).setText( translation, _language, _useDeviceFonts);
 				} else if(child is TextField)
 				{
+					var tf:TextField = (child as TextField);
+					tf.embedFonts = !_useDeviceFonts;
 					if(translation) (child as TextField).text = translation;
 				}
 			}
 		}
 		
-		
+		private var _useDeviceFonts:Boolean;
+		public function get useDeviceFonts():Boolean
+		{
+			return _useDeviceFonts;
+		}
 		public function parse_xml( _xml:XML ) : void
 		{
 			/*
@@ -211,8 +217,13 @@ package code.skeleton
 			var var_name:String, var_type:String, var_node:XML;
 			var xml_value:String;
 			var ignore_xml_value:Boolean;
+			
+			// we use device fonts for the textfield if it's an alternate character language
+			var deviceFonts:Array = ["kr","jp","th","ru","arabic","cn"];		
+			_useDeviceFonts = deviceFonts.indexOf(ServerInfo.lang) > 0;
+			
 			//loop1: for (var i:int = 0, n:int = settings_properties.variable.length(); i<n; i++ )
-			loop1: for (var i:int = 0, n:int = _xml.children().length(); i<n; i++ )
+			for (var i:int = 0, n:int = _xml.children().length(); i<n; i++ )
 			{
 				
 				var_node = _xml.children()[i];//.toXMLString();//settings_properties.variable[i];
