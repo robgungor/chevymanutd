@@ -170,6 +170,8 @@ package code.controllers.preview
 					break;
 				case ui.btn_upload_new:	
 					close_win();
+					App.asset_bucket.last_mid_saved = null;
+					App.asset_bucket.lastPhotoSavedURL = null;
 					App.mediator.autophoto_open_mode_selector();
 					break;
 			}

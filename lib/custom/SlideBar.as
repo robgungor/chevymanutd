@@ -23,6 +23,7 @@ package custom
 		
 		protected var _value	:Number;
 		
+		protected static const INCREMENT_AMOUNT:Number = .00071;
 		public function SlideBar(handle:DisplayObject, bar:DisplayObject, plus:DisplayObject, minus:DisplayObject)
 		{
 			_handle = handle as MovieClip;
@@ -49,12 +50,12 @@ package custom
 		}
 		protected function _onPlusMouseDown(e:MouseEvent):void
 		{
-			value += .0015;
+			value += INCREMENT_AMOUNT;
 			_moveDraggerOnInterval();
 		}
 		protected function _onMinusMouseDown(e:MouseEvent):void
 		{
-			value -= .0015;
+			value -= INCREMENT_AMOUNT;
 			_moveDraggerOnInterval(false);
 		}
 		protected var timer:Timer;
@@ -73,7 +74,7 @@ package custom
 		}
 		protected function call_on_repeat( _e:TimerEvent ):void 
 		{	
-			value = moveDraggerRight ? value+0.0015 : value-0.0015;
+			value = moveDraggerRight ? value+INCREMENT_AMOUNT : value-INCREMENT_AMOUNT;
 		}
 		protected function stop_timer( _e:MouseEvent = null ):void
 		{	
