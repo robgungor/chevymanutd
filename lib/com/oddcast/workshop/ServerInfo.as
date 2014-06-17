@@ -172,7 +172,7 @@ package com.oddcast.workshop
 			// get the message id for playback or for the parent mid that this session was opened from
 				mid 			= null;
 				var message_id:String;
-				trace("LANG: "+swfInfo.parameters.lang);
+				trace("SERVER INFO LANG: "+swfInfo.parameters.lang);
 				if (!isEmptyString(swfInfo.parameters.lang))        lang = swfInfo.parameters.lang;	
 				if (!isEmptyString(swfInfo.parameters.mId)) 		message_id = swfInfo.parameters.mId;
 				else if (!isEmptyString(swfInfo.parameters.mid)) 	message_id = swfInfo.parameters.mid;

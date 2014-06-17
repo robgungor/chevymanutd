@@ -10,6 +10,7 @@
 	import com.oddcast.data.ThumbSelectorData;
 	import com.oddcast.event.SelectorEvent;
 	import com.oddcast.workshop.Persistent_Image.IPersistent_Image_Item;
+	import com.oddcast.workshop.ServerInfo;
 	import com.oddcast.workshop.WSEventTracker;
 	
 	import flash.events.Event;
@@ -106,12 +107,25 @@
 		public function open_win(  ) : void
 		{
 			ui.visible = true;
-			App.localizer.localize(this.ui, "homescreen");
+			_localize();
+			
 			App.ws_art.dancers.visible = false;
 			App.ws_art.oddcast.visible = true;
+			
+			// set 
+			
 			//_onCbClicked();
 			//populate_selector();
 		}
+		
+		private function _localize():void
+		{
+			App.localizer.localize(this.ui, "homescreen");
+			
+			ui.btn_facebook.visible = ui.btn_googleplus.visible = ServerInfo.lang != "cn";
+			ui.btn_renren.visible = ui.btn_weibo.visible = ServerInfo.lang == "cn";
+		}
+		
 		public function close_win(  ) : void
 		{
 			ui.visible = false;			
