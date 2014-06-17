@@ -111,6 +111,7 @@ package code.controllers.facebook_connect
 				ExternalInterface_Proxy.addCallback("fbcSetConnectState"		, fbcSetConnectState);
 				ExternalInterface_Proxy.addCallback("fbcSetProfileAlbumCover"	, fbcSetProfileAlbumCover);
 				ExternalInterface_Proxy.addCallback("fbcPublishFlashStreamCB"	, fbcPublishFlashStreamCB );
+				ExternalInterface_Proxy.addCallback("fbcSetAccessToken"			, fbcSetAccessToken);
 				
 				ExternalInterface_Proxy.call("fbcGetConnectState");
 				
@@ -483,6 +484,81 @@ package code.controllers.facebook_connect
 				
 			}
 		}
+		
+		
+		
+		
+		
+		
+		// START **************** Facebook set profile image (hack with permission from fb) ****************
+		
+		// setup vars
+		private var fb_profile_accessToken:String = "";        //save for profile functions
+		private var fb_profile_savedImage:String = "";                //save for profile functions
+		
+		////////// 1st step        // get login and get accesstoken
+		public function fb_set_profile_image():void {			
+			if ( is_logged_in() ) { //check if alreadt logged into facebook							
+				ExternalInterface_Proxy.call("fbcGetAccessToken");				
+			}else{
+				login(getAccesToken);
+			}
+			function getAccesToken():void
+			{
+				ExternalInterface_Proxy.call("fbcGetAccessToken");
+			}
+		}
+		
+		public function fbcSetAccessToken(_fbcAccessToken:String=null):void {
+			trace("Facebook_Connect::fbcSetAccessToken  - _fbcAccessToken = '" + _fbcAccessToken + "'");
+			fb_profile_accessToken = _fbcAccessToken;
+			
+			if ( is_logged_in() ) { //check if alreadt logged into facebook
+				//no need to login, get access token
+				if (_fbcAccessToken==null) {
+					ExternalInterface_Proxy.call("fbcGetAccessToken");
+				}else{
+					App.utils.mid_saver.save_message( null, new Callback_Struct(fin_message_saved, null, error_message) );
+					
+					function error_message( _e:AlertEvent ):void {
+						App.mediator.alert_user(_e);
+					}
+					
+					function fin_message_saved():void{
+						trace("Facebook_Connect::profile_image_ready::fin_message_saved - App.asset_bucket.lastPhotoSavedURL = "+App.asset_bucket.lastPhotoSavedURL);
+						fb_profile_upload_image( App.asset_bucket.lastPhotoSavedURL );
+					}
+				}
+			}else{
+				//need to login
+				login(fbcSetAccessToken);
+			}
+		}
+								
+		public function fb_profile_upload_image(image_url:String = ""):void {
+			var _url:String = ServerInfo.acceleratedURL+"/php/api/facebookAPI/?func=uploadPhoto&src="+escape(image_url)+"&access_token="+fb_profile_accessToken;
+			Gateway.retrieve_XML( _url , new Callback_Struct(fb_profileResponse, null, profile_image_upload_error),null, false );
+		}
+		public function profile_image_upload_error(_e:*):void {
+			App.mediator.alert_user(_e);
+		}
+		
+		
+		////////// 3rd step        // get response 'id'
+		public function fb_profileResponse(inputXML:String):void { ///Isaac
+			trace("Facebook_Connect::fb_profile_response - inputXML='" + inputXML + "'");
+			var _xml:XML =  new XML(inputXML);//new XML(test_xml_string);//
+			var img_id:String = _xml.id.toString();
+			
+			trace("Facebook_Connect::fb_profileResponse - img_id=" + img_id);
+			
+			if (img_id != "") {
+				////////// 4th step        // call to setProfilePicture(pId)
+				ExternalInterface_Proxy.call("setProfilePicture",img_id);
+				
+			}
+		}
+		//**************** Facebook set profile image (hack with permisson from fb) ****************END
 		/************************************************
 		 * 
 		 * 

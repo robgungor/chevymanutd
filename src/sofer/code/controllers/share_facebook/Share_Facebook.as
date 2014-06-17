@@ -149,6 +149,9 @@ package code.controllers.share_facebook
 			{	
 				case btn_open:		
 					open_win();		
+					break;				
+				case ui.btn_profile:		
+					App.mediator.facebook_post_profile_image();	
 					break;
 				case ui.btn_post:		
 					App.mediator.postToOwnWall();	

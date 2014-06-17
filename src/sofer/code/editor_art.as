@@ -134,6 +134,9 @@
 			// SLIM JIM THE SHIM... IF YOU DONT NEED SceneController2D replace it with null for example
 			// this class is responsible for loading all the assets shared by the big and small show
 			// and assets needed initially
+			
+			
+			
 			new Inauguration( 	
 								this.stage,
 								loaderInfo, 

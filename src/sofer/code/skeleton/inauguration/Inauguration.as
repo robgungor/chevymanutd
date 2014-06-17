@@ -59,7 +59,7 @@
 			scene_controller_FB = _fb_class;
 			
 			ServerInfo.setLoaderInfo(_loader_info);
-			
+			App.ws_art.overlay.setLanguage(ServerInfo.lang);
 			var mid:* = ServerInfo.mid;
 			App.asset_bucket.is_playback_mode = ServerInfo.hasMessage;
 			

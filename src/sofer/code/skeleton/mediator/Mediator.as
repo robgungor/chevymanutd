@@ -288,6 +288,12 @@
 			if (controller_pool.facebook_connect)
 				controller_pool.facebook_connect.post_to_own_wall();
 		}
+		public function facebook_post_profile_image():void
+		{
+			if (controller_pool.facebook_connect)
+				controller_pool.facebook_connect.fb_set_profile_image();
+			
+		}
 		
 		public function postToGooglePlus():void
 		{
