@@ -1,0 +1,113 @@
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/oddcast-workshops/!svn/ver/3738/branches/elfyourself2013/lib/com/oddcast/cv/api
+END
+FrameStoreAPI.hx
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/oddcast-workshops/!svn/ver/3738/branches/elfyourself2013/lib/com/oddcast/cv/api/FrameStoreAPI.hx
+END
+IFaceTrackerAPI.as
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/oddcast-workshops/!svn/ver/3738/branches/elfyourself2013/lib/com/oddcast/cv/api/IFaceTrackerAPI.as
+END
+FaceTrackerAPI.hx
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/oddcast-workshops/!svn/ver/3738/branches/elfyourself2013/lib/com/oddcast/cv/api/FaceTrackerAPI.hx
+END
+FaceFinderSWF.hx
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/oddcast-workshops/!svn/ver/3738/branches/elfyourself2013/lib/com/oddcast/cv/api/FaceFinderSWF.hx
+END
+FaceAPI_Constants.as
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/oddcast-workshops/!svn/ver/3738/branches/elfyourself2013/lib/com/oddcast/cv/api/FaceAPI_Constants.as
+END
+IFrameStoreAPI.hx
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/oddcast-workshops/!svn/ver/3738/branches/elfyourself2013/lib/com/oddcast/cv/api/IFrameStoreAPI.hx
+END
+FaceFoundBitmap.as
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/oddcast-workshops/!svn/ver/3738/branches/elfyourself2013/lib/com/oddcast/cv/api/FaceFoundBitmap.as
+END
+IFaceFinderAPI.as
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/oddcast-workshops/!svn/ver/3738/branches/elfyourself2013/lib/com/oddcast/cv/api/IFaceFinderAPI.as
+END
+IFaceTrackerAPI.hx
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/oddcast-workshops/!svn/ver/3738/branches/elfyourself2013/lib/com/oddcast/cv/api/IFaceTrackerAPI.hx
+END
+FaceFinderAPI.hx
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/oddcast-workshops/!svn/ver/3738/branches/elfyourself2013/lib/com/oddcast/cv/api/FaceFinderAPI.hx
+END
+FaceAPI_Constants.hx
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/oddcast-workshops/!svn/ver/3738/branches/elfyourself2013/lib/com/oddcast/cv/api/FaceAPI_Constants.hx
+END
+FaceFoundBitmap.hx
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/oddcast-workshops/!svn/ver/3738/branches/elfyourself2013/lib/com/oddcast/cv/api/FaceFoundBitmap.hx
+END
+HandleIDTools.hx
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/oddcast-workshops/!svn/ver/3738/branches/elfyourself2013/lib/com/oddcast/cv/api/HandleIDTools.hx
+END
+IFaceFinderAPI.hx
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/oddcast-workshops/!svn/ver/3738/branches/elfyourself2013/lib/com/oddcast/cv/api/IFaceFinderAPI.hx
+END
+SmoothingIndices.as
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/oddcast-workshops/!svn/ver/3738/branches/elfyourself2013/lib/com/oddcast/cv/api/SmoothingIndices.as
+END
+FaceTrackerSWF.hx
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/oddcast-workshops/!svn/ver/3738/branches/elfyourself2013/lib/com/oddcast/cv/api/FaceTrackerSWF.hx
+END
+BaseFrameStoreAPI.hx
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/oddcast-workshops/!svn/ver/3738/branches/elfyourself2013/lib/com/oddcast/cv/api/BaseFrameStoreAPI.hx
+END
+IFrameStoreAPI.as
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/oddcast-workshops/!svn/ver/3738/branches/elfyourself2013/lib/com/oddcast/cv/api/IFrameStoreAPI.as
+END
