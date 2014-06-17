@@ -27,6 +27,7 @@
 	import code.controllers.share_misc.Share_Misc;
 	import code.controllers.share_twitter.Share_Twitter;
 	import code.controllers.terms_conditions.Terms_Conditions;
+	import code.controllers.twitter_connect.Twitter_Connect;
 	import code.skeleton.App;
 	import code.skeleton.inauguration.Inauguration;
 	
@@ -175,6 +176,7 @@
 			new MySpace_Connect			( art.myspace_connect_status );
 			new Facebook_Connect		( art.facebook_connect_status );
 			new Google_Connect			();
+			new Twitter_Connect			();
 			var dummy:InteractiveObject = new Sprite();
 			// sharing
 			//new Share_Digg				( art.panel_buttons.diggBtn );

@@ -294,6 +294,18 @@
 			if (controller_pool.google_connect)
 				controller_pool.google_connect.post_to_GooglePlus();
 		}
+		
+		public function twitterPostProfileImage():void
+		{
+			if (controller_pool.twitter_connect)
+				controller_pool.twitter_connect.post_profile_image();
+		}
+		
+		public function twitterTweet():void
+		{
+			if (controller_pool.twitter_connect)
+				controller_pool.twitter_connect.update_status();
+		}
 		/**
 		 * logs a user in, creates a thumb url, creates an mid, posts data
 		 * @param	_user_id if null then posts to your own wall

@@ -32,6 +32,7 @@ package code.skeleton.mediator
 	import code.controllers.preview.Preview;
 	import code.controllers.processing.IProcessing;
 	import code.controllers.terms_conditions.Terms_Conditions;
+	import code.controllers.twitter_connect.Twitter_Connect;
 	import code.controllers.vhost_back_selection.IVhost_Back_Selection;
 	import code.controllers.vhost_selection.IVhost_Selection;
 	
@@ -86,6 +87,7 @@ package code.skeleton.mediator
 		public var makeAnother				:MakeAnother;
 		public var preview					:Preview;
 		public var google_connect			:Google_Connect;
+		public var twitter_connect			:Twitter_Connect;
 		public var bigShow					:BigShow;
 		// popular media
 //		public var pupular_media_contact_selector	:IPopular_Media_Contact_Selector;
