@@ -116,6 +116,7 @@ package code.controllers
 			ui.visible = true;
 			set_tab_order();
 			set_focus();
+			App.localizer.localize(ui, "copy_url");
 		}
 		/**
 		 * hides the UI

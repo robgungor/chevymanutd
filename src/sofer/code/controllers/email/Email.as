@@ -76,11 +76,7 @@
 						ui.tf_toName,
 						ui.tf_toName2,
 						ui.tf_toName3];
-			_defaults = [];
-			for(var i:Number = 0; i<_fields.length; i++)
-			{
-				_defaults[i] = _fields[i].text;
-			}
+			_setDefaults();
 			App.listener_manager.add_multiple_by_object(_fields, FocusEvent.FOCUS_IN, _onTfFocus, this );
 			App.listener_manager.add_multiple_by_object(_fields, FocusEvent.FOCUS_OUT, _onTfFocusOut, this );
 			
@@ -126,6 +122,31 @@
 				ui.tf_msg.maxChars			= 1000;
 		}
 		
+		protected function _localize():void
+		{
+			App.localizer.localize(this.ui, "email");
+			
+			ui.tf_toName.text 		= 
+				ui.tf_toName2.text 	= 
+				ui.tf_toName3.text 	= App.localizer.getTranslation("email_friend_name_txt");
+			
+			ui.tf_toEmail.text 		= 
+				ui.tf_toEmail2.text = 
+				ui.tf_toEmail3.text = App.localizer.getTranslation("email_friend_email_txt");
+			
+			ui.tf_fromName.text 	= App.localizer.getTranslation('email_your_name_txt');
+			ui.tf_fromEmail.text 	= App.localizer.getTranslation('email_your_email_txt');
+			
+			_setDefaults();
+		}
+		protected function _setDefaults():void
+		{
+			_defaults = [];
+			for(var i:Number = 0; i<_fields.length; i++)
+			{
+				_defaults[i] = _fields[i].text;
+			}
+		}
 		protected function _emailSuccessWindowClose(e:MouseEvent = null):void
 		{
 			_emailSuccessWindow.visible = false;
@@ -271,7 +292,7 @@
 		}
 		private function open_win():void 
 		{
-			App.localizer.localize(this.ui, "email");
+			_localize();
 			if (App.mediator.checkPhotoExpired())
 			{
 				//App.mediator.scene_editing.stopAudio();
@@ -309,8 +330,7 @@
 				//set_focus();
 			}
 			_emailSuccessWindow.visible = false;
-			
-			
+
 		}
 		private function close_win( _e:MouseEvent = null ):void 
 		{

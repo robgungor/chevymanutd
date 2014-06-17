@@ -126,6 +126,7 @@ package code.controllers.preview
 			ui.visible = true;
 			set_tab_order();
 			set_focus();
+			App.localizer.localize(ui, "preview");
 		}
 		/**
 		 * hides the UI
