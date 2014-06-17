@@ -153,7 +153,7 @@ package com.oddcast.workshop
 		/** script for checking server capacities eg: */
 		public static var throttle_capacity_url							:String		= NO_VALUE_STRING;
 		
-		public  static var lang:String = "us_english";
+		public  static var lang:String = "us";
 		
 		public static const PERSISTANT_IMAGE_OFF		:int		= 0;
 		public static const PERSISTANT_IMAGE_READ_ONLY	:int		= 1;

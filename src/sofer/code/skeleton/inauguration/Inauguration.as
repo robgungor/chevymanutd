@@ -57,9 +57,9 @@
 			scene_controller_2d = _2d_class;
 			scene_controller_3d = _3d_class;
 			scene_controller_FB = _fb_class;
-			trace("WHAT");
+			
 			ServerInfo.setLoaderInfo(_loader_info);
-			trace("INAUG LANG: "+_loader_info.parameters.lang);
+			
 			var mid:* = ServerInfo.mid;
 			App.asset_bucket.is_playback_mode = ServerInfo.hasMessage;
 			

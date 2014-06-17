@@ -140,7 +140,8 @@
 			if(searchType == GOOGLE_PLUS)
 			{
 				retrieve_googlePlus_images();
-			}else{
+			}else
+			{
 				retrieve_facebook_user_tagged_and_albums();//isaac
 			}
 			App.mediator.autophoto_image_source_type( Auto_Photo_Constants.IMAGE_SOURCE_TYPE_SOCIAL_MEDIA );

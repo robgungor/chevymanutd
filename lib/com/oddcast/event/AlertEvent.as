@@ -24,6 +24,7 @@ package com.oddcast.event {
 		public static const ERROR:String="error";
 		public static const CONFIRM:String="confirm";
 		public static const FACEBOOK_CONFIRM:String = "facebookConfirm";
+		public static const GOOGLE_CONFIRM:String = "googleConfirm";
 		/**
 		 * NOTE: AlertEvents are always of type AlertEvent.EVENT. No matter what the alert type is, you have to listen
 		 * for addListener(AlertEvent.EVENT,fn)!

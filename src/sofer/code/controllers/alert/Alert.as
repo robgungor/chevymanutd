@@ -140,8 +140,9 @@
 			ui.title_alert.visible 			= !ui.titleFacebookShare.visible;
 			//ui.btn_cancel.visible = _e.code == "startOver";
 			// show message
+			
 			ui.tf_msg.text = alert_pretext(_e.code) + alertText.split("Alert").join("ALERT");
-			if(_e.alertType == AlertEvent.FACEBOOK_CONFIRM) ui.tf_msg.text = 	'Press OK to share on Facebook.';
+			//if(_e.alertType == AlertEvent.FACEBOOK_CONFIRM) ui.tf_msg.text = 	'Press OK to share on Facebook.';
 			// save callback
 			callback = _e.callback;
 			

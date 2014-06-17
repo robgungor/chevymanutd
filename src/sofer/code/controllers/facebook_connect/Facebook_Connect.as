@@ -105,11 +105,12 @@ package code.controllers.facebook_connect
 			ui.accountInfo.visible = false;
 			
 			try 
-			{
+			{				
 				ExternalInterface_Proxy.addCallback("fbcSetUserInfo"			, fbcSetUserInfo);
 				ExternalInterface_Proxy.addCallback("fbcSetUserPictures"		, fbcSetUserPictures);
 				ExternalInterface_Proxy.addCallback("fbcSetConnectState"		, fbcSetConnectState);
 				ExternalInterface_Proxy.addCallback("fbcSetProfileAlbumCover"	, fbcSetProfileAlbumCover);
+				ExternalInterface_Proxy.addCallback("fbcPublishFlashStreamCB"	, fbcPublishFlashStreamCB );
 				
 				ExternalInterface_Proxy.call("fbcGetConnectState");
 				
@@ -181,6 +182,7 @@ package code.controllers.facebook_connect
 		public function login( _on_logged_in_callback:Function = null ):void
 		{
 			on_logged_in_callback = _on_logged_in_callback;
+			trace("LOGGING INTO FACEBOOK CONNECT");
 			ExternalInterface_Proxy.call("fbcLogin");
 		}
 		
@@ -420,6 +422,7 @@ package code.controllers.facebook_connect
 					function fin_message_saved():void
 					{
 						end_processing();
+						var m:String = App.localizer.getTranslation("fb_share_press_ok");
 						App.mediator.alert_user( new AlertEvent(AlertEvent.FACEBOOK_CONFIRM, 'f9t542', 'Press OK to share on Facebook.', false, user_response, false) );
 						function user_response( _ok:Boolean ):void
 						{
@@ -467,7 +470,7 @@ package code.controllers.facebook_connect
 /*strMessage*/ 			App.settings.FACEBOOK_POST_MESSAGE, 
 /*strLink*/ 			url, 
 /*strPicture*/ 			defaultURL, 
-/*strSwfSource*/ 		defaultURL, 
+/*strSwfSource*/ 		'',//defaultURL, 
 /*strName*/ 			App.settings.FACEBOOK_POST_NAME,
 /*strCaption*/ 			App.settings.FACEBOOK_POST_CAPTION,
 /*strDescription*/ 		App.settings.FACEBOOK_POST_DESCRIPTION,
@@ -522,6 +525,7 @@ package code.controllers.facebook_connect
 		 */
 		private var _onGotConnectedStateCallback:Function;
 		private function fbcSetConnectState(n:Number):void {
+			
 			if (n < 0) 
 				n = 0;
 			if (n == facebookId) 
@@ -546,7 +550,6 @@ package code.controllers.facebook_connect
 			{
 				user = null;
 				App.mediator.facebookLoginFail();
-				
 			}			
 			if(_onGotConnectedStateCallback != null) _onGotConnectedStateCallback();
 			// TODO - maybe handle not loggin in here?
@@ -556,9 +559,15 @@ package code.controllers.facebook_connect
 		private var _userProfilePicId:String;
 		private function fbcSetProfileAlbumCover(_xml:*):void
 		{
-			var xml		:XML 	= new XML( _xml );
-			var picXML:XML  = xml.response.children()[0];
-			_userProfilePicId = picXML.child("pid").toString();
+			try
+			{
+				var xml		:XML = new XML( _xml );
+				var picXML	:XML = xml.response.children()[0];
+				_userProfilePicId = picXML.child("pid").toString();
+			}catch(e:*)
+			{
+				trace(e);
+			}
 		}
 		private function onLogin(evt:MouseEvent):void 
 		{
@@ -570,7 +579,6 @@ package code.controllers.facebook_connect
 		{
 			logout();
 		}
-		
 		
 		public function logout():void 
 		{
@@ -789,6 +797,16 @@ package code.controllers.facebook_connect
 			result = result.substr(0, result.length-2);
 			return result;
 			
+		}
+		
+		private function fbcPublishFlashStreamCB( _status:String ):void {
+			trace("fbcPublishFlashStreamCB===> "+_status);	
+			if (_status != "") {
+				WSEventTracker.event("ce16");
+				//App.mediator.doTrace("fbcPublishFlashStreamCB===> POSTED");
+			}else {
+				//App.mediator.doTrace("fbcPublishFlashStreamCB===> DID NOT POST");
+			}
 		}
 				
 	}
