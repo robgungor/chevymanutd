@@ -229,6 +229,7 @@ package code.controllers.twitter_connect
 		
 		public function update_status( ):void
 		{
+			trace("UPDATING TWITTER STATUS:");
 			if (is_logged_in())
 				user_is_logged_in();
 			else
@@ -268,7 +269,7 @@ package code.controllers.twitter_connect
 			 */
 			function post( ):void
 			{
-				ExternalInterface_Proxy.call('twUpdateStatus', App.asset_bucket.lastPhotoSavedURL);
+				ExternalInterface_Proxy.call('twUpdateStatus', "This is the status", App.asset_bucket.lastPhotoSavedURL);
 			}
 		}
 		/************************************************
