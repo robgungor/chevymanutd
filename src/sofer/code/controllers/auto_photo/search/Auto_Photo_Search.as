@@ -126,8 +126,7 @@
 			ui.visible = true;
 			
 			//ui.tileList.selectedItem = null;
-			
-		
+			App.localizer.localize(ui, "fb_upload");
 		}
 		public function startSearch(searchType:String = ""):void
 		{

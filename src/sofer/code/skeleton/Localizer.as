@@ -273,8 +273,7 @@ package code.skeleton
 		}
 		
 		public function getTranslation(key:String):String
-		{	
-			
+		{				
 			if(this[key] != null) 
 			{				
 				return this[key];
