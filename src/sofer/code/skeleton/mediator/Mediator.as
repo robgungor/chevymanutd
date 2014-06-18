@@ -742,7 +742,7 @@
 		{
 			
 			App.ws_art.makeAnother.visible = false;
-			//App.ws_art.dancers.visible = true;
+			
 			if (controller_pool.auto_photo_mode_selector)
 				controller_pool.auto_photo_mode_selector.open_win();
 
@@ -863,7 +863,7 @@
 		}
 		public function hideDancers():void
 		{
-			App.ws_art.dancers.visible = false;
+			
 		}
 		public function gotoMakeAnother():void
 		{
@@ -1482,21 +1482,21 @@
 		
 		public function clearHeads():void
 		{
-			controller_pool.auto_photo_apc.savedHeads 		= [];
-			App.asset_bucket.last_mid_saved 				= null;
-			controller_pool.auto_photo_apc.currentHeadIndex = -1;
-			
-			for(var j:Number = 1; j<6; j++)
-			{
-				var clip:* = App.ws_art.dancers.getChildByName("face_"+j);
-				var hold:MovieClip= (clip.getChildByName("head_hold") as MovieClip);
-			
-				for(var i:Number = 0; i<hold.numChildren; i++)
-				{
-					if(hold.getChildAt(i) != null) hold.removeChildAt(i);
-				}
-			}
-			
+//			controller_pool.auto_photo_apc.savedHeads 		= [];
+//			App.asset_bucket.last_mid_saved 				= null;
+//			controller_pool.auto_photo_apc.currentHeadIndex = -1;
+//			
+//			for(var j:Number = 1; j<6; j++)
+//			{
+//				var clip:* = App.ws_art.dancers.getChildByName("face_"+j);
+//				var hold:MovieClip= (clip.getChildByName("head_hold") as MovieClip);
+//			
+//				for(var i:Number = 0; i<hold.numChildren; i++)
+//				{
+//					if(hold.getChildAt(i) != null) hold.removeChildAt(i);
+//				}
+//			}
+//			
 			/*for(var i:Number = 1; i<6; i++)
 			{
 				var face:* = App.ws_art.dancers.getChildByName("face_"+i);

@@ -133,8 +133,7 @@
 			_croppedBitmaps = [];
 			_savedHeads = [null,null,null,null,null];
 			App.listener_manager.add_multiple_by_object(_uploadBtns, MouseEvent.CLICK, _onUploadBtnsClicked, this);
-			//App.ws_art.makeAnother.btn_upload.addEventListener(MouseEvent.CLICK, _startUploadProcess);
-			//App.ws_art.dancers.visible = true;
+			//App.ws_art.makeAnother.btn_upload.addEventListener(MouseEvent.CLICK, _startUploadProcess);			
 			expiryTimer = new Timer(ServerInfo.sessionTimeoutSeconds*1000, 1);
 			//_setInitialPersistantImages();
 		}
@@ -648,14 +647,6 @@
 			var img_data:ByteArray = PNGEncoder.encode( bmp.bitmapData );
 			var saver:HeadSaver = new HeadSaver(_currentHeadIndex, cutPoint);
 			saver.addEventListener(Event.COMPLETE, onSaved);
-			
-//			var clip:* = App.ws_art.dancers.getChildByName("face_"+(_currentHeadIndex+1));
-//			var hold:MovieClip= (clip.getChildByName("head_hold") as MovieClip);
-//			for(var i:Number = 0; i<hold.numChildren; i++)
-//			{
-//				if(hold.getChildAt(i) != null) hold.removeChildAt(i);
-//			}
-//			hold.addChild(bmp);
 			
 			function onSaved(e:Event):void
 			{

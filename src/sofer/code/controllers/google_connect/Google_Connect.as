@@ -177,13 +177,26 @@ package code.controllers.google_connect
 			trace("Google_Connect::gpcGetPictures - googlePlus - ");
 			
 			get_user_pictures_callback = _fin;
+			event_expiration.add_event( EVENT_GET_PHOTOS_KEY, App.settings.EVENT_TIMEOUT_MS, get_friends_timedout );
+			
+			function get_friends_timedout(  ):void 
+			{	
+				get_user_pictures_callback = null;	// remove callbacks in case it comes in later on
+				_fin(null);	// indicate there was an error
+			}
+			
 			ExternalInterface_Proxy.call("gpLogin");//isaac
+			
 		}
 		
 		public function login(cb:Function):void
 		{
 			_onLoginCallback = cb;
 			ExternalInterface_Proxy.call("gpLogin");
+			
+			
+
+			
 		}
 		
 		public function gpSetUserPictures(inputXML:String):void { ///Isaac

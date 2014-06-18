@@ -276,7 +276,7 @@ package custom
 		{
 			//App.ws_art.mainPlayer.visible = false;
 			App.ws_art.makeAnother.visible = false;
-			App.ws_art.dancers.visible = false;
+			//App.ws_art.dancers.visible = false;
 			
 			dance();
 		}

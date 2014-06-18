@@ -196,7 +196,7 @@ package code.controllers.twitter_connect
 				{
 					end_processing();
 					
-					App.mediator.alert_user( new AlertEvent(AlertEvent.GOOGLE_CONFIRM, 'f9t542', 'Press OK to share on Twitter.', false, user_response, false) );
+					App.mediator.alert_user( new AlertEvent(AlertEvent.TWITTER_CONFIRM, 'f9t542', 'Press OK to share on Twitter.', false, user_response, false) );
 					function user_response( _ok:Boolean ):void
 					{
 						if (_ok)
@@ -220,6 +220,7 @@ package code.controllers.twitter_connect
 			 */
 			function post( ):void
 			{
+				trace("twUpdateProfileImage: "+App.asset_bucket.lastPhotoSavedURL);
 				ExternalInterface_Proxy.call('twUpdateProfileImage', App.asset_bucket.lastPhotoSavedURL);
 			}
 		}

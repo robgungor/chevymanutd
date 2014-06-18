@@ -380,28 +380,8 @@ package code.controllers.facebook_connect
 			}
 			function create_thumbnail( _user_id:String ):void 
 			{
-				//if (_thumb_url)	// use indicated thumb
-				//	thumb_ready(_thumb_url);
-				//else if (App.settings.FACEBOOK_POST_GENERATE_IMAGE)	// autogenerate one
-				//	App.mediator.screenshot_host( new Callback_Struct(thumb_ready,null,thumb_error) );
-				//else	// use the settings indicated one
-				
 				thumb_ready( App.settings.FACEBOOK_POST_IMAGE_URL );
-				/*
-				var allNull:Boolean = true;
-				for (var i:Number =0; i< App.mediator.savedHeads.length; i++)
-				{
-					if(App.mediator.savedHeads[i] != null) allNull = false;
-					//App.asset_bucket.last_mid_saved = "111";
-					
-				}
-				if(allNull ) 
-				{
-					post_to_user( _user_id, App.asset_bucket.last_mid_saved, App.settings.FACEBOOK_POST_IMAGE_URL );
-				}else
-				{
-					thumb_ready( App.settings.FACEBOOK_POST_IMAGE_URL );
-				}*/
+				
 				/**
 				 * error generating thumb
 				 * @param	_e
@@ -463,6 +443,28 @@ package code.controllers.facebook_connect
 				var strDisplay		:String = App.settings.FACEBOOK_POST_DISPLAY;
 				
 				defaultURL = App.asset_bucket.lastPhotoSavedURL;
+				
+				trace("CALLING PUBLISH FEED STORY");
+				
+				//fbcPublishImageStream (nFriendId, strTitle, strMessageContent, strName, strCaption, strDescription, strImageSource, strHref)
+				
+				ExternalInterface_Proxy.call
+					(
+						'fbcPublishImageStream',
+						/*nFriendId*/ 			_user_id, 
+						/*strTitle*/ 			'title',
+						/*strMessageContent*/ 	App.settings.FACEBOOK_POST_MESSAGE,	 
+						/*strName*/ 			App.settings.FACEBOOK_POST_NAME, 
+						/*strCaption*/ 			App.settings.FACEBOOK_POST_CAPTION,//defaultURL, 
+						/*strDescription*/ 		App.settings.FACEBOOK_POST_DESCRIPTION,
+						/*strImageSource*/ 		App.asset_bucket.lastPhotoSavedURL,	
+						/*strHref*/ 			url						
+					);
+				
+				
+				
+				
+				return;
 				
 				ExternalInterface_Proxy.call
 					(

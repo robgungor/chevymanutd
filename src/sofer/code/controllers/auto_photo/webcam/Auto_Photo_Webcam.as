@@ -258,8 +258,7 @@
 		{
 			if(_active)
 			{
-				App.ws_art.auto_photo_mode_selector.visible = false;
-				App.ws_art.dancers.visible = false; 
+				App.ws_art.auto_photo_mode_selector.visible = false;				 
 			//	close_win();
 			}
 			ui.visible = 

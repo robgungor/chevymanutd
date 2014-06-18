@@ -108,8 +108,7 @@
 		{
 			ui.visible = true;
 			_localize();
-			
-			App.ws_art.dancers.visible = false;
+						
 			App.ws_art.oddcast.visible = true;
 			
 			// set 

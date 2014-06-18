@@ -111,8 +111,7 @@ package code.controllers
 		 */
 		public function open_win(  ):void 
 		{	
-			ui.visible = true;
-			App.ws_art.dancers.visible = true;
+			ui.visible = true;			
 			//set_tab_order();
 			set_focus();
 		}
