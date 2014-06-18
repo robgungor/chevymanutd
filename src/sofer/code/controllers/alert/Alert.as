@@ -112,7 +112,7 @@
 			{	
 				var temp_callback:Function = callback;
 				callback = null;
-				temp_callback( _e.target == ui.btn_ok );
+				temp_callback( _e.currentTarget == ui.btn_ok );
 			}
 		}
 		

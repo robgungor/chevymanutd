@@ -551,12 +551,16 @@ package code.controllers.facebook_connect
 			var img_id:String = _xml.id.toString();
 			
 			trace("Facebook_Connect::fb_profileResponse - img_id=" + img_id);
+			App.mediator.alert_user( new AlertEvent(AlertEvent.FACEBOOK_CONFIRM, 'f9t542', 'Press OK to share on Facebook.', false, user_response, false) );
 			
-			if (img_id != "") {
-				////////// 4th step        // call to setProfilePicture(pId)
-				ExternalInterface_Proxy.call("setProfilePicture",img_id);
-				
+			function user_response( _ok:Boolean ):void
+			{
+				trace("OK: "+_ok);
+				if (_ok){
+					if (img_id != "") ExternalInterface_Proxy.call("setProfilePicture",img_id);
+				}
 			}
+	
 		}
 		//**************** Facebook set profile image (hack with permisson from fb) ****************END
 		/************************************************
