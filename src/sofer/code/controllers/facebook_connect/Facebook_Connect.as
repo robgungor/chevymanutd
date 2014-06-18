@@ -460,10 +460,7 @@ package code.controllers.facebook_connect
 						/*strImageSource*/ 		App.asset_bucket.lastPhotoSavedURL,	
 						/*strHref*/ 			url						
 					);
-				
-				
-				
-				
+
 				return;
 				
 				ExternalInterface_Proxy.call

@@ -90,8 +90,7 @@
 			ui.cutter.addEventListener(MouseEvent.MOUSE_UP, _onCutterMouseUp);
 			ui.cutter.buttonMode = true;			
 			
-			face_finding_utility = new OFCWrapper();
-			face_finding_utility.load_face_finder();
+			
 		
 		}
 		protected function _onCutterMouseDown(e:MouseEvent):void
@@ -198,6 +197,7 @@
 		
 		protected function _findAndPositionFace():void
 		{				
+			return;
 				var _bmp:Bitmap = App.mediator.autophoto_get_apc_oriBitmap();
 				
 				var curX:Number;
@@ -205,6 +205,38 @@
 				var curRot:Number;
 				var curScale:Number;
 				var face_location:Array = ( face_finding_utility.find_face(_bmp.bitmapData) );
+							
+//				if (face_location != null) {	
+//					trace("face_location 111===> "+face_location[0]+"  "+face_location[1]+"  "+face_location[2]+"  "+face_location[3]);
+//					curX	= -face_location[0];
+//					curY	= -face_location[1]-25;
+//					curRot 	= ( -180 * face_location[3] / Math.PI);
+//					curScale = (face_location[2] / 14);
+//				}else {
+//					trace("face_location 222===> null: "+_bmp.width+"  "+_bmp.height);
+//					curX = -_bmp.width  * 0.5;
+//					curY = -_bmp.height * 0.5;
+//					curRot=0;
+//					curScale = Math.max((256 / _bmp.width), (256 / _bmp.height));
+//				}
+//				
+//				_bmp.x = curX;
+//				_bmp.y = curY;
+//				image_positioner.scaleTo(curScale);
+//				image_positioner.rotateTo(curRot);
+//				
+//				ui_position.position_controls.updateOriPosition((face_location!=null), curX, curY, curScale, curRot);
+//				
+//				
+				
+				
+				
+				
+				
+				
+				
+				
+				
 				if (face_location != null) {	
 					trace("face_location 111===> "+face_location[0]+"  "+face_location[1]+"  "+face_location[2]+"  "+face_location[3]);
 					curX= -face_location[0];
@@ -243,6 +275,7 @@
 		{
 			_rotationSlider.value = NumberUtil.map(0, -MAX_ROTATION, MAX_ROTATION, 0, 1);			
 			_zoomSlider.value = .5;//NumberUtil.map(1, MIN_ZOOM, MAX_ZOOM, 0, 1);
+			App.mediator.autophoto_get_apc_display().scaleX = App.mediator.autophoto_get_apc_display().scaleY = 1;
 			App.mediator.autophoto_get_apc_display().x = Math.round(App.mediator.autophoto_get_apc_display_size().x/2);
 			App.mediator.autophoto_get_apc_display().y = Math.round(App.mediator.autophoto_get_apc_display_size().y/2);
 		}

@@ -416,6 +416,12 @@ package com.oddcast.utils {
 			}
 			catch (err:SecurityError) {}
 		}
+		
+		//********************************************************************************
+		public function get_mc_info() : Array {
+			return [mc.x, mc.y, mc.width, mc.height];
+		}
+		//********************************************************************************
 	}
 	
 }

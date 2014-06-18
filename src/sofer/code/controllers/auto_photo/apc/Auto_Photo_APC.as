@@ -7,6 +7,7 @@
 	import com.adobe.images.PNGEncoder;
 	import com.oddcast.assets.structures.BackgroundStruct;
 	import com.oddcast.event.*;
+	import com.oddcast.photo.OFCWrapper;
 	import com.oddcast.utils.*;
 	import com.oddcast.utils.gateway.Gateway;
 	import com.oddcast.utils.gateway.Gateway_Request;
@@ -76,6 +77,7 @@
 
 		protected var _defaultHeadThumbs:Array = [];
 		
+		private var face_finding_utility:OFCWrapper;
 		/*
 		[Embed(source="../../src/art/thumbs/01.jpg")]
 		private var Default1:Class;
@@ -136,6 +138,9 @@
 			//App.ws_art.makeAnother.btn_upload.addEventListener(MouseEvent.CLICK, _startUploadProcess);			
 			expiryTimer = new Timer(ServerInfo.sessionTimeoutSeconds*1000, 1);
 			//_setInitialPersistantImages();
+			
+			face_finding_utility = new OFCWrapper();
+			face_finding_utility.load_face_finder();
 		}
 		private function startExpiryTimer():void {
 			expiryTimer.reset();
@@ -230,35 +235,91 @@
 			//var bmp:Bitmap = new Bitmap(((evt.target as LoaderInfo).content as Bitmap).bitmapData, "auto", true);
 			if(_zoomer) 	_zoomer.destroy();
 			if(_photoHold) 	_photoHold.destroy();
-			
+						
 			_photoHold = new CasaSprite();
+			_zoomer = new MoveZoomUtil( _photoHold );
 			
-			var scaled:Rectangle = RatioUtil.scaleToFill(_bmp.bitmapData.rect, new Rectangle(0,0,display_size.x, display_size.y));
+			
+			
 			// create a new smooth guy
 			var bmp:Bitmap = new Bitmap(_bmp.bitmapData.clone(), "auto", true);
+			_photoHold.addChild(bmp);
+
+			//var _bmp:Bitmap = App.mediator.autophoto_get_apc_oriBitmap();
 			
-			if(fromWebcam){
+			var curX:Number;
+			var curY:Number;
+			var curRot:Number;
+			var curScale:Number;
+			var face_location:Array = fromWebcam ? null :  face_finding_utility.find_face(bmp.bitmapData);
+			
+			if (face_location != null) {	
+				trace("face_location 111===> "+face_location[0]+"  "+face_location[1]+"  "+face_location[2]+"  "+face_location[3]);
+				curX	= -face_location[0];
+				curY	= -face_location[1]-25;
+				curRot 	= ( -180 * face_location[3] / Math.PI);
+				curScale = (face_location[2] /30);
+				trace("curScale: "+curScale);
+				bmp.x = curX;
+				bmp.y = curY;
+				
+				_zoomer.scaleTo(curScale);
+				_zoomer.rotateTo(curRot);
+				//_photoHold.scaleX = _photoHold.scaleY = curScale/2;
+				_photoHold.x = 0;
+				_photoHold.y = 0;
+				
+				updateOriPosition((face_location!=null), curX, curY, curScale, curRot);
+				
+			}else 
+			{
+				var scaled:Rectangle = RatioUtil.scaleToFill(_bmp.bitmapData.rect, new Rectangle(0,0,display_size.x, display_size.y));
 				bmp.width = scaled.width;
 				bmp.height = scaled.height;
 				
 				bmp.x = -Math.round((bmp.width/2) );
 				bmp.y = -Math.round(bmp.height/2);
+				
+				_photoHold.x = Math.round(display_size.x/2);
+				_photoHold.y = Math.round(display_size.y/2);
 			}
-			_photoHold.x = Math.round(display_size.x/2);
-			_photoHold.y = Math.round(display_size.y/2);
-			
-			_oriBitmap = bmp;
-			_photoHold.addChild(bmp);
-			
-			
-			_zoomer = new MoveZoomUtil( _photoHold );
+						
+			_oriBitmap = bmp;			
 			_uploadedBitmap = bmp;
 			
 			App.mediator.autophoto_position_photo(fromWebcam);
-			App.mediator.processing_ended(LOADING_UPLOADED_BITMAP);
-			
+			App.mediator.processing_ended(LOADING_UPLOADED_BITMAP);					
 		}
 		
+		
+		
+		
+		public function updateOriPosition(_useFaceFinder:Boolean, _oriX:Number, _oriY:Number, _oriScale:Number, _oriRot:Number):void {
+			var oriPosObj:Object = new Object();
+			oriPosObj.oriX = _oriX;
+			oriPosObj.oriY = _oriY;
+			oriPosObj.oriScale = _oriScale;
+			oriPosObj.oriRot = _oriRot;
+			_zoomer.setScaleLimits(_oriScale * 0.0001, _oriScale * 5);
+								
+			if(_useFaceFinder==true){
+				var mcInfo:Array = _zoomer.get_mc_info();
+				oriPosObj.offY = -1*mcInfo[3]/25;
+				_zoomer.moveTo(0, oriPosObj.offY);
+			}else {
+				oriPosObj.offY = 0;
+			}
+		}
+		private function scaleToPercent(n:Number):Number {
+			return(Math.log(n/_zoomer.minScale)/Math.log(_zoomer.maxScale/_zoomer.minScale));
+		}
+		
+		
+		//-------------------------------		
+		private function rotationToPercent(n:Number):Number {
+			var _percent:Number = (n / 180) / 2 + 0.5;
+			return _percent;
+		}
 		/**
 		* 
 		* 

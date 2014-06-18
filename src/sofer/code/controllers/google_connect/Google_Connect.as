@@ -297,6 +297,7 @@ package code.controllers.google_connect
 			function post_to_user( _user_id:String, _mid:String, _thumb_url:String ):void
 			{
 				_thumb_url = App.asset_bucket.lastPhotoSavedURL;
+				trace("POSTING TO GOOGLE PLUS USER: "+_thumb_url);
 				ExternalInterface_Proxy.call('shareGooglePlus', _thumb_url, lang);
 				
 				WSEventTracker.event("uiebfb");
