@@ -447,6 +447,24 @@ package code.controllers.facebook_connect
 				trace("CALLING PUBLISH FEED STORY");
 				
 				//fbcPublishImageStream (nFriendId, strTitle, strMessageContent, strName, strCaption, strDescription, strImageSource, strHref)
+				//fbcPublishFeedStory ('', 'Test message', 'http://host.oddcast.com', 'http://host-vs.oddcast.com/best-dog-ever/images/videoCtrl_lastFrame.jpg', '', 'test name', 'test caption', 'test descripton')
+				
+				
+				ExternalInterface_Proxy.call
+					(
+						'fbcPublishFeedStory',
+						/*strToId*/ 			_user_id, 
+						/*strMessage*/ 			App.settings.FACEBOOK_POST_MESSAGE, 
+						/*strLink*/ 			url, 
+						/*strPicture*/ 			defaultURL, 
+						/*strSwfSource*/ 		'',//defaultURL, 
+						/*strName*/ 			App.settings.FACEBOOK_POST_NAME,
+						/*strCaption*/ 			App.settings.FACEBOOK_POST_CAPTION,
+						/*strDescription*/ 		App.settings.FACEBOOK_POST_DESCRIPTION
+						///*strDisplay*/ 			App.settings.FACEBOOK_POST_DISPLAY
+					);
+				
+				return
 				
 				ExternalInterface_Proxy.call
 					(
@@ -463,19 +481,7 @@ package code.controllers.facebook_connect
 
 				return;
 				
-				ExternalInterface_Proxy.call
-					(
-						'fbcPublishFeedStory',
-/*strToId*/ 			_user_id, 
-/*strMessage*/ 			App.settings.FACEBOOK_POST_MESSAGE, 
-/*strLink*/ 			url, 
-/*strPicture*/ 			defaultURL, 
-/*strSwfSource*/ 		'',//defaultURL, 
-/*strName*/ 			App.settings.FACEBOOK_POST_NAME,
-/*strCaption*/ 			App.settings.FACEBOOK_POST_CAPTION,
-/*strDescription*/ 		App.settings.FACEBOOK_POST_DESCRIPTION,
-/*strDisplay*/ 			App.settings.FACEBOOK_POST_DISPLAY
-					);
+				
 				
 				
 				

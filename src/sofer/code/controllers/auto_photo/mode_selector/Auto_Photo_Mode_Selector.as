@@ -15,6 +15,7 @@
 	
 	import flash.events.Event;
 	import flash.events.MouseEvent;
+	import flash.text.TextFormat;
 	
 	import workshop.persistent_image.Persistent_Image_Selector_Item;
 	import workshop.ui.LocalizedButton;
@@ -106,13 +107,13 @@
 		 * **************************************************************/
 		public function open_win(  ) : void
 		{
-			ui.visible = true;
+			ui.visible = true;	
+				
 			_localize();
 						
 			App.ws_art.oddcast.visible = true;
 			
-			// set 
-			
+			// set
 			//_onCbClicked();
 			//populate_selector();
 		}
