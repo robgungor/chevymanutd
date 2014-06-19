@@ -1,13 +1,9 @@
 package workshop.ui
-{	
-	import code.skeleton.FontManager;
-	
+{		
 	import flash.display.DisplayObjectContainer;
 	import flash.display.MovieClip;
 	import flash.display.SimpleButton;
 	import flash.text.TextField;
-	
-	import player.App;
 	
 	public class LocalizedButton extends MovieClip implements ILocalizable
 	{
@@ -22,7 +18,7 @@ package workshop.ui
 		protected var _key:String;
 		protected var _translation:String;
 		
-		public function setText(value:String, language:String = '', useDeviceFonts:Boolean = false):void
+		public function setText(value:String, language:String = '', useDeviceFonts:Boolean = false, replaceFontsFunction:Function = null):void
 		{
 			var btn:SimpleButton =  getChildByName(language) as SimpleButton || getChildAt(0) as SimpleButton;
 			
@@ -38,8 +34,9 @@ package workshop.ui
 						if(state.getChildAt(i) is TextField) 
 						{
 							var tf:TextField = (state.getChildAt(i) as TextField)
-							tf.embedFonts = !useDeviceFonts;
-							//FontManager.replaceFonts(tf, language);
+							//tf.embedFonts = !useDeviceFonts;
+							trace("REPLACING FONTS IN LOCALIZED BUTTON: "+replaceFontsFunction);
+							replaceFontsFunction(tf, language);
 							(state.getChildAt(i) as TextField).text = value;
 						}
 					}

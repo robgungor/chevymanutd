@@ -17,7 +17,7 @@ package workshop.ui
 			super();
 		}
 			
-		public function setText(value:String, language:String = '', useDeviceFonts:Boolean = false):void
+		public function setText(value:String, language:String = '', useDeviceFonts:Boolean = false, replaceFontsFunction:Function = null):void
 		{
 //			var child:DisplayObjectContainer =  getChildByName(language) as DisplayObjectContainer || getChildAt(0) as DisplayObjectContainer;
 //						

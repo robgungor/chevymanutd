@@ -246,7 +246,7 @@ package code.controllers.twitter_connect
 				{
 					end_processing();
 					
-					App.mediator.alert_user( new AlertEvent(AlertEvent.GOOGLE_CONFIRM, 'f9t542', 'Press OK to share on Twitter.', false, user_response, false) );
+					App.mediator.alert_user( new AlertEvent(AlertEvent.GOOGLE_CONFIRM, 'f9t542', App.localizer.getTranslation('twitter_share_pop_up_title'), false, user_response, false) );
 					function user_response( _ok:Boolean ):void
 					{
 						if (_ok)

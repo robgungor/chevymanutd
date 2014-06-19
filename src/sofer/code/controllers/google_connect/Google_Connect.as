@@ -272,7 +272,7 @@ package code.controllers.google_connect
 					{
 						end_processing();
 						var m:String = App.localizer.getTranslation("gp_share_press_ok");
-						App.mediator.alert_user( new AlertEvent(AlertEvent.GOOGLE_CONFIRM, 'f9t542', 'Press OK to share on Google Plus.', false, user_response, false) );
+						App.mediator.alert_user( new AlertEvent(AlertEvent.GOOGLE_CONFIRM, 'f9t542', App.localizer.getTranslation('google_share_pop_up_title'), false, user_response, false) );
 						function user_response( _ok:Boolean ):void
 						{
 							if (_ok)

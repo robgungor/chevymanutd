@@ -193,7 +193,7 @@ package code.skeleton
 					break;
 			}
 			
-			
+			_language = lang;
 			
 			
 			if( ui is LocalizedContainer) ui = (ui as LocalizedContainer).setLanguage(lang);
@@ -207,11 +207,11 @@ package code.skeleton
 				
 				if(child is ILocalizable)
 				{
-					if(translation) (child as ILocalizable).setText( translation, _language, _useDeviceFonts);
+					if(translation) (child as ILocalizable).setText( translation, _language, _useDeviceFonts, FontManager.replaceFonts);
 				} else if(child is TextField)
 				{
 					var tf:TextField = (child as TextField);
-					tf.embedFonts = !_useDeviceFonts;
+					//tf.embedFonts = !_useDeviceFonts;
 					FontManager.replaceFonts(tf, lang);
 					if(translation) (child as TextField).text = translation;
 				}
