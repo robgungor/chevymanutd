@@ -1,9 +1,13 @@
 package workshop.ui
 {	
+	import code.skeleton.FontManager;
+	
 	import flash.display.DisplayObjectContainer;
 	import flash.display.MovieClip;
 	import flash.display.SimpleButton;
 	import flash.text.TextField;
+	
+	import player.App;
 	
 	public class LocalizedButton extends MovieClip implements ILocalizable
 	{
@@ -35,6 +39,7 @@ package workshop.ui
 						{
 							var tf:TextField = (state.getChildAt(i) as TextField)
 							tf.embedFonts = !useDeviceFonts;
+							//FontManager.replaceFonts(tf, language);
 							(state.getChildAt(i) as TextField).text = value;
 						}
 					}

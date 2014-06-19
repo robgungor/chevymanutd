@@ -68,7 +68,7 @@
 			
 			App.listener_manager.add( ui.btn_close, MouseEvent.CLICK, btn_step_handler, this);
 			App.listener_manager.add( ui.btn_next, MouseEvent.CLICK, btn_step_handler, this);
-			App.listener_manager.add( ui.btn_change_photo, MouseEvent.CLICK, btn_step_handler, this);
+			App.listener_manager.add( ui.btn_back, MouseEvent.CLICK, btn_step_handler, this);
 			App.listener_manager.add( ui.btn_hairstyle_right, MouseEvent.CLICK, _onHairstyleChangeClick, this);
 			App.listener_manager.add( ui.btn_hairstyle_left, MouseEvent.CLICK, _onHairstyleChangeClick, this);
 			
@@ -324,13 +324,12 @@
 		***************************** PRIVATEEEEEERS */
 		private function btn_step_handler( _e:MouseEvent ):void 
 		{	switch ( _e.currentTarget )
-			{	case ui.btn_change_photo:		App.mediator.autophoto_change_photo();
+			{	case ui.btn_back:		App.mediator.autophoto_change_photo();
 														
 													break;
 				case ui.btn_next:			var snapshot:Bitmap = take_snapshot();
 													close_win();
-													var chinPoint:Point = new Point(Math.max(ui.placeholder_apc.hairstyle_1.x-_currentOutline.x, 0), Math.max(ui.placeholder_apc.hairstyle_1.y-_currentOutline.y, 0));
-													trace("current Contrast in position: "+_currentContrast);
+													var chinPoint:Point = new Point(Math.max(ui.placeholder_apc.hairstyle_1.x-_currentOutline.x, 0), Math.max(ui.placeholder_apc.hairstyle_1.y-_currentOutline.y, 0));													
 													App.mediator.save_masked_photo(snapshot, _currentContrast, chinPoint);//cutPoint);	
 													
 													//App.mediator.autophoto_submit_photo_position();

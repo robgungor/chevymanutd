@@ -18,7 +18,7 @@ package code.models.items
 		
 		private const ERROR_LOADING_CODE:String='';
 		private const ERROR_LOADING_MSG:String='Error loading errors list';
-		private const SUB_URL:String="xml/errors.xml";
+		private const SUB_URL:String="xml/errors";
 		
 		public function List_Errors()
 		{}
@@ -46,7 +46,7 @@ package code.models.items
 				model_loaded();
 			else
 			{
-				var url:String = _url ? _url : ServerInfo.default_url + SUB_URL;
+				var url:String = _url ? _url : ServerInfo.default_url + SUB_URL+"_"+ServerInfo.lang+".xml";
 				
 				Gateway.retrieve_XML( url, new Callback_Struct(fin, progress, error), response_eval);
 				function response_eval(_xml:XML):Boolean

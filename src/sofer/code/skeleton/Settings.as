@@ -34,9 +34,9 @@
 		
 		
 		/** path to the errors xml (eg: xml/errors.xml ) */
-		public const ERRORS_XML_PATH			:String = 'xml/errors.xml';
+		public const ERRORS_XML_PATH			:String = 'xml/errors';
 		/** settings xml path (eg: xml/settings.xml) */
-		public const SETTINGS_XML_PATH			:String = 'xml/settings.xml';
+		public const SETTINGS_XML_PATH			:String = 'xml/settings';
 		/** path to the engine swf */
 		public const ENGINE_PATH				:String = 'swf/editor_sofer.swf';
 		/** error initializing application -- needs to be hardcoded since xmls cannot load due to initial load failure */

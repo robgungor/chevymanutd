@@ -402,9 +402,8 @@ package code.controllers.facebook_connect
 					App.utils.mid_saver.save_message( null, new Callback_Struct(fin_message_saved, null, error_message) );
 					function fin_message_saved():void
 					{
-						end_processing();
-						var m:String = App.localizer.getTranslation("fb_share_press_ok");
-						App.mediator.alert_user( new AlertEvent(AlertEvent.FACEBOOK_CONFIRM, 'f9t542', 'Press OK to share on Facebook.', false, user_response, false) );
+						end_processing();						
+						App.mediator.alert_user( new AlertEvent(AlertEvent.FACEBOOK_CONFIRM, 'f9t542', App.localizer.getTranslation('fb_share_pop_up_title'), false, user_response, false) );
 						function user_response( _ok:Boolean ):void
 						{
 							if (_ok)

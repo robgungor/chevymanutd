@@ -70,7 +70,7 @@
 			
 			init_shortcuts();
 			
-			App.listener_manager.add_multiple_by_object( [ui.btn_ok], 	MouseEvent.CLICK, btn_handler, this );
+			App.listener_manager.add_multiple_by_object( [ui.btn_ok, ui.btn_close], 	MouseEvent.CLICK, btn_handler, this );
 			App.listener_manager.add( ui.tf_msg, MouseEvent.CLICK, highlight_text, this);
 			
 			new Custom_Scrollbar_Skinner(ui.tf_scrollbar);

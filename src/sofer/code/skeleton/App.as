@@ -24,6 +24,7 @@
 		/** root of the art holder */
 		public static var ws_art			: WS_Art;
 		public static var localizer			: Localizer					= new Localizer();
+		public static var fontManager		: FontManager				= new FontManager();
 	}
 	
 }

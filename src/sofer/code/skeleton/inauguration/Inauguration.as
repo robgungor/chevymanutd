@@ -337,7 +337,7 @@
 		}
 		private function load_settings(_continue:Function, _key:Function):void
 		{
-			var url:String = ServerInfo.default_url + App.settings.SETTINGS_XML_PATH;
+			var url:String = ServerInfo.default_url + App.settings.SETTINGS_XML_PATH +"_"+ServerInfo.lang+".xml";
 			progress( 0 );
 			Gateway.retrieve_XML( url, new Callback_Struct( fin, progress, error ));
 			function fin( _content:XML ):void 

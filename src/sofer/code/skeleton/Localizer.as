@@ -8,6 +8,7 @@ package code.skeleton
 	import flash.text.TextField;
 	import flash.utils.Dictionary;
 	import flash.utils.describeType;
+	import flash.utils.getQualifiedClassName;
 	
 	import workshop.ui.ILocalizable;
 	import workshop.ui.LocalizedButton;
@@ -164,7 +165,19 @@ package code.skeleton
 //		public var alert_connection_failure:String;
 //		public var alert_generic:String;
 
-		
+		private function _enumerateFonts():void
+		{
+			trace(App.ws_art.fonts.arial_bold.defaultTextFormat.font);
+			var embeddedFonts:Array = Font.enumerateFonts(false);
+			embeddedFonts.sortOn("fontName", Array.CASEINSENSITIVE);
+			trace("ENUMERATING FONTS");
+			
+			for(var i:int = 0;i<embeddedFonts.length;i++){
+				var font:Font = embeddedFonts[i];
+				trace("public static var "+font.fontName+":"+font.fontName+"= new  "+font.fontName+"(); //"+font.fontStyle);  				
+				//}
+			}
+		}
 		public function localize(ui:DisplayObjectContainer, prefix:String = ''):void
 		{
 			var lang:String = ServerInfo.lang;
@@ -180,17 +193,18 @@ package code.skeleton
 					break;
 			}
 			
+			
+			
+			
 			if( ui is LocalizedContainer) ui = (ui as LocalizedContainer).setLanguage(lang);
-			var fonts:Array = Font.enumerateFonts();
+			
 			
 			for (var i:int = 0; i<ui.numChildren; i++)
 			{
 				var child:* = ui.getChildAt(i);
 				var translation:String = getTranslation(prefix+"_"+child.name);
-				for each(var font:Font in fonts){
-					trace( font.fontName+":"+font.fontType );
-					trace("HAS GLYPHS: "+font.hasGlyphs(translation));
-				}
+				
+				
 				if(child is ILocalizable)
 				{
 					if(translation) (child as ILocalizable).setText( translation, _language, _useDeviceFonts);
@@ -198,7 +212,7 @@ package code.skeleton
 				{
 					var tf:TextField = (child as TextField);
 					tf.embedFonts = !_useDeviceFonts;
-				
+					FontManager.replaceFonts(tf, lang);
 					if(translation) (child as TextField).text = translation;
 				}
 			}
@@ -221,13 +235,12 @@ package code.skeleton
 			</type>
 			*/
 			
-			
-			
+		
 			var settings_properties:XML = describeType(this);
 			var var_name:String, var_type:String, var_node:XML;
 			var xml_value:String;
 			var ignore_xml_value:Boolean;
-			
+					
 			// we use device fonts for the textfield if it's an alternate character language
 			var deviceFonts:Array = ["jp","th","ru","arabic","cn"];		
 			_useDeviceFonts = deviceFonts.indexOf(ServerInfo.lang) > 0;
