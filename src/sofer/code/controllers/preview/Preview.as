@@ -171,7 +171,7 @@ package code.controllers.preview
 					App.mediator.autophoto_back_to_position();
 					break;
 				case ui.btn_googleplus:
-					App.mediator.postToGooglePlus();
+					//App.mediator.postToGooglePlus();
 					break;
 				case ui.btn_upload_new:	
 					close_win();

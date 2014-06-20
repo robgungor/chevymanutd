@@ -34,6 +34,7 @@
 	import flash.events.MouseEvent;
 	import flash.media.SoundMixer;
 	import flash.system.Security;
+	import flash.text.Font;
 	import flash.ui.ContextMenu;
 	import flash.ui.ContextMenuItem;
 	
@@ -365,6 +366,25 @@
 			}
 			function error( _msg:String ):void 
 			{	error_initializing( 'Language XML file not found: '+ServerInfo.lang + '.xml');
+			}
+		}
+		
+		private function load_fonts(_continue:Function, _key:Function):void
+		{
+			var swfURL:String = ServerInfo.content_url_door + "misc/"+ServerInfo.lang+".swf";
+			Gateway.retrieve_Loader( new Gateway_Request(swfURL, new Callback_Struct( fin ) ) );
+			
+			function fin(l:Loader):void
+			{
+				var FontLibrary:Class = l.loaderInfo.applicationDomain.getDefinition("FontSwfDocumentClass") as Class;
+				Font.registerFont(FontLibrary.SketchetikLight);
+				_continue(_key);
+			}			
+			function progress( _percent:int ):void
+			{	App.mediator.main_loading_process_status_update( Main_Loader.TYPE_SETTINGS, _percent );
+			}
+			function error( _msg:String ):void 
+			{	error_initializing( 'Font file not found: '+ServerInfo.lang + '.swf');
 			}
 		}
 		private function load_profanity_filter(_continue:Function, _key:Function):void

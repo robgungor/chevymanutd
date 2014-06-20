@@ -108,12 +108,10 @@
 					open_win();
 					break;
 				case  ui.btn_tweet:					
-					share_to_twitter();
-					//App.mediator.twitterTweet();
+					//share_to_twitter();
 					break;
 				case  ui.btn_profile:					
-					//share_to_twitter();
-					App.mediator.twitterPostProfileImage();
+					//App.mediator.twitterPostProfileImage();
 					break;
 				case  ui.btn_close:					
 					close_win();
