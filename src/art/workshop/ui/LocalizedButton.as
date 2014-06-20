@@ -37,7 +37,7 @@ package workshop.ui
 							//tf.embedFonts = !useDeviceFonts;
 							trace("REPLACING FONTS IN LOCALIZED BUTTON: "+replaceFontsFunction);
 							replaceFontsFunction(tf, language);
-							(state.getChildAt(i) as TextField).text = value;
+							(state.getChildAt(i) as TextField).text = value;						
 						}
 					}
 				}
