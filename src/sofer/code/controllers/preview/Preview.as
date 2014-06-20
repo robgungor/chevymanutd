@@ -2,6 +2,8 @@ package code.controllers.preview
 {
 	import code.skeleton.App;
 	
+	import com.oddcast.workshop.ServerInfo;
+	
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
 	import flash.display.DisplayObject;
@@ -126,6 +128,9 @@ package code.controllers.preview
 			ui.visible = true;
 			set_tab_order();
 			set_focus();
+			trace("OPEN WIN PREVIEW");
+			ui.facebook_btn.visible = ui.btn_googleplus.visible = ServerInfo.lang != "cn";
+			ui.btn_renren.visible = ui.btn_weibo.visible = ServerInfo.lang == "cn";
 			App.localizer.localize(ui, "preview");
 		}
 		/**
