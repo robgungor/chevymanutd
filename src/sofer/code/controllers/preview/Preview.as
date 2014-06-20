@@ -76,7 +76,9 @@ package code.controllers.preview
 		 */
 		private function init(  ):void 
 		{	
-			_faceSize = new Rectangle( ui.photo.face.x, ui.photo.face.y, ui.photo.face.width, ui.photo.face.height );
+			_faceSize 		= new Rectangle( ui.photo.face.x, ui.photo.face.y, ui.photo.face.width, ui.photo.face.height );
+			_twitterPoint 	= new Point(ui.twitter_btn.x, ui.twitter_btn.y);
+			_urlPoint		= new Point(ui.btn_copy_url.x, ui.btn_copy_url.y);
 			init_shortcuts();
 			set_ui_listeners();
 		}
@@ -122,15 +124,29 @@ package code.controllers.preview
 		 * displays the UI
 		 * @param	_e
 		 */
+		private var _twitterPoint:Point;
+		private var _urlPoint:Point;
 		public function open_win(  ):void 
 		{	
 			App.ws_art.oddcast.visible = true;
 			ui.visible = true;
 			set_tab_order();
 			set_focus();
-			trace("OPEN WIN PREVIEW");
-			ui.facebook_btn.visible = ui.btn_googleplus.visible = ServerInfo.lang != "cn";
-			ui.btn_renren.visible = ui.btn_weibo.visible = ServerInfo.lang == "cn";
+			
+			ui.facebook_btn.visible = ui.btn_googleplus.visible = ui.twitter_btn.visible = ServerInfo.lang != "cn";
+			ui.btn_renren.visible 	= ui.btn_weibo.visible = ServerInfo.lang == "cn";
+			
+			if(ServerInfo.lang == "cn")
+			{
+				ui.btn_copy_url.x = _twitterPoint.x;
+				ui.btn_copy_url.y = _twitterPoint.y;
+			}else
+			{
+				ui.btn_copy_url.x = _urlPoint.x;
+				ui.btn_copy_url.y = _urlPoint.y;
+			}
+			
+			ui.btn_weibo.visible 	= ServerInfo.lang == "cn";
 			App.localizer.localize(ui, "preview");
 		}
 		/**
