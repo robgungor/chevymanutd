@@ -62,6 +62,8 @@
 			
 			ServerInfo.setLoaderInfo(_loader_info);
 			App.ws_art.overlay.setLanguage(ServerInfo.lang);
+			App.ws_art.overlay.bg.visible = true;
+			
 			var mid:* = ServerInfo.mid;
 			App.asset_bucket.is_playback_mode = ServerInfo.hasMessage;
 			

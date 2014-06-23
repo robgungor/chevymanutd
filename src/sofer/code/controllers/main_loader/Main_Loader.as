@@ -136,6 +136,9 @@
 		private function update_texts(  ):void
 		{
 			App.localizer.localize(this.ui, "loading_screen");
+			App.localizer.localize(App.ws_art.overlay, "loading_screen");
+			App.ws_art.overlay.bg.visible = true;
+			
 			var total_percent:int;
 			var num_of_tiers:int = 5;
 			

@@ -156,6 +156,7 @@
 				art.shadow_3.visible = App.settings.USE_THIRD_DANCE;
 				
 				App.localizer.localize(App.ws_art.overlay, "loading_screen_");
+				App.ws_art.overlay.bg.visible = true;
 			}
 		}
 		
