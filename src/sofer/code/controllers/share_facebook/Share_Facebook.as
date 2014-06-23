@@ -151,10 +151,10 @@ package code.controllers.share_facebook
 					open_win();		
 					break;				
 				case ui.btn_profile:		
-					//App.mediator.facebook_post_profile_image();	
+					App.mediator.facebook_post_profile_image();	
 					break;
 				case ui.btn_post:		
-					//App.mediator.postToOwnWall();	
+					App.mediator.postToOwnWall();	
 					break;
 				case ui.btn_close:	
 					close_win();	

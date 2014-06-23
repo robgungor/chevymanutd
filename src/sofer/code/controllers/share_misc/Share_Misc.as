@@ -148,7 +148,7 @@
 			trace("GET URL CLICKED");
 			WSEventTracker.event("ce12");
 			//App.mediator.checkOptIn(get_url);
-		//	get_url();
+			get_url();
 		}
 		private function _onBigShowGetURLClicked(e:MouseEvent):void
 		{

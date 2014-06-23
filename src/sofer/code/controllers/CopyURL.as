@@ -147,7 +147,7 @@ package code.controllers
 			switch ( _e.currentTarget )
 			{	
 				case btn_open:		
-					//open_win();		
+					open_win();		
 					break;
 				case ui.btn_ok:	
 					close_win();	
