@@ -34,8 +34,7 @@ package workshop.ui
 						if(state.getChildAt(i) is TextField) 
 						{
 							var tf:TextField = (state.getChildAt(i) as TextField)
-							//tf.embedFonts = !useDeviceFonts;
-							trace("REPLACING FONTS IN LOCALIZED BUTTON: "+replaceFontsFunction);
+													
 							replaceFontsFunction(tf, language);
 							(state.getChildAt(i) as TextField).text = value;						
 						}

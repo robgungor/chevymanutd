@@ -544,7 +544,7 @@ package com.oddcast.workshop {
 			}
 			
 			//processing_send._visible=false;
-			trace("res : "+_xml.@RES.toString())
+			trace("send done : "+_xml.toXMLString())
 			var result:String=unescape(_xml.@RES.toString()).toUpperCase();
 			
 			dispatchEvent(new ProcessingEvent(ProcessingEvent.DONE,"saving"));

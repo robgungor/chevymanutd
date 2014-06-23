@@ -2,6 +2,7 @@
 {
 	import code.controllers.main_loader.Main_Loader;
 	import code.skeleton.App;
+	import code.skeleton.FontManager;
 	
 	import com.oddcast.event.AlertEvent;
 	import com.oddcast.utils.Method_Sequence_Manager;
@@ -70,6 +71,7 @@
 																										load_errors, 
 																										load_settings,
 																										load_localization,
+																										load_fonts,
 																										init_scene_controller, 
 																										init_error_reporting,
 																										init_tracking,
@@ -371,13 +373,16 @@
 		
 		private function load_fonts(_continue:Function, _key:Function):void
 		{
+			// we only load these 3 (because they are the bohemiths 
+			var loadableFonts:Array = ['jp', 'cn', 'kr'];
+			if(loadableFonts.indexOf(ServerInfo.lang) < 0) _continue(_key);
+			
 			var swfURL:String = ServerInfo.content_url_door + "misc/"+ServerInfo.lang+".swf";
 			Gateway.retrieve_Loader( new Gateway_Request(swfURL, new Callback_Struct( fin ) ) );
 			
 			function fin(l:Loader):void
 			{
-				var FontLibrary:Class = l.loaderInfo.applicationDomain.getDefinition("FontSwfDocumentClass") as Class;
-				Font.registerFont(FontLibrary.SketchetikLight);
+				FontManager.registerFonts(l, ServerInfo.lang);
 				_continue(_key);
 			}			
 			function progress( _percent:int ):void

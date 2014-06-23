@@ -165,19 +165,7 @@ package code.skeleton
 //		public var alert_connection_failure:String;
 //		public var alert_generic:String;
 
-		private function _enumerateFonts():void
-		{
-			trace(App.ws_art.fonts.arial_bold.defaultTextFormat.font);
-			var embeddedFonts:Array = Font.enumerateFonts(false);
-			embeddedFonts.sortOn("fontName", Array.CASEINSENSITIVE);
-			trace("ENUMERATING FONTS");
-			
-			for(var i:int = 0;i<embeddedFonts.length;i++){
-				var font:Font = embeddedFonts[i];
-				trace("public static var "+font.fontName+":"+font.fontName+"= new  "+font.fontName+"(); //"+font.fontStyle);  				
-				//}
-			}
-		}
+		
 		public function localize(ui:DisplayObjectContainer, prefix:String = ''):void
 		{
 			var lang:String = ServerInfo.lang;

@@ -270,6 +270,7 @@ package code.controllers.twitter_connect
 			 */
 			function post( ):void
 			{
+				
 				ExternalInterface_Proxy.call('twUpdateStatus', "This is the status", App.asset_bucket.lastPhotoSavedURL);
 			}
 		}

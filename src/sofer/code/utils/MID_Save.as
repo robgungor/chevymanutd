@@ -96,11 +96,8 @@
 			}
 			
 			function saving_fin( _e:SendEvent ):void
-			{	remove_listeners();
-				save_complete( _e );
-				end_processing();
-				if (_callbacks && _callbacks.fin != null)
-					_callbacks.fin();
+			{	remove_listeners();				
+				save_complete( _e, _callbacks );				
 			}
 			function saving_error( _e:AlertEvent ):void
 			{	remove_listeners();
@@ -266,7 +263,7 @@
 					var bg:WSBackgroundStruct = new WSBackgroundStruct(url);//, 0, String(i), String(i), i, i);
 					scene = new SceneStruct(null, bg);//, null, new Matrix(head.mouthCutPoint), new Matrix(head.mouthCutPoint));
 					saver.saveWorkshop(_e, scene, extraData, tags, msgParams);
-					App.asset_bucket.lastPhotoSavedURL = url;
+//					App.asset_bucket.lastPhotoSavedURL = url;
 					
 				}
 				App.mediator.uploadPhoto(onUploadComplete);
@@ -307,15 +304,46 @@
 				else 
 					saver.resend(_e, App.asset_bucket.last_mid_saved, extraData, tags, msgParams);*/
 		}
-		private function save_complete( _msg_event:SendEvent):void
+		private function save_complete( _msg_event:SendEvent, _callbacks:Callback_Struct):void
 		{	// track only if the MID has changed
-				var cur_mid:String;
-				if (_msg_event && _msg_event.messageXML)					cur_mid = _msg_event.messageXML.@MID;
-				if (cur_mid != App.asset_bucket.last_mid_saved)	WSEventTracker.event("edsv");
-				//if (App.mediator.scene_editing.full_body_ready())
-				//	App.mediator.scene_editing.full_body.scene_was_saved();
-				trace("MID_Save::save_complete::"+_msg_event.messageXML);
+			var cur_mid:String;
+			if (_msg_event && _msg_event.messageXML)					cur_mid = _msg_event.messageXML.@MID;
+			if (cur_mid != App.asset_bucket.last_mid_saved)	WSEventTracker.event("edsv");
+			//if (App.mediator.scene_editing.full_body_ready())
+			//	App.mediator.scene_editing.full_body.scene_was_saved();
+			trace("MID_Save::save_complete::"+_msg_event.messageXML);
+			
 			App.asset_bucket.last_mid_saved = cur_mid;
+			
+			var doc_query	:String = ServerInfo.acceleratedURL + 'php/api/playScene/doorId=' + ServerInfo.door + '/clientId=' + ServerInfo.client + '/mId=' + cur_mid;
+			Gateway.retrieve_XML( doc_query, new Callback_Struct( fin_fin, null, error ) );
+			function fin_fin( _content:XML ):void 
+			{	
+				trace("MidSave::saving_fin::fin_fin: "+_content);;
+				var result:String = unescape(_content.toString().split("+").join(" "));
+				
+				var mid_message:WorkshopMessage = new WorkshopMessage( parseInt(App.asset_bucket.last_mid_saved) );
+				mid_message.parseXML( _content);
+				
+				for(var i:Number = 0; i<mid_message.sceneArr.length; i++)
+				{
+					var scene:SceneStruct = mid_message.sceneArr[i];
+					var image:WSBackgroundStruct = mid_message.sceneArr[i].bg as WSBackgroundStruct;
+					if(image && image.url) 
+					{
+						trace("AFTER MIDSAVE: "+image.url);
+						App.asset_bucket.lastPhotoSavedURL = image.url;
+					}
+				}				
+				end_processing();
+				if (_callbacks && _callbacks.fin != null)
+					_callbacks.fin();
+			}
+			function error(e:*):void
+			{
+				
+			}
+			
 			
 			//image:WSBackgroundStruct = mid_message.sceneArr[i].bg as WSBackgroundStruct;
 			//App.asset_bucket.lastPhotoSavedURL = _msg_event.messageXML.@bg
@@ -347,7 +375,7 @@
 			request.background = true;
 			Gateway.upload( vars, request );
 			function fin( _content:String ) : void
-			{
+			{				
 				trace(_content);
 			}
 			function progress( _percent:int ) : void

@@ -10,7 +10,9 @@ package code.controllers.facebook_connect
 	import com.oddcast.utils.gateway.Gateway_Request;
 	import com.oddcast.workshop.Callback_Struct;
 	import com.oddcast.workshop.ExternalInterface_Proxy;
+	import com.oddcast.workshop.SceneStruct;
 	import com.oddcast.workshop.ServerInfo;
+	import com.oddcast.workshop.WSBackgroundStruct;
 	import com.oddcast.workshop.WSEventTracker;
 	import com.oddcast.workshop.WorkshopMessage;
 	
@@ -443,6 +445,15 @@ package code.controllers.facebook_connect
 				
 				defaultURL = App.asset_bucket.lastPhotoSavedURL;
 				
+//				for(var i:Number = 0; i<message.sceneArr.length; i++)
+//				{
+//					var scene:SceneStruct = message.sceneArr[i];
+//					var image:WSBackgroundStruct = message.sceneArr[i].bg as WSBackgroundStruct;
+//					if(image && image.url) 
+//					{
+//						defaultURL = image.url;
+//					}
+//				}
 				trace("CALLING PUBLISH FEED STORY");
 				
 				//fbcPublishImageStream (nFriendId, strTitle, strMessageContent, strName, strCaption, strDescription, strImageSource, strHref)

@@ -122,6 +122,8 @@
 		{
 			App.localizer.localize(this.ui, "homescreen");
 			
+			if(ServerInfo.lang == "jp") ui.title_upload.y = 25;
+			
 			ui.btn_facebook.visible = ui.btn_googleplus.visible = ServerInfo.lang != "cn";
 			ui.btn_renren.visible = ui.btn_weibo.visible = ServerInfo.lang == "cn";
 		}
