@@ -157,15 +157,9 @@
 		{
 			
 			// probably a smoother way to do this - but loop through and make sure at least one of the heads
-			var allNull:Boolean = true;
-			for (var i:Number =0; i< App.mediator.savedHeads.length; i++)
-			{
-				if(App.mediator.savedHeads[i] != null) allNull = false;				
-			}
-			if(allNull ) 
-			{
-				if(!App.asset_bucket.last_mid_saved) return false//if(_send_data.sendMode != SendEvent.EMAIL) return true;
-			}
+			
+			if(!App.asset_bucket.lastPhotoSavedURL) return false;//if(_send_data.sendMode != SendEvent.EMAIL) return true;
+			
 			
 			if (	// there were updates so new save is required
 				!App.asset_bucket.last_mid_saved ||						// we dont have a valid previous MID to use

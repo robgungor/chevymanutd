@@ -375,10 +375,13 @@ package code.controllers.facebook_connect
 			
 			function user_is_logged_in():void 
 			{
-				if (_user_id)	// indicated user id
-					create_thumbnail( _user_id );
-				else	// post to own wall
-					create_thumbnail( user_id() );
+				
+				// skip everything else because mid is already saved
+				post_to_user( _user_id, App.asset_bucket.last_mid_saved, _thumb_url );
+//				if (_user_id)	// indicated user id
+//					create_thumbnail( _user_id );
+//				else	// post to own wall
+//					create_thumbnail( user_id() );
 			}
 			function create_thumbnail( _user_id:String ):void 
 			{
@@ -718,6 +721,7 @@ package code.controllers.facebook_connect
 			}
 			else if (res == "ERROR") 
 			{
+				on_logged_in_callback = null;
 			}
 			
 			// notify caller that were logged in

@@ -291,16 +291,14 @@
 		public function facebook_post_profile_image():void
 		{
 			if (controller_pool.facebook_connect)
-				controller_pool.facebook_connect.fb_set_profile_image();
-			
-		}
+				controller_pool.facebook_connect.fb_set_profile_image();			
+		}		
 		
 		public function postToGooglePlus():void
 		{
 			if (controller_pool.google_connect)
 				controller_pool.google_connect.post_to_GooglePlus();
 		}
-		
 		public function twitterPostProfileImage():void
 		{
 			if (controller_pool.twitter_connect)

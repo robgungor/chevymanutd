@@ -467,7 +467,7 @@
 		protected function _changeContrast( direction:Number = 1 ):void
 		{
 			_currentContrast += direction;
-			_currentContrast = Math.min(Math.max(_currentContrast, 0), TOTAL_NECKS);
+			_currentContrast = Math.min(Math.max(_currentContrast, 0), TOTAL_NECKS-1);
 			
 //			var currentAlpha:Number = ui.neck.getChildByName("skin").alpha;		
 //			
@@ -492,7 +492,7 @@
 		protected function _enableContrastBtns():void
 		{
 			ui.btn_contrast_less.enabled =  _currentContrast > 0;
-			ui.btn_contrast_more.enabled =  _currentContrast < TOTAL_NECKS;
+			ui.btn_contrast_more.enabled =  _currentContrast < TOTAL_NECKS-1;
 			ui.btn_contrast_less.alpha = ui.btn_contrast_less.enabled ? 1 : .5;
 			ui.btn_contrast_more.alpha = ui.btn_contrast_more.enabled ? 1 : .5;
 		}

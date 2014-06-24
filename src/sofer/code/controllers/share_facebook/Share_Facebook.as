@@ -3,6 +3,10 @@ package code.controllers.share_facebook
 	
 	import code.skeleton.App;
 	
+	import com.oddcast.event.AlertEvent;
+	import com.oddcast.utils.Event_Expiration;
+	import com.oddcast.workshop.Callback_Struct;
+	
 	import flash.display.DisplayObject;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
@@ -18,6 +22,7 @@ package code.controllers.share_facebook
 		private var ui					:ShareFacebookUI;
 		/** button, generally outside of the UI which opens this view */
 		private var btn_open			:DisplayObject;
+		private var event_expiration		:Event_Expiration = new Event_Expiration();
 		
 		/*******************************************************
 		 * 
@@ -111,12 +116,41 @@ package code.controllers.share_facebook
 		 * displays the UI
 		 * @param	_e
 		 */
+		private const POSTING_TO_FACEBOOK	:String = 'POSTING_TO_FACEBOOK';
+		private const POSTING_MSG			:String = 'Posting your scene.';
+		
 		private function open_win(  ):void 
 		{	
 			App.localizer.localize(this.ui, "fb_share");
-			ui.visible = true;
+			
 			set_tab_order();
 			set_focus();
+			App.mediator.processing_start(POSTING_TO_FACEBOOK, POSTING_MSG);
+			event_expiration.add_event( 'fblogin', App.settings.EVENT_TIMEOUT_MS, get_friends_timedout );
+					
+			
+			function get_friends_timedout(  ):void 
+			{	
+				App.mediator.alert_user(new AlertEvent('didntlogin', 'fb123'));				// indicate there was an error
+			}
+			App.mediator.facebook_connect_login(_onFacebookLogin);
+		}
+		private function _onFacebookLogin(e:*):void
+		{
+			event_expiration.remove_event('fblogin');
+					
+			App.utils.mid_saver.save_message( null, new Callback_Struct(fin_message_saved, null, error_message) );
+			function fin_message_saved():void
+			{
+				end_processing();						
+				ui.visible = true;
+			}
+			function error_message( _e:AlertEvent ):void
+			{	end_processing();
+			}
+			function end_processing(  ):void 
+			{	App.mediator.processing_ended(POSTING_TO_FACEBOOK);
+			}
 		}
 		/**
 		 * hides the UI
