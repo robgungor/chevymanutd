@@ -255,7 +255,7 @@
 					break;
 				case ui.btn_send:
 					trace("SEND");
-					//send();
+					send();
 					break;
 //				case ui.btn_popular_media:
 //					Bridge_Engine.mediator.popular_media_login();

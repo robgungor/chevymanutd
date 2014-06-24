@@ -90,8 +90,6 @@
 			ui.cutter.addEventListener(MouseEvent.MOUSE_UP, _onCutterMouseUp);
 			ui.cutter.buttonMode = true;			
 			
-			
-		
 		}
 		protected function _onCutterMouseDown(e:MouseEvent):void
 		{
@@ -145,7 +143,6 @@
 			var direction:Number = e.currentTarget == ui.btn_contrast_less ? -1 : 1;
 			_changeContrast( direction );
 		}
-		
 		
 		/*
 		* 
@@ -439,18 +436,21 @@
 		protected var _currentHairstyle:Number = 0;
 		protected var _currentOutline:DisplayObject;
 		protected var _currentContrast:Number = 0;
+		
+		private static const TOTAL_HAIRSTYLES:Number = 11;
+		private static const TOTAL_NECKS:Number = 7;
 		protected function _changeHairstyle( direction:Number =1 ):void
 		{
 			// can be +- 1
 			_currentHairstyle += direction;
 			
 			//loop around
-			if(_currentHairstyle > 8) _currentHairstyle = 1;
-			if(_currentHairstyle < 1) _currentHairstyle = 8;
+			if(_currentHairstyle > TOTAL_HAIRSTYLES) _currentHairstyle = 1;
+			if(_currentHairstyle < 1) _currentHairstyle = TOTAL_HAIRSTYLES;
 						
 			
 			// set to visible and invisible according to current hairstyle
-			for(var i:int = 1; i<=8; i++)
+			for(var i:int = 1; i<=TOTAL_HAIRSTYLES; i++)
 			{				
 				ui.placeholder_apc.getChildByName("hairstyle_"+i).visible = (i == _currentHairstyle);
 				ui.placeholder_apc.getChildByName("outline_"+i).visible = (i == _currentHairstyle);				
@@ -467,7 +467,7 @@
 		protected function _changeContrast( direction:Number = 1 ):void
 		{
 			_currentContrast += direction;
-			_currentContrast = Math.min(Math.max(_currentContrast, 0), 4);
+			_currentContrast = Math.min(Math.max(_currentContrast, 0), TOTAL_NECKS);
 			
 //			var currentAlpha:Number = ui.neck.getChildByName("skin").alpha;		
 //			
@@ -478,7 +478,9 @@
 								ui.neck.neck_2,
 								ui.neck.neck_3,
 								ui.neck.neck_4,
-								ui.neck.neck_5];
+								ui.neck.neck_5,
+								ui.neck.neck_6,
+								ui.neck.neck_7];
 			
 			for(var i:int = 0; i<necks.length; i++)
 			{				
@@ -490,7 +492,7 @@
 		protected function _enableContrastBtns():void
 		{
 			ui.btn_contrast_less.enabled =  _currentContrast > 0;
-			ui.btn_contrast_more.enabled =  _currentContrast < 4;
+			ui.btn_contrast_more.enabled =  _currentContrast < TOTAL_NECKS;
 			ui.btn_contrast_less.alpha = ui.btn_contrast_less.enabled ? 1 : .5;
 			ui.btn_contrast_more.alpha = ui.btn_contrast_more.enabled ? 1 : .5;
 		}
