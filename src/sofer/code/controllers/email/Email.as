@@ -81,7 +81,7 @@
 			App.listener_manager.add_multiple_by_object(_fields, FocusEvent.FOCUS_OUT, _onTfFocusOut, this );
 			
 			// RESTORE THIS AFTER ALPHA
-			//App.listener_manager.add( ui.btn_add, MouseEvent.CLICK, add_user_typed_email, this );
+			App.listener_manager.add( ui.btn_add, MouseEvent.CLICK, add_user_typed_email, this );
 			
 			
 			App.listener_manager.add( ui.closeBtn, MouseEvent.CLICK, close_win, this );
