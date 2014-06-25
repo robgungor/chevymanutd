@@ -162,7 +162,7 @@
 			App.utils.mid_saver.save_message(new SendEvent(SendEvent.SEND, SendEvent.GET_PLAYER_URL), new Callback_Struct( fin, null, null ) );
 			
 			function fin():void 
-			{	
+			{		
 				var message_id	:String =  App.asset_bucket.last_mid_saved ? '&mId=' + App.asset_bucket.last_mid_saved + '.3' : "";
 				//var message_id	:String = '&mId=' + App.asset_bucket.last_mid_saved + '.3';
 				var embed_url	:String = ServerInfo.pickup_url + message_id;
