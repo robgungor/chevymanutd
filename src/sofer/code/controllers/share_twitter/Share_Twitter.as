@@ -139,22 +139,22 @@
 				/**
 				 * NOTE NOTE NOTE
 				 * if you need multiple parameters in your url, eg
-				 * 		url=http://host.oddcast.com/template/?mId=124&asd=asd&dsa=dsa
+				 * 		url=http://host.oddcast.com/template/&mId=124&asd=asd&dsa=dsa
 				 * then you need to use bit.ly to shorten the url since twitter will only save the first param
 				 */
 				/**
 				 * Example
-				 * http://twitter.com/share?url=http://host-d-vd.oddcast.com/php/application_UI/doorId=860/clientId=317/?mId=203509.3&text=Check%20out%20my%20Monk-E-Mail!
+				 * http://twitter.com/share?url=http://host-d-vd.oddcast.com/php/application_UI/doorId=860/clientId=317/&mId=203509.3&text=Check%20out%20my%20Monk-E-Mail!
 				 */
 				var asset:* = App.asset_bucket;
 				
 				var mid:String = App.asset_bucket.last_mid_saved;
-				var message_id		:String =  App.asset_bucket.last_mid_saved ? '?mId=' + App.asset_bucket.last_mid_saved + '.3' : "";
+				var message_id		:String =  App.asset_bucket.last_mid_saved ? '&mId=' + App.asset_bucket.last_mid_saved + '.3' : "";
 				trace("Share_Twitter::fin::"+message_id);
 				var embed_url 		:String = ServerInfo.pickup_url + message_id;
 				var twitter_base	:String = "http://twitter.com/share";
 				var default_message	:String = escape(App.settings.TWITTER_DEFAULT_TEXT);//"Default message goes here with a link."
-				var twitter_link	:String = twitter_base+'?url='+embed_url+'&text='+default_message;
+				var twitter_link	:String = twitter_base+'?url='+escape(embed_url)+'&text='+default_message;
 				WSEventTracker.event("edbmk");
 				App.mediator.open_hyperlink(twitter_link);
 			}

@@ -107,7 +107,7 @@
 		private function create_your_own( _e:MouseEvent ):void 
 		{
 			var negative_mid:String = '-'+App.message_data.mid + '.4';// negative to indicate that the workshop was opened from this mid
-			var pickup_url:String = ServerInfo.pickup_url + '?mId=' + negative_mid;
+			var pickup_url:String = ServerInfo.pickup_url + '&mId=' + negative_mid;
 			App.alert.alert_user( new AlertEvent( AlertEvent.CONFIRM, '', Alert.MSG_BLOCKED_LINK + pickup_url, null, user_responded ))
 			URL_Opener.open_url( pickup_url );
 			

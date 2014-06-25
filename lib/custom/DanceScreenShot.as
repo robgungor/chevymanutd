@@ -217,7 +217,7 @@ package custom
 		}
 		protected function onOkClicked(e:MouseEvent):void
 		{
-			var url:String = ServerInfo.localURL + "api_misc/1083/getCode.php?mId="+App.asset_bucket.last_mid_saved+"&url="+_tempURL;
+			var url:String = ServerInfo.localURL + "api_misc/1083/getCode.php&mId="+App.asset_bucket.last_mid_saved+"&url="+_tempURL;
 			URL_Opener.open_url( url, "_blank");
 			destroy();
 		}

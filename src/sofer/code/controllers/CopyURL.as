@@ -144,17 +144,20 @@ package code.controllers
 		 */
 		private function mouse_click_handler( _e:MouseEvent ):void
 		{
+			trace("CLICKED IN COPYYRL: "+_e.currentTarget);
+			
 			switch ( _e.currentTarget )
 			{	
 				case btn_open:		
 					open_win();		
 					break;
-				case ui.btn_ok:	
-					close_win();	
+				case ui.btn_ok:
+					close_win();
 					break;
-				case ui.btn_close:	
-					close_win();	
+				case ui.btn_close:
+					close_win();
 					break;
+				default: close_win();
 			}
 		}
 		/**

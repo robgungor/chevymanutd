@@ -256,7 +256,7 @@
 		public function facebook_connect_login(_callback:Function ):void
 		{
 			if (controller_pool.facebook_connect)
-				controller_pool.facebook_connect.login( _callback );
+				controller_pool.facebook_connect.connect( _callback );
 		}
 		public function facebook_connect_get_friends_info(_fin:Function, _include_self:Boolean = true, _max_return:int = -1 ):void
 		{
@@ -1333,7 +1333,7 @@
 		private const MSG_PROCESS_DOWNLOAD_VIDEO:String = 'Saving video';
 		public function download_video_by_mId( _mid:String ):void
 		{
-			//http://host.oddcast.com/api_misc/1083/checkout.php?mId={mid}&email={email}&optin={optin 0/1}
+			//http://host.oddcast.com/api_misc/1083/checkout.php&mId={mid}&email={email}&optin={optin 0/1}
 			return;
 			scene_editing.stopAudio();
 			add_listeners();

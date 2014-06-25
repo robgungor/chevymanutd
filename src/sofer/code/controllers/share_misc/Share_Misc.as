@@ -163,8 +163,8 @@
 			
 			function fin():void 
 			{	
-				var message_id	:String =  App.asset_bucket.last_mid_saved ? '?mId=' + App.asset_bucket.last_mid_saved + '.3' : "";
-				//var message_id	:String = '?mId=' + App.asset_bucket.last_mid_saved + '.3';
+				var message_id	:String =  App.asset_bucket.last_mid_saved ? '&mId=' + App.asset_bucket.last_mid_saved + '.3' : "";
+				//var message_id	:String = '&mId=' + App.asset_bucket.last_mid_saved + '.3';
 				var embed_url	:String = ServerInfo.pickup_url + message_id;
 				
 				//App.mediator.alert_user(  new AlertEvent(null,'f9t554',embed_url, {url:embed_url},url_user_response,false) );
@@ -173,6 +173,7 @@
 				WSEventTracker.event("uiebws");
 				App.ws_art.copyURL.btn_copy.addEventListener(MouseEvent.CLICK, url_user_response);
 				App.ws_art.copyURL.btn_ok.addEventListener(MouseEvent.CLICK, onclose);
+				App.ws_art.copyURL.btn_close.addEventListener(MouseEvent.CLICK, onclose);
 				//App.ws_art.copyURL.btn_close.addEventListener(MouseEvent.CLICK, onclose);
 				function url_user_response( e:MouseEvent ):void 
 				{	

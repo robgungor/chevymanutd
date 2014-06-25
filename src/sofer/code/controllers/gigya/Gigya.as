@@ -151,10 +151,10 @@
 					var mid		:String = App.asset_bucket.last_mid_saved + '.4';
 					var swf_url	:String;
 					switch( xml_settings.get_embed_param('swf_to_embed') )	// developer can choose here which of the 3 swfs they can embed
-					{	case 'workshop':	swf_url = ServerInfo.default_url + 'swf/editor_art.swf?mId=' 		+ mid + '&stem=' + ServerInfo.stem_gwi;	break;
-						case 'player_html':	swf_url = ServerInfo.default_url + 'swf/player_embed_html.swf?mId=' + mid + '&stem=' + ServerInfo.stem_gwi;	break;
-						case 'player':		swf_url = ServerInfo.default_url + 'swf/player_embed.swf?mId=' 		+ mid + '&stem=' + ServerInfo.stem_gwi;	break;
-						default:			swf_url = ServerInfo.default_url + 'swf/player_embed.swf?mId=' 		+ mid + '&stem=' + ServerInfo.stem_gwi;	break;
+					{	case 'workshop':	swf_url = ServerInfo.default_url + 'swf/editor_art.swf&mId=' 		+ mid + '&stem=' + ServerInfo.stem_gwi;	break;
+						case 'player_html':	swf_url = ServerInfo.default_url + 'swf/player_embed_html.swf&mId=' + mid + '&stem=' + ServerInfo.stem_gwi;	break;
+						case 'player':		swf_url = ServerInfo.default_url + 'swf/player_embed.swf&mId=' 		+ mid + '&stem=' + ServerInfo.stem_gwi;	break;
+						default:			swf_url = ServerInfo.default_url + 'swf/player_embed.swf&mId=' 		+ mid + '&stem=' + ServerInfo.stem_gwi;	break;
 					}
 					var embed_width				:String	= xml_settings.get_embed_param('width');
 					var embed_height			:String = xml_settings.get_embed_param('height');
@@ -177,7 +177,7 @@
 				posting_config.defaultContent				= get_default_content();
 				posting_config.blackplanetContent			= get_blackplanet_migente_embed();
 				posting_config.migenteContent				= get_blackplanet_migente_embed();
-				posting_config.defaultBookmarkURL			= ServerInfo.pickup_url + '?mId=' + App.asset_bucket.last_mid_saved + '.3';
+				posting_config.defaultBookmarkURL			= ServerInfo.pickup_url + '&mId=' + App.asset_bucket.last_mid_saved + '.3';
 				
 			
 			xml_settings.add_params_from_xml( posting_config );

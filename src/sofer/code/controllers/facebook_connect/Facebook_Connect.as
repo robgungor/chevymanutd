@@ -182,6 +182,16 @@ package code.controllers.facebook_connect
 				_onGotConnectedStateCallback();
 			}
 		}
+		public function connect( _on_logged_in_callback:Function = null ):void
+		{
+			if(!is_logged_in())
+			{
+				login(_on_logged_in_callback);
+			}
+			else{
+				_on_logged_in_callback();
+			}
+		}
 		public function login( _on_logged_in_callback:Function = null ):void
 		{
 			on_logged_in_callback = _on_logged_in_callback;
@@ -436,8 +446,8 @@ package code.controllers.facebook_connect
 				var message:WorkshopMessage = App.asset_bucket.mid_message;
 				
 				//http://content.oddcast.com/ccs6/customhost/1221/m/bg/bb/81/140237946992682.png
-				var url:String = (_mid != "" && _mid != null) ? ServerInfo.pickup_url + '?mId=' + _mid : ServerInfo.pickup_url;
-				var defaultURL:String = _mid != "" ? ServerInfo.default_url + 'swf/player_embed.swf?mId=' + _mid + '&stem=' + ServerInfo.stem_gwi : ServerInfo.default_url + 'swf/player_embed.swf?stem=' + ServerInfo.stem_gwi;
+				var url:String = (_mid != "" && _mid != null) ? ServerInfo.pickup_url + '&mId=' + _mid : ServerInfo.pickup_url;
+				var defaultURL:String = _mid != "" ? ServerInfo.default_url + 'swf/player_embed.swf&mId=' + _mid + '&stem=' + ServerInfo.stem_gwi : ServerInfo.default_url + 'swf/player_embed.swf?stem=' + ServerInfo.stem_gwi;
 				// javascript function fbcPublishStream2(nFriendId, strTitle, strMessageContent, strName, strCaption, strDescription, strVideSource, strImageSource, strHref, strImgW, strImgH, strVidW, strVidH)
 				defaultURL 					= defaultURL.split("http:").join("https:");
 				var strMessage		:String = App.settings.FACEBOOK_POST_MESSAGE;

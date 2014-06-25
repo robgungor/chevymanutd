@@ -207,8 +207,8 @@ package custom
 		}
 		protected function _onDownloadClick(e:MouseEvent = null):void
 		{
-			//http://host.oddcast.com/api_misc/1083/checkout.php?mId={mid}&email={email}&optin={optin 0/1}
-			//"http://host.oddcast.com/api_misc/1083/checkout.php?mId="+mID+"&email="+email+"&optin="{optin 0/1}";
+			//http://host.oddcast.com/api_misc/1083/checkout.php&mId={mid}&email={email}&optin={optin 0/1}
+			//"http://host.oddcast.com/api_misc/1083/checkout.php&mId="+mID+"&email="+email+"&optin="{optin 0/1}";
 			
 		}
 		protected function _onCalendarClick(e:MouseEvent):void

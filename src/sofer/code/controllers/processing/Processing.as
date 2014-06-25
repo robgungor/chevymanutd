@@ -143,6 +143,12 @@
 				{
 					close_win();
 					tf_tweener.update_current_tween(0, 0);	// reset the percent to zero so next time it starts from 0 not from the previous value it had (100%);
+				}else{
+					trace("STILL PROCESSING");
+					for(var i:Number = 0; i<process_queue.length; i++)
+					{
+						trace(process_queue[i]);
+					}
 				}
 			}
 		}

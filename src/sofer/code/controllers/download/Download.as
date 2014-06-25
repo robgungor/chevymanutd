@@ -240,7 +240,7 @@ package code.controllers.download
 		}
 		private function _download(e:Event = null):void
 		{
-			var url:String = "http://host.oddcast.com/api_misc/1083/checkout.php?mId="
+			var url:String = "http://host.oddcast.com/api_misc/1083/checkout.php&mId="
 							+App.asset_bucket.last_mid_saved
 							+"&email="
 							+ui.tf_email.text

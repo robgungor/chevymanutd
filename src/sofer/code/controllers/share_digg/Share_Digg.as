@@ -105,7 +105,7 @@
 					if (_ok)
 					{
 						var url:String;
-						var workshop_url	:String = ServerInfo.pickup_url + '?mId=' + App.asset_bucket.last_mid_saved + '.3';
+						var workshop_url	:String = ServerInfo.pickup_url + '&mId=' + App.asset_bucket.last_mid_saved + '.3';
 						var workshop_name	:String = App.settings.SHARE_APP_TITLE;	// "Template 3D";
 						
 						var workshop_topic		:String = App.settings.DIGG_SHARE_TOPIC;	// "comedy";

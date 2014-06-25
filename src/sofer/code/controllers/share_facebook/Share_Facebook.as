@@ -116,7 +116,7 @@ package code.controllers.share_facebook
 		 * displays the UI
 		 * @param	_e
 		 */
-		private const POSTING_TO_FACEBOOK	:String = 'POSTING_TO_FACEBOOK';
+		private const POSTING_TO_FACEBOOK	:String = 'LOGGING_INTO_FACEBOOK';
 		private const POSTING_MSG			:String = 'Posting your scene.';
 		
 		private function open_win(  ):void 
@@ -125,23 +125,26 @@ package code.controllers.share_facebook
 			
 			set_tab_order();
 			set_focus();
-			App.mediator.processing_start(POSTING_TO_FACEBOOK, POSTING_MSG);
+			//App.mediator.processing_start(POSTING_TO_FACEBOOK, POSTING_MSG);
 			event_expiration.add_event( 'fblogin', App.settings.EVENT_TIMEOUT_MS, get_friends_timedout );
 					
 			
 			function get_friends_timedout(  ):void 
 			{	
+				App.mediator.processing_ended(POSTING_TO_FACEBOOK);
 				App.mediator.alert_user(new AlertEvent('didntlogin', 'fb123'));				// indicate there was an error
 			}
 			App.mediator.facebook_connect_login(_onFacebookLogin);
 		}
-		private function _onFacebookLogin(e:*):void
+		private function _onFacebookLogin(e:* = null):void
 		{
 			event_expiration.remove_event('fblogin');
 					
 			App.utils.mid_saver.save_message( null, new Callback_Struct(fin_message_saved, null, error_message) );
 			function fin_message_saved():void
 			{
+				trace("MESSAGE SAVED");
+				App.mediator.processing_ended(POSTING_TO_FACEBOOK);
 				end_processing();						
 				ui.visible = true;
 			}

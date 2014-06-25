@@ -126,7 +126,7 @@
 			App.utils.mid_saver.save_message( null, new Callback_Struct(fin_save) );
 			function fin_save():void
 			{
-				var url:String = ServerInfo.pickup_url + '?mId=' + App.asset_bucket.last_mid_saved + '.3';
+				var url:String = ServerInfo.pickup_url + '&mId=' + App.asset_bucket.last_mid_saved + '.3';
 				shorten_url( url, new Callback_Struct(fin_shorten, null, error_shorted ));
 				
 				function fin_shorten(_url:String):void

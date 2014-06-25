@@ -376,7 +376,7 @@
 		private function load_fonts(_continue:Function, _key:Function):void
 		{
 			// we only load these 3 (because they are the bohemiths 
-			var loadableFonts:Array = ['jp', 'cn', 'kr'];
+			var loadableFonts:Array = ['jp', 'cn', 'kr', 'th', 'arabic'];
 			if(loadableFonts.indexOf(ServerInfo.lang) < 0) _continue(_key);
 			
 			var swfURL:String = ServerInfo.content_url_door + "misc/"+ServerInfo.lang+".swf";

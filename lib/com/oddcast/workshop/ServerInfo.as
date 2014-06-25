@@ -341,7 +341,7 @@ package com.oddcast.workshop
 					videostar_videoTimeoutSeconds 	= sessionTimeoutSeconds;
 				}
 				if (paramObj.oa1UploadSize 	!= undefined)	OA1_upload_limit		= paramObj.oa1UploadSize;
-				if (paramObj.pickUpUrl 		!= undefined) 	pickup_url				= paramObj.pickUpUrl;
+				if (paramObj.pickUpUrl 		!= undefined) 	pickup_url				= paramObj.pickUpUrl + "?lang="+lang;
 				if (paramObj.defaultUrl 	!= undefined)
 				{	default_url				= paramObj.defaultUrl;
 					swfPathURL				= default_url + 'swf/';
