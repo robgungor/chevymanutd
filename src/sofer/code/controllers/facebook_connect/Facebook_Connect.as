@@ -457,7 +457,7 @@ package code.controllers.facebook_connect
 				var strDisplay		:String = App.settings.FACEBOOK_POST_DISPLAY;
 				
 				defaultURL = App.asset_bucket.lastPhotoSavedURL;
-				
+				ExternalInterface_Proxy.call('fbTrackGMApp','upload-photo-video');
 //				for(var i:Number = 0; i<message.sceneArr.length; i++)
 //				{
 //					var scene:SceneStruct = message.sceneArr[i];

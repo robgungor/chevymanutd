@@ -367,6 +367,40 @@
 			dispatchEvent(new Event(Event.COMPLETE));
 		}
 		
+		
+		
+		//--------------------------------- RenRen -------------------------------------
+		
+		public function getRenRenImages():void{
+			trace("ImageSearcher::getRenRenImages - ");
+			App.mediator.renRen_connect_get_user_photos(gotRenRenImages);
+		}
+		
+		private function gotRenRenImages(arr:Array):void {
+			if (arr == null || arr.length == 0){
+				dispatchEvent(new AlertEvent(AlertEvent.ERROR, "", "We could not retreive any RenRen images.  Please make sure you are tagged in your photos."));//f9t220
+				return;
+			}
+			bgArr = arr;
+			dispatchEvent(new Event(Event.COMPLETE));
+		}
+		
+		//--------------------------------- Weibo -------------------------------------
+		
+		public function getWeiboImages():void{
+			trace("ImageSearcher::getRenRenImages - ");
+			App.mediator.weibo_connect_get_user_photos(gotWeiboImages);
+		}
+		
+		private function gotWeiboImages(arr:Array):void {
+			if (arr == null || arr.length == 0){
+				dispatchEvent(new AlertEvent(AlertEvent.ERROR, "", "We could not retreive any RenRen images.  Please make sure you are tagged in your photos."));//f9t220
+				return;
+			}
+			bgArr = arr;
+			dispatchEvent(new Event(Event.COMPLETE));
+		}
+		
 		//--------------------------------- THE END -------------------------------------
 		
 		public function getNextPage():Boolean {  //returns true if there is a next page to get

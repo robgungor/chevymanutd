@@ -327,6 +327,19 @@
 			if (controller_pool.google_connect)
 				controller_pool.google_connect.gpcGetPictures(_fin);
 		}
+		
+		public function renRen_connect_get_user_photos(_fin:Function):void
+		{	trace("Mediator::googlePlus_connect_get_user_photos - ");
+			if (controller_pool.renren_connect)
+				controller_pool.renren_connect.rGetPictures(_fin);
+		}
+		
+		public function weibo_connect_get_user_photos(_fin:Function):void
+		{	trace("Mediator::googlePlus_connect_get_user_photos - ");
+			if (controller_pool.weibo_connect)
+				controller_pool.weibo_connect.wGetPictures(_fin);
+		}
+		
 		/**********************************************************
 		* 
 		* 

@@ -46,6 +46,8 @@
 		
 		public static const GOOGLE_PLUS:String = "GooglePlus";
 		public static const FACEBOOK:String = "Facebook";
+		public static const REN_REN:String = "RenRen";
+		public static const WEIBO:String = "Weibo";
 		
 		public function Auto_Photo_Search( _ui:Search_UI ) 
 		{
@@ -128,6 +130,7 @@
 			//ui.tileList.selectedItem = null;
 			App.localizer.localize(ui, "fb_upload");
 		}
+		protected var _currentSearchType:String;
 		public function startSearch(searchType:String = ""):void
 		{
 			// fix for back button on search because this doesn't actually show first
@@ -139,9 +142,21 @@
 			if(searchType == GOOGLE_PLUS)
 			{
 				retrieve_googlePlus_images();
-			}else
+				_currentSearchType = GOOGLE_PLUS;
+			}else if(searchType == FACEBOOK)
 			{
 				retrieve_facebook_user_tagged_and_albums();//isaac
+				_currentSearchType = FACEBOOK;
+			}
+			else if(searchType == REN_REN)
+			{
+				retrieve_renren_images();
+				_currentSearchType = REN_REN;
+			}
+			else if(searchType == WEIBO)
+			{
+				retrieve_weibo_images();
+				_currentSearchType = WEIBO;
 			}
 			App.mediator.autophoto_image_source_type( Auto_Photo_Constants.IMAGE_SOURCE_TYPE_SOCIAL_MEDIA );
 		}
@@ -377,6 +392,17 @@
 			image_searcher.getGooglePlusImages();
 		}
 		
+		private function retrieve_renren_images(  ):void
+		{
+			start_search_processing();
+			image_searcher.getRenRenImages();
+		}
+		
+		private function retrieve_weibo_images(  ):void
+		{
+			start_search_processing();
+			image_searcher.getWeiboImages();
+		}
 		private function friend_selected( _e:Event ):void
 		{
 			select_image();
@@ -423,6 +449,9 @@
 				App.mediator.alert_user(new AlertEvent(AlertEvent.ERROR, 'f9t210', 'Please select an image'));
 			else
 			{
+				if(_currentSearchType == FACEBOOK){
+					ExternalInterface_Proxy.call('fbTrackGMApp', 'upload-photo');
+				}
 				var image:WSBackgroundStruct = ui.selector_image.getSelectedItem().data as WSBackgroundStruct;
 				App.mediator.processing_start( PROCESS_UPLOADING );
 				App.utils.image_uploader.upload_url( new Callback_Struct( fin, progress, error ), image.url, true);

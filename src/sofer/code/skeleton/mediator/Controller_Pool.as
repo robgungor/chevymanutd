@@ -31,10 +31,12 @@ package code.skeleton.mediator
 	import code.controllers.persistent_image.IPersistent_Image;
 	import code.controllers.preview.Preview;
 	import code.controllers.processing.IProcessing;
+	import code.controllers.renren_connect.RenRen_Connect;
 	import code.controllers.terms_conditions.Terms_Conditions;
 	import code.controllers.twitter_connect.Twitter_Connect;
 	import code.controllers.vhost_back_selection.IVhost_Back_Selection;
 	import code.controllers.vhost_selection.IVhost_Selection;
+	import code.controllers.weibo_connect.Weibo_Connect;
 	
 	import custom.DanceScene;
 	import custom.PhotoMaskingScreen;
@@ -87,6 +89,8 @@ package code.skeleton.mediator
 		public var makeAnother				:MakeAnother;
 		public var preview					:Preview;
 		public var google_connect			:Google_Connect;
+		public var renren_connect			:RenRen_Connect;
+		public var weibo_connect			:Weibo_Connect;
 		public var twitter_connect			:Twitter_Connect;
 		public var bigShow					:BigShow;
 		// popular media

@@ -23,11 +23,13 @@
 	import code.controllers.myspace_connect.MySpace_Connect;
 	import code.controllers.preview.Preview;
 	import code.controllers.processing.Processing;
+	import code.controllers.renren_connect.RenRen_Connect;
 	import code.controllers.share_facebook.Share_Facebook;
 	import code.controllers.share_misc.Share_Misc;
 	import code.controllers.share_twitter.Share_Twitter;
 	import code.controllers.terms_conditions.Terms_Conditions;
 	import code.controllers.twitter_connect.Twitter_Connect;
+	import code.controllers.weibo_connect.Weibo_Connect;
 	import code.skeleton.App;
 	import code.skeleton.inauguration.Inauguration;
 	
@@ -181,6 +183,8 @@
 			new Facebook_Connect		( art.facebook_connect_status );
 			new Google_Connect			();
 			new Twitter_Connect			();
+			new RenRen_Connect			();
+			new Weibo_Connect			();
 			var dummy:InteractiveObject = new Sprite();
 			// sharing
 			//new Share_Digg				( art.panel_buttons.diggBtn );

@@ -64,7 +64,9 @@
 				ui.btn_upload, 
 				ui.btn_facebook, 
 				ui.btn_webcam,
-				ui.btn_googleplus
+				ui.btn_googleplus,
+				ui.btn_renren,
+				ui.btn_weibo
 				 ], MouseEvent.CLICK, btn_handler, this);
 					
 		}
@@ -221,6 +223,13 @@
 					break;
 				case ui.btn_googleplus: 
 					App.mediator.autophoto_mode_search( Auto_Photo_Search.GOOGLE_PLUS );
+					break;
+				
+				case ui.btn_renren: 
+					App.mediator.autophoto_mode_search( Auto_Photo_Search.REN_REN );
+					break;
+				case ui.btn_weibo: 
+					App.mediator.autophoto_mode_search( Auto_Photo_Search.WEIBO );
 					break;
 				case ui.btn_webcam:			
 					
