@@ -17,8 +17,11 @@ package com.oddcast.ui {
 	
 	import flash.display.*;
 	import flash.events.*;
+	import flash.geom.Rectangle;
 	import flash.net.*;
 	import flash.text.*;
+	
+	import org.casalib.util.RatioUtil;
 
 	public class ThumbSelectorItem extends ButtonSelectorItem {
 		private var placeholder:MovieClip;
@@ -60,16 +63,23 @@ package com.oddcast.ui {
 		}
 		
 		private function imgLoaded(evt:Event):void {
-			if (placeholder!=null) {				
+			if (placeholder!=null) {	
+				maintainAspect = true;
 				if (maintainAspect) {
-					var scale:Number=Math.max(placeholder.width/img.width,placeholder.height/img.height);
-					var dx:Number=(scale*img.width-placeholder.width)/2;
-					var dy:Number=(scale*img.height-placeholder.height)/2;
+					var size:Rectangle = new Rectangle(0, 0, img.width, img.height);
+					var bounds:Rectangle = new Rectangle(0, 0, placeholder.width, placeholder.height);
+					var scaled:Rectangle = RatioUtil.scaleToFill(size, bounds, true);
+					
+					//var scale:Number=Math.max(placeholder.width/img.width,placeholder.height/img.height);
+					var dx:Number=(scaled.width-placeholder.width)/2;
+					var dy:Number=(scaled.height-placeholder.height)/2;
 					
 					img.x=placeholder.x-dx;
 					img.y=placeholder.y-dy;
-					img.width=img.width*scale;
-					img.height=img.height*scale;
+					//img.width=img.width*scale;
+					//img.height=img.height*scale;
+					img.width = scaled.width;
+					img.height = scaled.height;
 					img.mask=placeholder;
 				}
 				else {
@@ -84,8 +94,21 @@ package com.oddcast.ui {
 				try	{	
 						var bitmap:Bitmap = evt.target.content;
 						bitmap.smoothing = true;
+						
+						removeChild(img);
+						
+						bitmap = new Bitmap(bitmap.bitmapData, "auto", true);
+						bitmap.x=img.x;
+						bitmap.y=img.y;
+						bitmap.width=img.width;
+						bitmap.height=img.height;
+						bitmap.mask=placeholder;
+						addChildAt(bitmap,this.getChildIndex(placeholder)+1);
 					}
-				catch (err:Error)	{}
+				catch (err:Error)	
+				{
+					trace(err);
+				}
 				
 			showLoader(false);
 		}

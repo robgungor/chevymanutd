@@ -13,6 +13,10 @@
 	import com.oddcast.workshop.ServerInfo;
 	import com.oddcast.workshop.WSEventTracker;
 	
+	import fl.text.TLFTextField;
+	
+	import flash.display.DisplayObjectContainer;
+	import flash.display.MovieClip;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import flash.text.TextFormat;
@@ -120,8 +124,56 @@
 		
 		private function _localize():void
 		{
-			App.localizer.localize(this.ui, "homescreen");
 			
+			App.localizer.localize(this.ui, "homescreen");
+			//ui.btn_terms.btn_terms.underline.width = (ui.btn_terms.btn_terms.btntxt_terms ).textWidth;
+			var terms:btn_termsofuse_simple = ui.btn_terms.getChildByName("us") as btn_termsofuse_simple;
+			
+			// simpleButtons are the worst thing in the world
+			if(terms) 
+			{
+				var upState:DisplayObjectContainer = terms.upState as DisplayObjectContainer;
+				var underline:MovieClip;
+				var tf:*;
+				var child:*
+				if(upState)
+				{
+					for (var i:Number = 0; i < upState.numChildren; i++){
+						child = upState.getChildAt(i);
+						if(child is MovieClip) underline = child;
+						else tf = child;
+					}
+					
+					if(underline && tf) underline.width = tf.textWidth;
+				}
+				
+				var overState:DisplayObjectContainer = terms.overState as DisplayObjectContainer;
+				
+				if(overState)
+				{
+					for (i = 0; i < overState.numChildren; i++){
+						child = overState.getChildAt(i);
+						if(child is MovieClip) underline = child;
+						else tf = child;
+					}
+					
+					if(underline && tf) underline.width = tf.textWidth;
+				}
+				
+				var downState:DisplayObjectContainer = terms.downState as DisplayObjectContainer;
+				
+				if(downState)
+				{
+					for (i = 0; i < downState.numChildren; i++){
+						child = downState.getChildAt(i);
+						if(child is MovieClip) underline = child;
+						else tf = child;
+					}
+					
+					if(underline && tf) underline.width = tf.textWidth;
+				}
+			
+			}
 			if(ServerInfo.lang == "jp") ui.title_upload.y = 25;
 			
 			ui.btn_facebook.visible = ui.btn_googleplus.visible = ServerInfo.lang != "cn";

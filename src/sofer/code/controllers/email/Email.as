@@ -120,6 +120,8 @@
 				ui.tf_toEmail3.maxChars		= 50;
 				ui.tf_toName3.maxChars		= 50;
 				ui.tf_msg.maxChars			= 1000;
+				
+				
 		}
 		
 		protected function _localize():void
@@ -137,7 +139,59 @@
 			ui.tf_fromName.text 	= App.localizer.getTranslation('email_your_name_txt');
 			ui.tf_fromEmail.text 	= App.localizer.getTranslation('email_your_email_txt');
 			
+			_fields = [ui.tf_fromName, ui.tf_fromEmail];
+			_addBlankRecipients();
 			_setDefaults();
+		}
+		protected function _addBlankRecipients():void
+		{
+			ui.emailSelector.clear();
+			_resetTabOrder();
+			
+			for (var i:Number = 0; i<3; i++)
+			{
+				_addBlankField();
+			}
+		}
+		protected var _tabOrder:Array;
+		protected function _resetTabOrder():void
+		{
+			_tabOrder = [ui.tf_fromName, ui.tf_fromEmail];
+		}
+		protected function _addBlankField():void
+		{
+			ui.emailSelector.add(++unique_email_id,App.localizer.getTranslation('email_friend_email_txt'),App.localizer.getTranslation('email_friend_name_txt'));
+			
+			var item:* = ui.emailSelector.getItemById(unique_email_id);
+			if(item is DisplayObjectContainer)
+			{					
+				var tfName:TextField = item.getChildByName("tf_name") as TextField;
+				var tfEmail:TextField = item.getChildByName("tf_email") as TextField;
+				
+				if(tfName) 
+				{
+					tfName.text 	= App.localizer.getTranslation('email_friend_name_txt');
+					setupTextField(tfName);					
+				}
+				if(tfEmail)
+				{ 
+					tfEmail.text 		= App.localizer.getTranslation('email_friend_email_txt');
+					setupTextField(tfEmail);
+				}
+			}
+			ui.emailSelector.scrollAnimateTo(ui.emailSelector.numItems-1);
+			
+			
+			function setupTextField(tf:TextField):void
+			{
+				tf.maxChars	= 50;
+				tf.restrict	= App.settings.EMAIL_MULTIPLE_TF_RESTRICT;
+				App.listener_manager.add(tf, FocusEvent.FOCUS_IN, _onTfFocus, this );
+				App.listener_manager.add(tf, FocusEvent.FOCUS_OUT, _onTfFocusOut, this );
+				_tabOrder.push(tf);
+				_fields.push(tf);
+			}
+			App.utils.tab_order.set_order( _tabOrder, 100 );
 		}
 		protected function _setDefaults():void
 		{
@@ -155,7 +209,7 @@
 		protected var _defaults:Array;
 		protected function _onTfFocus(e:FocusEvent):void
 		{
-			var defaultText:String = _defaults[_fields.indexOf(e.currentTarget)];
+			var defaultText:String = _defaults[_fields.indexOf(e.currentTarget)];			
 			if((e.currentTarget as TextField).text == defaultText) (e.currentTarget as TextField).text = "";	
 		}
 		protected function _onTfFocusOut(e:FocusEvent):void
@@ -332,6 +386,7 @@
 			_emailSuccessWindow.visible = false;
 
 		}
+		
 		private function close_win( _e:MouseEvent = null ):void 
 		{
 			ui.visible = false;
@@ -354,28 +409,46 @@
 					App.mediator.alert_user(new AlertEvent(AlertEvent.ERROR, "f9t106", App.localizer.getTranslation(Localizer.ALERT_EMAIL_INVALID_FROM_EMAIL)));
 					return false;
 				}
-/*				if (ui.tf_fromName.text == '')
+
+				var items:Array = ui.emailSelector.getItemArray();
+				var passed:Boolean;				
+				
+				for(var i:Number = 0; i< items.length; i++)
 				{
-					Bridge_Engine.logic_mediator.alert_user(new AlertEvent(AlertEvent.ERROR, "f9t534", "Please enter your name"));
-					return false;
-				}*/
-				ui.emailSelector.clear();
-				if (ui.emailSelector.getItemArray().length == 0) 
-				{
-					if (ui.tf_toEmail.text.length > 0 || ui.tf_toEmail2.text.length > 0 || ui.tf_toEmail3.text.length > 0) 
-					{
-						var success:Boolean = add_user_typed_email();
-						return success;
-					}
-					else 
-					{
+					var item:DisplayObjectContainer = (items[i] as DisplayObjectContainer);
+					if(item)
+					{				
+						var success:Boolean = true;
 						
-						//App.mediator.alert_user(new AlertEvent(AlertEvent.ERROR, "f9t111", "You must specify an address to send the message to."));
-						App.mediator.alert_user(new AlertEvent(AlertEvent.ERROR, "f9t111", App.localizer.getTranslation(Localizer.ALERT_EMAIL_INVALID_TO_EMAIL)));
-						return false;
+						var tfName:TextField = item.getChildByName("tf_name") as TextField;
+						var tfEmail:TextField = item.getChildByName("tf_email") as TextField;
+						
+						if(tfName) 
+						{						
+							tfName.text = StringUtil.trim(tfName.text);
+							
+							var check:String = check_for_badwords( tfName.text, false);
+							if (check == null) 
+								success = false;
+							else
+							{
+								tfName.text = check;
+							}
+						}
+						
+						if(tfEmail)
+						{ 
+							tfEmail.text = StringUtil.trim(tfEmail.text);
+							var valid:Boolean = EmailValidator.validate(tfEmail.text)
+						}
+						
+						// we can at least send one email
+						if(success && valid) passed = true;						
 					}
+					
 				}
-				return true;
+				return passed;
+				
 			}
 			
 			/** checks specific fields if they contain bad words */
@@ -409,6 +482,7 @@
 				for (var i:int = 0; i < num_of_recepients; i++) 
 				{
 					item		= ui.emailSelector.getItemArray()[i];
+					if( !EmailValidator.validate(((item as DisplayObjectContainer).getChildByName("tf_email") as TextField).text) ) continue;
 					toXML		= new XML("<to />");
 					toXML.name	= item.data as String;
 					toXML.email	= item.text;
@@ -479,77 +553,49 @@
 			_e.target.text = String(_e.target.text).split('\"').join('@');	// british " is english @
 		}
 		
+		
 		private function add_user_typed_email( _e:MouseEvent = null ):Boolean 
-		{			
-			ui.tf_toEmail.text = StringUtil.trim(ui.tf_toEmail.text);
-			ui.tf_toEmail2.text = StringUtil.trim(ui.tf_toEmail2.text);
-			ui.tf_toEmail3.text = StringUtil.trim(ui.tf_toEmail3.text);
-			// go through all three to see if any are true
-			var boo:Boolean;
-			boo = EmailValidator.validate(ui.tf_toEmail.text);
-			if(!boo) boo = EmailValidator.validate(ui.tf_toEmail2.text);
-			if(!boo) boo = EmailValidator.validate(ui.tf_toEmail3.text);
-			if (!boo) {
-				
-//				App.mediator.alert_user(new AlertEvent(AlertEvent.ERROR,"f9t107","Invalid e-mail address(es)"));
-				App.mediator.alert_user(new AlertEvent(AlertEvent.ERROR,"f9t107",App.localizer.getTranslation(Localizer.ALERT_EMAIL_INVALID_TO_EMAIL)));
-				return false;				
-			}
+		{	
+			var items:Array = ui.emailSelector.getItemArray();
 			var success:Boolean = true;
-			var check:String = check_for_badwords( ui.tf_toName.text, false);
-			if (check == null) 
-				success = false;
-			else
-				ui.tf_toName.text = check;
 			
-			if(success) success = add_recipient(new Popular_Media_Contact_Item(ui.tf_toName.text, ui.tf_toEmail.text));
-			// clear out user input only if the email was added.
-			if (success)
+			for(var i:Number = 0; i< items.length; i++)
 			{
-			//	ui.tf_toName.text	= 
-			//		ui.tf_toEmail.text	= '';
-				validate_to_email();
-			}
-			if(EmailValidator.validate(ui.tf_toEmail2.text))
-			{
-				check = check_for_badwords( ui.tf_toName2.text, false);
-				var success2:Boolean = true;
-				if (check == null) 
-					success2 = false;
-				else
-					ui.tf_toName2.text = check;
-				
-				if(success2) success2 = add_recipient(new Popular_Media_Contact_Item(ui.tf_toName2.text, ui.tf_toEmail2.text));
-				// clear out user input only if the email was added.
-				if (success2)
-				{
-				//	ui.tf_toName2.text	= 
-				//		ui.tf_toEmail2.text	= '';
-					validate_to_email2();
+				var item:DisplayObjectContainer = (items[i] as DisplayObjectContainer);
+				if(item)
+				{					
+					var tfName:TextField = item.getChildByName("tf_name") as TextField;
+					var tfEmail:TextField = item.getChildByName("tf_email") as TextField;
+					
+					if(tfName) 
+					{						
+						tfName.text = StringUtil.trim(tfName.text);
+						
+						var check:String = check_for_badwords( tfName.text, false);
+						if (check == null) 
+							success = false;
+						else
+							tfName.text = check;												
+					}
+					
+					if(tfEmail)
+					{ 
+						tfEmail.text = StringUtil.trim(tfEmail.text);
+						if(!EmailValidator.validate(tfEmail.text)) 
+						{
+							App.mediator.alert_user(new AlertEvent(AlertEvent.ERROR,"f9t107",App.localizer.getTranslation(Localizer.ALERT_EMAIL_INVALID_TO_EMAIL)));
+							return false;
+						}
+					}
+					
 				}
-			}
-			if(EmailValidator.validate(ui.tf_toEmail3.text))
-			{
-				check = check_for_badwords( ui.tf_toName3.text, false);
-				var success3:Boolean = true;
-				if (check == null) 
-					success3 = false;
-				else
-					ui.tf_toName3.text = check;
 				
-				if(success3) success3 = add_recipient(new Popular_Media_Contact_Item(ui.tf_toName3.text, ui.tf_toEmail3.text));
-				// clear out user input only if the email was added.
-				if (success3)
-				{
-				//	ui.tf_toName3.text	= 
-				//		ui.tf_toEmail3.text	= '';
-					validate_to_email3();
-				}
 			}
+			// make sure we only add if from a mouse click
+			if(success && _e != null) _addBlankField();
 			
 			
-				
-			return success || success2 || success3;
+			return true;			
 		}
 		
 		/**

@@ -34,9 +34,13 @@ package workshop.ui
 						if(state.getChildAt(i) is TextField) 
 						{
 							var tf:TextField = (state.getChildAt(i) as TextField)
-													
+							trace("setText: "+	tf);				
 							replaceFontsFunction(tf, language);
-							(state.getChildAt(i) as TextField).text = value;						
+							
+							// we do this because we may have replaced it for a TLFTextField
+							(state.getChildByName(tf.name)).text = value;	
+							
+							
 						}
 					}
 				}

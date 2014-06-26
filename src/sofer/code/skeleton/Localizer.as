@@ -3,6 +3,8 @@ package code.skeleton
 	import com.oddcast.utils.*;
 	import com.oddcast.workshop.ServerInfo;
 	
+	import fl.text.TLFTextField;
+	
 	import flash.display.DisplayObjectContainer;
 	import flash.text.Font;
 	import flash.text.TextField;
@@ -200,8 +202,21 @@ package code.skeleton
 				{
 					var tf:TextField = (child as TextField);
 					//tf.embedFonts = !_useDeviceFonts;
-					FontManager.replaceFonts(tf, lang);
-					if(translation) (child as TextField).text = translation;
+					var n:String = tf.name;
+					
+					var replacementField:TLFTextField = FontManager.replaceFonts(tf, lang);
+					
+					if(translation) 
+					{
+						
+						(child as TextField).text = translation;
+						if(replacementField) 
+						{
+							replacementField.text = translation;
+							ui.removeChild(child);
+							ui.addChildAt(replacementField, i);
+						}
+					}
 				}
 			}
 		}

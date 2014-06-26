@@ -377,7 +377,11 @@
 		{
 			// we only load these 3 (because they are the bohemiths 
 			var loadableFonts:Array = ['jp', 'cn', 'kr', 'th', 'arabic'];
-			if(loadableFonts.indexOf(ServerInfo.lang) < 0) _continue(_key);
+			if(loadableFonts.indexOf(ServerInfo.lang) < 0) 
+			{
+				_continue(_key);
+				return;
+			}
 			
 			var swfURL:String = ServerInfo.content_url_door + "misc/"+ServerInfo.lang+".swf";
 			Gateway.retrieve_Loader( new Gateway_Request(swfURL, new Callback_Struct( fin ) ) );
