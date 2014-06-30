@@ -2,6 +2,7 @@
 {
 	import code.skeleton.App;
 	
+	import com.oddcast.event.AlertEvent;
 	import com.oddcast.workshop.Callback_Struct;
 	import com.oddcast.workshop.ServerInfo;
 	import com.oddcast.workshop.WSEventTracker;
@@ -121,7 +122,23 @@
 		private function open_win():void
 		{
 			App.localizer.localize(this.ui, "twitter_share");
-			ui.visible = true;
+			//ui.visible = true;
+			
+			App.utils.mid_saver.save_message( null, new Callback_Struct(fin_message_saved, null, error_message) );
+			function fin_message_saved():void
+			{
+				trace("MESSAGE SAVED");
+				//App.mediator.processing_ended(POSTING_TO_FACEBOOK);
+				end_processing();						
+				ui.visible = true;
+			}
+			function error_message( _e:AlertEvent ):void
+			{	end_processing();
+			}
+			function end_processing(  ):void 
+			{	
+			}
+
 		}
 		private function close_win():void
 		{

@@ -305,6 +305,38 @@
 				controller_pool.twitter_connect.post_profile_image();
 		}
 		
+		public function renrenPostProfileImage():void
+		{
+			if (controller_pool.renren_connect)
+				controller_pool.renren_connect.post_profile_image();
+		}
+		
+		public function weiboUpdateStatus():void
+		{
+			if (controller_pool.weibo_connect)
+				controller_pool.weibo_connect.update_status();
+		}
+		
+		public function weiboPostProfileImage():void
+		{
+			if (controller_pool.weibo_connect)
+				controller_pool.weibo_connect.post_profile_image();
+		}
+		public function weibo_connect_login(_cb:Function):void
+		{
+			if (controller_pool.weibo_connect)
+				controller_pool.weibo_connect.login(_cb);
+		}
+		public function renrenUpdateStatus():void
+		{
+			if (controller_pool.renren_connect)
+				controller_pool.renren_connect.update_status();
+		}
+		public function renren_connect_login(_cb:Function):void
+		{
+			if (controller_pool.renren_connect)
+				controller_pool.renren_connect.login(_cb);
+		}
 		public function twitterTweet():void
 		{
 			if (controller_pool.twitter_connect)

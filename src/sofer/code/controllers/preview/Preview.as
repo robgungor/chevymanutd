@@ -191,6 +191,8 @@ package code.controllers.preview
 				case ui.btn_googleplus:
 					App.mediator.postToGooglePlus();
 					break;
+				
+				
 				case ui.btn_upload_new:	
 					close_win();
 					App.asset_bucket.last_mid_saved = null;

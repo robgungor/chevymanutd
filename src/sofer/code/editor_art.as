@@ -26,7 +26,9 @@
 	import code.controllers.renren_connect.RenRen_Connect;
 	import code.controllers.share_facebook.Share_Facebook;
 	import code.controllers.share_misc.Share_Misc;
+	import code.controllers.share_renren.Share_RenRen;
 	import code.controllers.share_twitter.Share_Twitter;
+	import code.controllers.share_weibo.Share_Weibo;
 	import code.controllers.terms_conditions.Terms_Conditions;
 	import code.controllers.twitter_connect.Twitter_Connect;
 	import code.controllers.weibo_connect.Weibo_Connect;
@@ -195,6 +197,9 @@
 			new Facebook_Friend_Search	( art.facebook_btn, art.facebook_friend );
 			//new Facebook_Friend_Post	( art.preview, art.post_to_facebook );
 			new Share_Facebook			( art.preview.facebook_btn, art.share_facebook );
+			
+			new Share_RenRen			( art.preview.btn_renren, art.renren_share );
+			new Share_Weibo				( art.preview.btn_weibo, art.weibo_share);
 			//new GIF_Export				( art.panel_buttons.btn_animated_gif, art);
 			//new JPG_Export				( art.panel_buttons.saveJpegBtn, art, art);//.player_holder.player.hostMask );
 			//new Audio_To_Phone			( art.panel_buttons.audioToPhoneBtn, art.audio_to_phone );

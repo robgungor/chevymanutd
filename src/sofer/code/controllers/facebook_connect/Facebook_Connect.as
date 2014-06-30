@@ -274,7 +274,7 @@ package code.controllers.facebook_connect
 			else 
 			{	
 				App.mediator.processing_start(PROCESSING_LOADING_FACEBOOK_DATA,PROCESSING_LOADING_FACEBOOK_DATA);
-				event_expiration.add_event( EVENT_GET_PHOTOS_KEY, App.settings.EVENT_TIMEOUT_MS, get_friends_timedout );
+				event_expiration.add_event( EVENT_GET_PHOTOS_KEY, App.settings.EVENT_TIMEOUT_MS+30000, get_friends_timedout );
 				
 				ExternalInterface_Proxy.call("fbcGetUserPictures");
 				

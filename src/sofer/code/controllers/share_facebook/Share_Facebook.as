@@ -126,7 +126,7 @@ package code.controllers.share_facebook
 			set_tab_order();
 			set_focus();
 			//App.mediator.processing_start(POSTING_TO_FACEBOOK, POSTING_MSG);
-			event_expiration.add_event( 'fblogin', App.settings.EVENT_TIMEOUT_MS, get_friends_timedout );
+			//event_expiration.add_event( 'fblogin', App.settings.EVENT_TIMEOUT_MS, get_friends_timedout );
 					
 			
 			function get_friends_timedout(  ):void 
