@@ -454,6 +454,7 @@
 				}
 				var image:WSBackgroundStruct = ui.selector_image.getSelectedItem().data as WSBackgroundStruct;
 				App.mediator.processing_start( PROCESS_UPLOADING );
+				
 				App.utils.image_uploader.upload_url( new Callback_Struct( fin, progress, error ), image.url, true);
 				function fin(_bg:BackgroundStruct):void 
 				{	

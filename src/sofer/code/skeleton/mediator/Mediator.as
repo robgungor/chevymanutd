@@ -989,6 +989,10 @@
 			if (controller_pool.auto_photo_apc)	
 				controller_pool.auto_photo_apc.zoomTo(value);
 		}
+		public function autophoto_zoomer_scale():Number
+		{
+			return controller_pool.auto_photo_apc.zoomerScale;
+		}
 		public function autophoto_rotate_to(degrees:Number):void
 		{
 			if (controller_pool.auto_photo_apc)	

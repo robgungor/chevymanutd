@@ -272,8 +272,7 @@ package code.skeleton
 						case 'Boolean':
 							this[var_name] = is_true(xml_value);
 							break;
-						case 'String':
-							trace("ADDING TRANSLATION "+var_name+": "+xml_value);
+						case 'String':							
 							this[var_name] = xml_value;
 							break;
 						case 'Array':

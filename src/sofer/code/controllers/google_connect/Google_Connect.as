@@ -298,7 +298,12 @@ package code.controllers.google_connect
 			{
 				_thumb_url = App.asset_bucket.lastPhotoSavedURL;
 				trace("POSTING TO GOOGLE PLUS USER: "+_thumb_url);
-				ExternalInterface_Proxy.call('shareGooglePlus', _thumb_url, lang);
+				var asset:* = App.asset_bucket;
+				var mid:String = App.asset_bucket.last_mid_saved;
+				var message_id		:String =  App.asset_bucket.last_mid_saved ? '&mId=' + App.asset_bucket.last_mid_saved + '.3' : "";
+				var embed_url 		:String = ServerInfo.pickup_url + message_id;
+				
+				ExternalInterface_Proxy.call('shareGooglePlus', embed_url, lang);
 				
 				WSEventTracker.event("uiebfb");
 		

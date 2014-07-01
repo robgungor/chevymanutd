@@ -77,7 +77,7 @@ package code.skeleton
 				
 				for(var i:int = 0;i<embeddedFonts.length;i++){
 					var font:Font = embeddedFonts[i];
-					trace(font.fontName+": "+font.fontStyle);			
+					//trace(font.fontName+": "+font.fontStyle);			
 				}
 			}
 		}
@@ -121,7 +121,7 @@ package code.skeleton
 				}
 				
 				if(lang == "th" ) {								
-					tf.size 			= tf.size.valueOf()*1.3;					
+					//tf.size 			= tf.size.valueOf()*1.3;					
 				}
 				field.defaultTextFormat = tf;
 			}

@@ -69,8 +69,12 @@
 			App.listener_manager.add( ui.btn_close, MouseEvent.CLICK, btn_step_handler, this);
 			App.listener_manager.add( ui.btn_next, MouseEvent.CLICK, btn_step_handler, this);
 			App.listener_manager.add( ui.btn_back, MouseEvent.CLICK, btn_step_handler, this);
+			
 			App.listener_manager.add( ui.btn_hairstyle_right, MouseEvent.CLICK, _onHairstyleChangeClick, this);
 			App.listener_manager.add( ui.btn_hairstyle_left, MouseEvent.CLICK, _onHairstyleChangeClick, this);
+			
+			//App.listener_manager.add( ui.btn_zoom_in, MouseEvent.CLICK, _onZoomPlus, this);
+			//App.listener_manager.add( ui.btn_zoom_out, MouseEvent.CLICK, _onZoomMinus, this);
 			
 			App.listener_manager.add( ui.btn_contrast_less, MouseEvent.CLICK, _onContrastChangeClick, this);
 			App.listener_manager.add( ui.btn_contrast_more, MouseEvent.CLICK, _onContrastChangeClick, this);
@@ -124,7 +128,15 @@
 			}
 			App.mediator.autophoto_zoom_to(scale);
 		}
-		
+		protected function _onZoomPlus(e:MouseEvent):void
+		{
+			App.mediator.autophoto_move_photo(Auto_Photo_APC.ZOOM_IN, 0);
+		}
+		protected function _onZoomMinus(e:MouseEvent):void
+		{
+			App.mediator.autophoto_move_photo(Auto_Photo_APC.ZOOM_OUT, 0);
+			
+		}
 		protected function _onRotationSliderChange(e:Event):void
 		{
 			var rot:Number = NumberUtil.map( _rotationSlider.value, 1, 0, -MAX_ROTATION, MAX_ROTATION);
@@ -270,9 +282,13 @@
 		
 		protected function _resetPosition():void
 		{
-			_rotationSlider.value = NumberUtil.map(0, -MAX_ROTATION, MAX_ROTATION, 0, 1);			
-			_zoomSlider.value = .5;//NumberUtil.map(1, MIN_ZOOM, MAX_ZOOM, 0, 1);
-			App.mediator.autophoto_get_apc_display().scaleX = App.mediator.autophoto_get_apc_display().scaleY = 1;
+			_rotationSlider.value = NumberUtil.map(0, -MAX_ROTATION, MAX_ROTATION, 0, 1);
+			//ghetto fab
+			//_zoomSlider.removeEventListener(Event.CHANGE, _onZoomSliderChange);
+			trace("App.mediator.autophoto_zoomer_scale(): "+App.mediator.autophoto_zoomer_scale());
+			//_zoomSlider.value = App.mediator.autophoto_zoomer_scale()/2;///.5;//NumberUtil.map(1, MIN_ZOOM, MAX_ZOOM, 0, 1);
+			//_zoomSlider.addEventListener(Event.CHANGE, _onZoomSliderChange);
+			//App.mediator.autophoto_get_apc_display().scaleX = App.mediator.autophoto_get_apc_display().scaleY = 1;
 			App.mediator.autophoto_get_apc_display().x = Math.round(App.mediator.autophoto_get_apc_display_size().x/2);
 			App.mediator.autophoto_get_apc_display().y = Math.round(App.mediator.autophoto_get_apc_display_size().y/2);
 		}

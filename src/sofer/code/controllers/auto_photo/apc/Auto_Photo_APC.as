@@ -181,6 +181,10 @@
 		{
 			_zoomer.forceInBounds();
 		}
+		public function get zoomerScale():Number
+		{
+			return _zoomer.scale;
+		}
 		public function rotateTo(degrees:Number):void
 		{
 			_zoomer.rotateTo(degrees);
@@ -239,7 +243,7 @@
 			_photoHold = new CasaSprite();
 			_zoomer = new MoveZoomUtil( _photoHold );
 			
-			
+			_zoomer.scaleTo(.5);
 			
 			// create a new smooth guy
 			var bmp:Bitmap = new Bitmap(_bmp.bitmapData.clone(), "auto", true);
@@ -252,13 +256,13 @@
 			var curRot:Number;
 			var curScale:Number;
 			var face_location:Array = fromWebcam ? null :  face_finding_utility.find_face(bmp.bitmapData);
-			
+			trace("DO WE HAVE FACE LOCATION: "+face_location);
 			if (face_location != null) {	
 				trace("face_location 111===> "+face_location[0]+"  "+face_location[1]+"  "+face_location[2]+"  "+face_location[3]);
 				curX	= -face_location[0];
-				curY	= -face_location[1]-25;
+				curY	= -face_location[1];
 				curRot 	= ( -180 * face_location[3] / Math.PI);
-				curScale = (face_location[2] /30);
+				curScale = (face_location[2]/12);
 				trace("curScale: "+curScale);
 				bmp.x = curX;
 				bmp.y = curY;

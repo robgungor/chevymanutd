@@ -339,7 +339,12 @@ package code.controllers.weibo_connect
 			function post( ):void
 			{
 				trace("POSTING STATUS WEIBO CONNECT");
-				ExternalInterface_Proxy.call('wPostPictureStatus', "This is the status", App.asset_bucket.lastPhotoSavedURL);
+				var asset:* = App.asset_bucket;
+				var mid:String = App.asset_bucket.last_mid_saved;
+				var message_id		:String =  App.asset_bucket.last_mid_saved ? '&mId=' + App.asset_bucket.last_mid_saved + '.3' : "";
+				var embed_url 		:String = ServerInfo.pickup_url + message_id;
+				
+				ExternalInterface_Proxy.call('wPostPictureStatus', App.settings.TWITTER_DEFAULT_TEXT, embed_url);
 			}
 		}
 		/************************************************

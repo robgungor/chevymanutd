@@ -106,7 +106,7 @@
 			switch ( _e.currentTarget )
 			{	
 				case btn_open:					
-					open_win();
+					App.mediator.renrenUpdateStatus();//open_win();
 					break;
 				case  ui.btn_post:					
 					App.mediator.renrenUpdateStatus();

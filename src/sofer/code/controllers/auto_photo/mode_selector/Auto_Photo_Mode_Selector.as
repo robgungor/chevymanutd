@@ -174,6 +174,9 @@
 					
 					if(underline && tf) underline.width = tf.textWidth;
 				}
+				
+				var hitState:* = terms.hitTestState;
+				hitState.width = underline.width;			
 			
 			}
 			if(ServerInfo.lang == "jp") ui.title_upload.y = 25;

@@ -110,7 +110,7 @@ package code.controllers.bigshow
 				
 			var doc_query	:String = ServerInfo.acceleratedURL + 'php/api/playScene/doorId=' + ServerInfo.door + '/clientId=' + ServerInfo.client + '/mId=' + _mid;
 			Gateway.retrieve_XML( doc_query, new Callback_Struct( fin, null, error ) );
-			
+			App.localizer.localize(ui, "bigshow");
 			function fin( _xml:XML ):void 
 			{	
 				mid_message = new WorkshopMessage( parseInt(_mid) );
