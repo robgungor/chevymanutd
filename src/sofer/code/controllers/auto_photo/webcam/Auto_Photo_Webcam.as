@@ -165,10 +165,11 @@
 			switch ( _e.currentTarget )
 			{	
 				case ui.btn_next:				
+											WSEventTracker.event("ce6");
 											upload_captured_image();
 											break;
 				case ui.btn_capture:			capture_webcam_image();
-												
+												WSEventTracker.event("ce5");
 											break;
 				case ui.btn_recapture:				clear_webcam();
 												capture_webcam_image();

@@ -6,6 +6,7 @@ package code.controllers.share_facebook
 	import com.oddcast.event.AlertEvent;
 	import com.oddcast.utils.Event_Expiration;
 	import com.oddcast.workshop.Callback_Struct;
+	import com.oddcast.workshop.WSEventTracker;
 	
 	import flash.display.DisplayObject;
 	import flash.events.Event;
@@ -187,10 +188,12 @@ package code.controllers.share_facebook
 				case btn_open:		
 					open_win();		
 					break;				
-				case ui.btn_profile:		
+				case ui.btn_profile:
+					WSEventTracker.event("ce12");
 					App.mediator.facebook_post_profile_image();	
 					break;
-				case ui.btn_post:		
+				case ui.btn_post:
+					WSEventTracker.event("ce11");
 					App.mediator.postToOwnWall();	
 					break;
 				case ui.btn_close:	

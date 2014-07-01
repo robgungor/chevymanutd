@@ -215,9 +215,10 @@
 			switch (_e.currentTarget) 
 			{	
 				case ui.btn_upload:			App.mediator.checkOptIn(App.mediator.autophoto_mode_browse);		
-											//WSEventTracker.event("ce8");			
+											WSEventTracker.event("ce4");			
 											break;
 				case ui.btn_facebook:	
+					WSEventTracker.event("ce1");
 					App.mediator.checkOptIn(_optInSearchConfirm);
 					
 					
@@ -225,6 +226,7 @@
 					//close_win();
 					break;
 				case ui.btn_googleplus: 
+					WSEventTracker.event("ce2");
 					App.mediator.autophoto_mode_search( Auto_Photo_Search.GOOGLE_PLUS );
 					break;
 				
@@ -235,7 +237,7 @@
 					App.mediator.autophoto_mode_search( Auto_Photo_Search.WEIBO );
 					break;
 				case ui.btn_webcam:			
-					
+					WSEventTracker.event("ce3");
 					App.mediator.checkOptIn(_webCamConfirm);
 							break;
 				case ui.btn_close:			close_win();
@@ -246,13 +248,13 @@
 		{
 			
 			App.mediator.autophoto_mode_search( Auto_Photo_Search.FACEBOOK );
-			WSEventTracker.event("ce3");
+			
 			close_win();
 		}
 		private function _webCamConfirm():void
 		{
 			close_win();
-			WSEventTracker.event("ce2");
+			
 			App.mediator.autophoto_mode_webcam();
 		}
 		/*****************************************************************

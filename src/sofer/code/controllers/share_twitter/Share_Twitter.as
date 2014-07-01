@@ -108,10 +108,12 @@
 				case btn_open:					
 					open_win();
 					break;
-				case  ui.btn_tweet:					
+				case  ui.btn_tweet:	
+					WSEventTracker.event("ce13");
 					share_to_twitter();
 					break;
-				case  ui.btn_profile:					
+				case  ui.btn_profile:			
+					WSEventTracker.event("ce14");
 					App.mediator.twitterPostProfileImage();
 					break;
 				case  ui.btn_close:					

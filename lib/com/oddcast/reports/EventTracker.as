@@ -13,6 +13,7 @@
 
 package com.oddcast.reports {
 	import com.oddcast.utils.OddcastSharedObject;
+	import com.oddcast.workshop.ServerInfo;
 	
 	import flash.display.LoaderInfo;
 	import flash.events.TimerEvent;
@@ -78,7 +79,9 @@ package com.oddcast.reports {
 				swf_name = t_regex.exec(t_swf_url)[0];
 			}catch($e:Error){}
 			events = new Object();
-
+	
+			
+			
 			//SharedObject.defaultObjectEncoding = ObjectEncoding.AMF0;
 			
 			//var tmp_so:SharedObject = SharedObject.getLocal("oddcast_tracker_"+account_id);
@@ -263,7 +266,7 @@ package com.oddcast.reports {
 				
 				// top level parameters
 				t_str += "apt="+app_type;
-				t_str += "&acc="+account_id;
+				t_str += "&acc="+getLangCode(ServerInfo.lang);//account_id;
 				if (swf_name != null) t_str+= "&swf="+swf_name;
 				if (show_id != null) t_str += "&shw="+show_id;
 				if (skin_id != null) t_str += "&skn="+skin_id;
@@ -280,6 +283,8 @@ package com.oddcast.reports {
 				
 				var et:Number = (eventtime == null) ? 0 : Math.round((new Date().getTime() - eventtime.getTime())/1000);
 				t_str += "&et="+et+t_ev_str;
+				
+				
 				
 				//trace("EVENTTRACKER ---- send event "+t_str);
 				//so.deleteSO();
@@ -300,7 +305,52 @@ package com.oddcast.reports {
 				} */
 			}
 		}
-		
+		protected function getLangCode(l:String):String
+		{
+			switch (l){
+				case   'arabic':
+					return '1236'
+					break;
+				case 'arabic-row':
+					return '1238';
+					break;
+				case 'cn':
+					return '1227';
+					break;
+				case 'id':
+					return '1235';
+					break;
+				case 'jp':
+					return '1231';
+					break;
+				case 'kr':
+					return '1230';
+					break;
+				case 'mx':
+					return '1228';
+					break;
+				case 'pt':
+					return '1233';
+					break;
+				case 'queens':
+					return '1229';
+					break;
+				case 'queens row':
+					return '1237';
+					break;
+				case 'ru':
+					return '1234';
+					break;
+				case 'spanish-row':
+					return '1239';
+					break;
+				case 'th':
+					return '1232';
+					break;
+				default: 
+					return '1231';
+			}
+		}
 		protected function sendRequest(in_str:String):void
 		{
 			sendToURL(new URLRequest(req_domain+in_str));

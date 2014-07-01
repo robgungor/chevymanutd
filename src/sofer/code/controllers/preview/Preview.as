@@ -3,6 +3,7 @@ package code.controllers.preview
 	import code.skeleton.App;
 	
 	import com.oddcast.workshop.ServerInfo;
+	import com.oddcast.workshop.WSEventTracker;
 	
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
@@ -195,11 +196,13 @@ package code.controllers.preview
 					App.mediator.autophoto_back_to_position();
 					break;
 				case ui.btn_googleplus:
+					WSEventTracker.event("ce15");
 					App.mediator.postToGooglePlus();
 					break;
 				
 				
-				case ui.btn_upload_new:	
+				case ui.btn_upload_new:
+					WSEventTracker.event("ce16");
 					close_win();
 					App.asset_bucket.last_mid_saved = null;
 					App.asset_bucket.lastPhotoSavedURL = null;

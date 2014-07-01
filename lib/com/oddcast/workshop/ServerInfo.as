@@ -315,6 +315,7 @@ package com.oddcast.workshop
 			{	trackingURL		= _xml.TRACKING.@URL+"/";
 				hasEventTracking= true;
 			}
+			
 			if (_xml.hasOwnProperty("TRACKERROR")) 
 			{	errorTrackURL	= _xml.TRACKERROR.@URL;
 				hasErrorTracking= true;

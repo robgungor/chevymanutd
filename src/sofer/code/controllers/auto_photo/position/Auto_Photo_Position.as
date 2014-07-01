@@ -7,6 +7,7 @@
 	import com.oddcast.event.*;
 	import com.oddcast.photo.OFCWrapper;
 	import com.oddcast.utils.*;
+	import com.oddcast.workshop.WSEventTracker;
 	
 	import custom.SlideBar;
 	
@@ -147,6 +148,7 @@
 		{
 			var direction:int = e.currentTarget == ui.btn_hairstyle_left ? -1 : 1;
 			_changeHairstyle( direction );
+			WSEventTracker.event("ce9");
 			
 		}
 		
@@ -342,6 +344,7 @@
 													break;
 				case ui.btn_next:			var snapshot:Bitmap = take_snapshot();
 													close_win();
+													WSEventTracker.event("ce10");
 													var chinPoint:Point = new Point(Math.max(ui.placeholder_apc.hairstyle_1.x-_currentOutline.x, 0), Math.max(ui.placeholder_apc.hairstyle_1.y-_currentOutline.y, 0));													
 													App.mediator.save_masked_photo(snapshot, _currentContrast, chinPoint);//cutPoint);	
 													

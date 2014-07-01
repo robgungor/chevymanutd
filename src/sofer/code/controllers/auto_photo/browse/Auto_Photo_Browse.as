@@ -117,6 +117,7 @@
 			{	case ui.btn_browse:	//	try 			
 										//		{	
 												file_ref.browse(App.utils.image_uploader.get_file_upload_filter());
+												
 												toggle_processing_on_waiting(true);
 											//	}
 												//catch (e:Error) 
