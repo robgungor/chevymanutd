@@ -153,55 +153,7 @@ package code.controllers.preview
 			App.localizer.localize(ui, "preview");
 			
 			
-			if(ServerInfo.lang == "jp"){
-				
-				
-				
-//				var upState:DisplayObjectContainer = ui.btn_upload_new.upState as DisplayObjectContainer;
-//				var underline:MovieClip;
-//				var tf:TextFormat;
-//				var child:*
-//				if(upState)
-//				{
-//					for (var i:Number = 0; i < upState.numChildren; i++){
-//						child = upState.getChildAt(i);
-//						if(child is TextField) {
-//							tf = (child as TextField).defaultTextFormat;
-//							
-//						}
-//						else tf = child;
-//					}
-//					
-//					if(underline && tf) underline.width = tf.textWidth;
-//				}
-//				
-//				var overState:DisplayObjectContainer = ui.btn_upload_new.overState as DisplayObjectContainer;
-//				
-//				if(overState)
-//				{
-//					for (i = 0; i < overState.numChildren; i++){
-//						child = overState.getChildAt(i);
-//						if(child is MovieClip) underline = child;
-//						else tf = child;
-//					}
-//					
-//					if(underline && tf) underline.width = tf.textWidth;
-//				}
-//				
-//				var downState:DisplayObjectContainer = ui.btn_upload_new.downState as DisplayObjectContainer;
-//				
-//				if(downState)
-//				{
-//					for (i = 0; i < downState.numChildren; i++){
-//						child = downState.getChildAt(i);
-//						if(child is MovieClip) underline = child;
-//						else tf = child;
-//					}
-//					
-//					if(underline && tf) underline.width = tf.textWidth;
-//				}
-//				
-			}
+			
 		}
 		/**
 		 * hides the UI
