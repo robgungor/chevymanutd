@@ -73,9 +73,8 @@
 			App.listener_manager.add( btn_embed, MouseEvent.CLICK, _onEmbedClicked, this );
 			//App.listener_manager.add( App.ws_art.mainPlayer.link_btn, MouseEvent.CLICK, _onBigShowGetURLClicked, this );
 			
-			App.listener_manager.add( btn_get_url, MouseEvent.CLICK, _onGetURLClicked, this );
-			//App.listener_manager.add( btn_facebook, MouseEvent.CLICK, share_to_facebook, this );
-			//App.listener_manager.add( App.ws_art.mainPlayer.facebook_btn, MouseEvent.CLICK, share_to_facebook_bigshow, this );
+			//App.listener_manager.add( btn_get_url, MouseEvent.CLICK, _onGetURLClicked, this );
+			
 			App.listener_manager.add( btn_download_video, MouseEvent.CLICK, download_video, this );
 			
 			App.localizer.localize(App.ws_art.copyURL, "copy_url");

@@ -173,8 +173,8 @@ package code.controllers.share_facebook
 				[
 					btn_open, 
 					ui.btn_close,
-					ui.btn_post,
-					ui.btn_profile
+					//ui.btn_post,
+					//ui.btn_profile
 				], MouseEvent.CLICK, mouse_click_handler, this );
 		}
 		/**

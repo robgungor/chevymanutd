@@ -347,8 +347,32 @@ package com.oddcast.reports {
 				case 'th':
 					return '1232';
 					break;
+				case 'queens-mutd ' :
+					return '1242';
+					break;
+				case 'queens-uae':
+					return '1243';
+					break;
+				case 'queens-sa':
+					return '1244';
+					break;				
+				case 'queens-in':
+					return '1245';
+					break;
+				case 'queens-eg':
+					return '1246';
+					break;
+				case 'arabic-sa':
+					return '1247';
+					break;
+				case 'arabic-uae':
+					return '1248';
+					break;
+				case 'arabic-eg':
+					return '1249';
+					break				
 				default: 
-					return '1231';
+					return '1221';
 			}
 		}
 		protected function sendRequest(in_str:String):void
@@ -358,7 +382,6 @@ package com.oddcast.reports {
 		
 		public function destroy():void
 		{
-			trace("EVENT TRACKER ))) DESTROY ");
 			req_domain = null;
 			app_type = null;
 			account_id = null;

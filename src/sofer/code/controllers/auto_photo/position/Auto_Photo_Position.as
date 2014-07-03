@@ -74,8 +74,8 @@
 			App.listener_manager.add( ui.btn_hairstyle_right, MouseEvent.CLICK, _onHairstyleChangeClick, this);
 			App.listener_manager.add( ui.btn_hairstyle_left, MouseEvent.CLICK, _onHairstyleChangeClick, this);
 			
-			//App.listener_manager.add( ui.btn_zoom_in, MouseEvent.CLICK, _onZoomPlus, this);
-			//App.listener_manager.add( ui.btn_zoom_out, MouseEvent.CLICK, _onZoomMinus, this);
+			App.listener_manager.add( ui.btn_zoom_in, MouseEvent.MOUSE_DOWN, _onZoomPlus, this);
+			App.listener_manager.add( ui.btn_zoom_out, MouseEvent.MOUSE_DOWN, _onZoomMinus, this);
 			
 			App.listener_manager.add( ui.btn_contrast_less, MouseEvent.CLICK, _onContrastChangeClick, this);
 			App.listener_manager.add( ui.btn_contrast_more, MouseEvent.CLICK, _onContrastChangeClick, this);
@@ -83,18 +83,21 @@
 			App.listener_manager.add_multiple_by_object( [	ui.btn_move_up,
 															ui.btn_move_down,
 															ui.btn_move_right,
-															ui.btn_move_left,															
+															ui.btn_move_left,
+															
  															ui.btn_reset], MouseEvent.MOUSE_DOWN, btn_position_handler, this);
 			
 			_rotationSlider = new SlideBar(App.ws_art.auto_photo_position.rotate_handle, App.ws_art.auto_photo_position.rotate_slider_bar, App.ws_art.auto_photo_position.btn_rot_cc, App.ws_art.auto_photo_position.btn_rot_c);
-			_zoomSlider 	= new SlideBar(App.ws_art.auto_photo_position.zoom_handle, App.ws_art.auto_photo_position.zoom_slider_bar, App.ws_art.auto_photo_position.btn_zoom_in, App.ws_art.auto_photo_position.btn_zoom_out);
-			_zoomSlider.addEventListener(Event.CHANGE, _onZoomSliderChange);
+			//_zoomSlider 	= new SlideBar(App.ws_art.auto_photo_position.zoom_handle, App.ws_art.auto_photo_position.zoom_slider_bar, App.ws_art.auto_photo_position.btn_zoom_in, App.ws_art.auto_photo_position.btn_zoom_out);
+			//_zoomSlider.addEventListener(Event.CHANGE, _onZoomSliderChange);
 			_rotationSlider.addEventListener(Event.CHANGE, _onRotationSliderChange);
 			
 			ui.cutter.addEventListener(MouseEvent.MOUSE_DOWN, _onCutterMouseDown);
 			ui.cutter.addEventListener(MouseEvent.MOUSE_UP, _onCutterMouseUp);
-			ui.cutter.buttonMode = true;			
+			ui.cutter.buttonMode = true;
 			
+			_zoomTimer = new Timer(25);
+			_zoomTimer.addEventListener(TimerEvent.TIMER, _onZooming);
 		}
 		protected function _onCutterMouseDown(e:MouseEvent):void
 		{
@@ -129,15 +132,35 @@
 			}
 			App.mediator.autophoto_zoom_to(scale);
 		}
+		protected var _zoomTimer:Timer;
+		protected var _zoomDir:String;
+		protected var _timeoutID:uint;
 		protected function _onZoomPlus(e:MouseEvent):void
 		{
+			_zoomDir = Auto_Photo_APC.ZOOM_IN;
+			_timeoutID = setTimeout(_zoomTimer.start, 75);
+			ui.stage.addEventListener(MouseEvent.MOUSE_UP, _onZoomMouseUp);
 			App.mediator.autophoto_move_photo(Auto_Photo_APC.ZOOM_IN, 0);
 		}
 		protected function _onZoomMinus(e:MouseEvent):void
 		{
+			_zoomDir = Auto_Photo_APC.ZOOM_OUT;			
+			_timeoutID = setTimeout(_zoomTimer.start, 75);
+			ui.stage.addEventListener(MouseEvent.MOUSE_UP, _onZoomMouseUp);
 			App.mediator.autophoto_move_photo(Auto_Photo_APC.ZOOM_OUT, 0);
 			
 		}
+		protected function _onZoomMouseUp(e:MouseEvent):void
+		{
+			if(_timeoutID) clearTimeout(_timeoutID);
+			ui.stage.removeEventListener(MouseEvent.MOUSE_UP, _onZoomMouseUp);
+			_zoomTimer.stop();
+		}
+		protected function _onZooming(e:TimerEvent):void
+		{
+			App.mediator.autophoto_move_photo(_zoomDir, 0);
+		}
+		
 		protected function _onRotationSliderChange(e:Event):void
 		{
 			var rot:Number = NumberUtil.map( _rotationSlider.value, 1, 0, -MAX_ROTATION, MAX_ROTATION);
@@ -457,7 +480,7 @@
 		protected var _currentContrast:Number = 0;
 		
 		private static const TOTAL_HAIRSTYLES:Number = 11;
-		private static const TOTAL_NECKS:Number = 7;
+		private static const TOTAL_NECKS:Number = 9;
 		protected function _changeHairstyle( direction:Number =1 ):void
 		{
 			// can be +- 1
@@ -499,7 +522,9 @@
 								ui.neck.neck_4,
 								ui.neck.neck_5,
 								ui.neck.neck_6,
-								ui.neck.neck_7];
+								ui.neck.neck_7,
+								ui.neck.neck_8,
+								ui.neck.neck_9];
 			
 			for(var i:int = 0; i<necks.length; i++)
 			{				

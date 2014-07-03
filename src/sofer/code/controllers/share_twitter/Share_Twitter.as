@@ -62,9 +62,9 @@
 		private function init(  ):void 
 		{	
 			App.listener_manager.add( btn_open, MouseEvent.CLICK, mouse_click_handler, this );
-			App.listener_manager.add( ui.btn_profile, MouseEvent.CLICK, mouse_click_handler, this );
+			//App.listener_manager.add( ui.btn_profile, MouseEvent.CLICK, mouse_click_handler, this );
 			App.listener_manager.add( ui.btn_close, MouseEvent.CLICK, mouse_click_handler, this );
-			App.listener_manager.add( ui.btn_tweet, MouseEvent.CLICK, mouse_click_handler, this );
+			//App.listener_manager.add( ui.btn_tweet, MouseEvent.CLICK, mouse_click_handler, this );
 			close_win();
 		}
 		/************************************************

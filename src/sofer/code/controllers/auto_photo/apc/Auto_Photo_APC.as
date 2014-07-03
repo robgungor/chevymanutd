@@ -243,7 +243,7 @@
 			_photoHold = new CasaSprite();
 			_zoomer = new MoveZoomUtil( _photoHold );
 			
-			_zoomer.scaleTo(.5);
+			//_zoomer.scaleTo(.5);
 			
 			// create a new smooth guy
 			var bmp:Bitmap = new Bitmap(_bmp.bitmapData.clone(), "auto", true);
@@ -429,8 +429,8 @@
 				case MOVE_DOWN:					_zoomer.moveBy(0, _amount); break;//api_apc.startPanning( _amount, true );		api_apc.stopPanning();		break;
 				case MOVE_RIGTH:				_zoomer.moveBy(_amount, 0); break;//api_apc.startPanning( _amount, false );		api_apc.stopPanning();		break;
 				case MOVE_LEFT:					_zoomer.moveBy(0-_amount, 0); break;//api_apc.startPanning( 0 - _amount, false );	api_apc.stopPanning();		break;
-				case ZOOM_IN:					_zoomer.scaleTo(_zoomer.scale+(_zoomer.scale*.035)); break;//api_apc.startZooming( _amount );			api_apc.stopZooming();		break;
-				case ZOOM_OUT:					_zoomer.scaleTo(_zoomer.scale-(_zoomer.scale*.035)); break;//api_apc.startZooming( 0 - _amount );		api_apc.stopZooming();		break;
+				case ZOOM_IN:					_zoomer.scaleTo(Math.min(_zoomer.scale+(_zoomer.scale*.035), 8)); break;//api_apc.startZooming( _amount );			api_apc.stopZooming();		break;
+				case ZOOM_OUT:					_zoomer.scaleTo(Math.max(_zoomer.scale-(_zoomer.scale*.035), .0001)); break;//api_apc.startZooming( 0 - _amount );		api_apc.stopZooming();		break;
 				case ROT_CLOCKWISE:				_zoomer.rotateBy(_amount); break;//api_apc.rotate( _amount );					break;
 				case ROT_COUNTER_CLOCKWISE:		
 					_zoomer.rotateBy(0-_amount); 

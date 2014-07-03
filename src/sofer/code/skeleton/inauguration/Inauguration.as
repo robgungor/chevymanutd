@@ -520,8 +520,78 @@
 		private function init_tracking(_continue:Function, _key:Function):void
 		{
 			if (ServerInfo.hasEventTracking) 
-				WSEventTracker.init(ServerInfo.trackingURL, { apt:"W", acc:ServerInfo.door, emb:ServerInfo.viralSourceId } );
+				WSEventTracker.init(ServerInfo.trackingURL, { apt:"W", acc:getLangCode(ServerInfo.lang), emb:ServerInfo.viralSourceId } );
 			_continue(_key);// continue sequence
+		}
+		protected function getLangCode(l:String):String
+		{
+			switch (l){
+				case   'arabic':
+					return '1236';
+					break;
+				case 'arabic-row':
+					return '1238';
+					break;
+				case 'cn':
+					return '1227';
+					break;
+				case 'id':
+					return '1235';
+					break;
+				case 'jp':
+					return '1231';
+					break;
+				case 'kr':
+					return '1230';
+					break;
+				case 'mx':
+					return '1228';
+					break;
+				case 'pt':
+					return '1233';
+					break;
+				case 'queens':
+					return '1229';
+					break;
+				case 'queens row':
+					return '1237';
+					break;
+				case 'ru':
+					return '1234';
+					break;
+				case 'spanish-row':
+					return '1239';
+					break;
+				case 'th':
+					return '1232';
+					break;
+				case 'queens-mutd ' :
+					return '1242';
+					break;
+				case 'queens-uae':
+					return '1243';
+					break;
+				case 'queens-sa':
+					return '1244';
+					break;				
+				case 'queens-in':
+					return '1245';
+					break;
+				case 'queens-eg':
+					return '1246';
+					break;
+				case 'arabic-sa':
+					return '1247';
+					break;
+				case 'arabic-uae':
+					return '1248';
+					break;
+				case 'arabic-eg':
+					return '1249';
+					break				
+				default: 
+					return '1221';
+			}
 		}
 		private function init_error_reporting(_continue:Function, _key:Function):void
 		{
