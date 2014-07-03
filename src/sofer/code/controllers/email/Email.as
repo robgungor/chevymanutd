@@ -392,7 +392,7 @@
 			ui.visible = false;
 		}
 		private function send():void 
-		{return;
+		{
 			if (email_form_valid() && 
 				bad_words_passed( App.settings.EMAIL_REPLACE_BAD_WORDS ))
 			{

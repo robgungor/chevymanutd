@@ -88,6 +88,8 @@
 				
 			function sequence_completed():void
 			{
+				ExternalInterface_Proxy.call('fbTrackGMApp', 'on-load');
+				
 				if (App.asset_bucket.is_playback_mode)
 					App.mediator.show_playback_state( ServerInfo.mid, edit_state_imaguration );
 				else

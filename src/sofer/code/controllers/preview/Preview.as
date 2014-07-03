@@ -174,9 +174,9 @@ package code.controllers.preview
 				[
 					//btn_open,
 					ui.btn_back,
-					//ui.btn_googleplus,
-					//ui.btn_renren,
-					//ui.btn_weibo,
+					ui.btn_googleplus,
+					ui.btn_renren,
+					ui.btn_weibo,
 					ui.btn_upload_new 
 				], MouseEvent.CLICK, mouse_click_handler, this );
 		}

@@ -6,6 +6,7 @@ package code.controllers.share_facebook
 	import com.oddcast.event.AlertEvent;
 	import com.oddcast.utils.Event_Expiration;
 	import com.oddcast.workshop.Callback_Struct;
+	import com.oddcast.workshop.ExternalInterface_Proxy;
 	import com.oddcast.workshop.WSEventTracker;
 	
 	import flash.display.DisplayObject;
@@ -173,8 +174,8 @@ package code.controllers.share_facebook
 				[
 					btn_open, 
 					ui.btn_close,
-					//ui.btn_post,
-					//ui.btn_profile
+					ui.btn_post,
+					ui.btn_profile
 				], MouseEvent.CLICK, mouse_click_handler, this );
 		}
 		/**
@@ -190,6 +191,7 @@ package code.controllers.share_facebook
 					break;				
 				case ui.btn_profile:
 					WSEventTracker.event("ce12");
+					ExternalInterface_Proxy.call('fbTrackGMApp','upload-photo-video');
 					App.mediator.facebook_post_profile_image();	
 					break;
 				case ui.btn_post:

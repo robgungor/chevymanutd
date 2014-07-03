@@ -9,6 +9,7 @@
 	
 	import com.oddcast.data.ThumbSelectorData;
 	import com.oddcast.event.SelectorEvent;
+	import com.oddcast.workshop.ExternalInterface_Proxy;
 	import com.oddcast.workshop.Persistent_Image.IPersistent_Image_Item;
 	import com.oddcast.workshop.ServerInfo;
 	import com.oddcast.workshop.WSEventTracker;
@@ -214,11 +215,13 @@
 		{				
 			switch (_e.currentTarget) 
 			{	
-				case ui.btn_upload:			App.mediator.checkOptIn(App.mediator.autophoto_mode_browse);		
+				case ui.btn_upload:			App.mediator.checkOptIn(App.mediator.autophoto_mode_browse);
+											ExternalInterface_Proxy.call('fbTrackGMApp', 'upload-photo');
 											WSEventTracker.event("ce4");			
 											break;
 				case ui.btn_facebook:	
 					WSEventTracker.event("ce1");
+					ExternalInterface_Proxy.call('fbTrackGMApp', 'upload-photo');
 					App.mediator.checkOptIn(_optInSearchConfirm);
 					
 					
@@ -227,13 +230,16 @@
 					break;
 				case ui.btn_googleplus: 
 					WSEventTracker.event("ce2");
+					ExternalInterface_Proxy.call('fbTrackGMApp', 'upload-photo');
 					App.mediator.autophoto_mode_search( Auto_Photo_Search.GOOGLE_PLUS );
 					break;
 				
 				case ui.btn_renren: 
+					ExternalInterface_Proxy.call('fbTrackGMApp', 'upload-photo');
 					App.mediator.autophoto_mode_search( Auto_Photo_Search.REN_REN );
 					break;
 				case ui.btn_weibo: 
+					ExternalInterface_Proxy.call('fbTrackGMApp', 'upload-photo');
 					App.mediator.autophoto_mode_search( Auto_Photo_Search.WEIBO );
 					break;
 				case ui.btn_webcam:			

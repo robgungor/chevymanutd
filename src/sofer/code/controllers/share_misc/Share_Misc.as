@@ -73,7 +73,7 @@
 			App.listener_manager.add( btn_embed, MouseEvent.CLICK, _onEmbedClicked, this );
 			//App.listener_manager.add( App.ws_art.mainPlayer.link_btn, MouseEvent.CLICK, _onBigShowGetURLClicked, this );
 			
-			//App.listener_manager.add( btn_get_url, MouseEvent.CLICK, _onGetURLClicked, this );
+			App.listener_manager.add( btn_get_url, MouseEvent.CLICK, _onGetURLClicked, this );
 			
 			App.listener_manager.add( btn_download_video, MouseEvent.CLICK, download_video, this );
 			

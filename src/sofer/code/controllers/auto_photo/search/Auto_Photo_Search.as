@@ -450,7 +450,7 @@
 			else
 			{
 				if(_currentSearchType == FACEBOOK){
-					ExternalInterface_Proxy.call('fbTrackGMApp', 'upload-photo');
+					
 					WSEventTracker.event("ce7");
 				}else if (_currentSearchType == GOOGLE_PLUS){
 					WSEventTracker.event("ce8");
