@@ -180,7 +180,11 @@ package code.controllers.renren_connect
 			ExternalInterface_Proxy.call("rLogin");
 		}
 		
-		
+		public function logout():void
+		{
+			id = -1;
+			ExternalInterface_Proxy.call("rLogout");
+		}
 		
 		
 		public function rGetPictures( _fin:Function, _friends_id:String=null ):void {///Isaac

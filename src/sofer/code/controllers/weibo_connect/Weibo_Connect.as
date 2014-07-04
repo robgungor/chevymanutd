@@ -179,7 +179,11 @@ package code.controllers.weibo_connect
 			_onLoginCallback = cb;
 			ExternalInterface_Proxy.call("wLogin");
 		}
-		
+		public function logout():void
+		{
+			id = -1;
+			ExternalInterface_Proxy.call("wLogout");
+		}
 		
 		
 		

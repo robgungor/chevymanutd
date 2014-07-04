@@ -204,6 +204,7 @@ package code.controllers.preview
 				case ui.btn_upload_new:
 					WSEventTracker.event("ce16");
 					close_win();
+					App.mediator.logoutAndRestart();
 					App.asset_bucket.last_mid_saved = null;
 					App.asset_bucket.lastPhotoSavedURL = null;
 					App.mediator.autophoto_open_mode_selector();

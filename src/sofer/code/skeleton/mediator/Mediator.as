@@ -791,6 +791,12 @@
 
 			processing_show_authored_creation = false;
 		}
+		public function logoutAndRestart():void
+		{
+			controller_pool.renren_connect.logout();
+			controller_pool.weibo_connect.logout();
+			controller_pool.twitter_connect.logout();
+		}
 		public function autophoto_mode_browse():void 
 		{	
 			autophoto_require_confirmation_on_close = false;

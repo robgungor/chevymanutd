@@ -176,6 +176,12 @@ package code.controllers.twitter_connect
 			ExternalInterface_Proxy.call("twLogin");
 		}
 		
+		public function logout():void
+		{
+			id = -1;
+			ExternalInterface_Proxy.call("twLogout");
+		}
+		
 		
 		private static const POSTING_TO_TWITTER:String = "POSTING TO TWITTER";
 		private static const POSTING_MSG:String = "now posting to twitter";
