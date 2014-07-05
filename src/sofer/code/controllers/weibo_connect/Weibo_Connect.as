@@ -165,6 +165,8 @@ package code.controllers.weibo_connect
 				
 				WSEventTracker.event("edfbc");
 			}else{
+									
+				App.mediator.googlePlusLoginFail();	
 				
 			}
 			
@@ -264,7 +266,7 @@ package code.controllers.weibo_connect
 				{
 					end_processing();
 					
-					App.mediator.alert_user( new AlertEvent(AlertEvent.WEIBO_CONFIRM, 'f9t542', 'Press OK to share on RenRen.', false, user_response, false) );
+					App.mediator.alert_user( new AlertEvent(AlertEvent.WEIBO_CONFIRM, 'f9t542', 'Press OK to share on Weibo.', false, user_response, false) );
 					function user_response( _ok:Boolean ):void
 					{
 						if (_ok)

@@ -167,8 +167,8 @@ package code.controllers.google_connect
 				}
 				ExternalInterface_Proxy.call("gpGetUserPictures");//isaac
 				WSEventTracker.event("edfbc");
-			}else{
-				
+			}else{					
+				App.mediator.googlePlusLoginFail();	
 			}
 			
 		}
@@ -193,10 +193,7 @@ package code.controllers.google_connect
 		{
 			_onLoginCallback = cb;
 			ExternalInterface_Proxy.call("gpLogin");
-			
-			
 
-			
 		}
 		
 		public function gpSetUserPictures(inputXML:String):void { ///Isaac

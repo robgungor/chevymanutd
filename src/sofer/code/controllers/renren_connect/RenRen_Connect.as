@@ -164,8 +164,8 @@ package code.controllers.renren_connect
 				}
 				
 				WSEventTracker.event("edfbc");
-			}else{
-				
+			}else{								
+				App.mediator.googlePlusLoginFail();					
 			}
 			
 		}

@@ -168,6 +168,7 @@
 				
 				//App.mediator.alert_user(  new AlertEvent(null,'f9t554',embed_url, {url:embed_url},url_user_response,false) );
 				App.ws_art.copyURL.tf_url.text = embed_url;
+				App.ws_art.copyURL.tf_url.selectable = true;
 				App.ws_art.copyURL.visible = true;
 				WSEventTracker.event("uiebws");
 				App.ws_art.copyURL.btn_copy.addEventListener(MouseEvent.CLICK, url_user_response);

@@ -122,6 +122,7 @@
 		 */
 		public function alert(_e:AlertEvent):void
 		{	
+			App.localizer.localize(ui, "alert_");
 			// hardcode value
 			var alertText:String;
 			

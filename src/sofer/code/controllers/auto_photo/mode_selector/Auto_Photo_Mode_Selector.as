@@ -67,7 +67,9 @@
 				ui.btn_webcam,
 				ui.btn_googleplus,
 				ui.btn_renren,
-				ui.btn_weibo
+				ui.btn_weibo,
+				ui.btn_terms,
+				ui.btn_privacy
 				 ], MouseEvent.CLICK, btn_handler, this);
 					
 		}
@@ -180,12 +182,66 @@
 				hitState.width = underline.width;			
 			
 			}
+			
+			_fixPrivacyUnderline();
 			if(ServerInfo.lang == "jp") ui.title_upload.y = 25;
 			
 			ui.btn_facebook.visible = ui.btn_googleplus.visible = ServerInfo.lang != "cn";
 			ui.btn_renren.visible = ui.btn_weibo.visible = ServerInfo.lang == "cn";
 		}
-		
+		private function _fixPrivacyUnderline():void
+		{
+			var terms:btn_privacy_policy_simple = ui.btn_privacy.getChildByName("us") as btn_privacy_policy_simple;
+			
+			// simpleButtons are the worst thing in the world
+			if(terms) 
+			{
+				var upState:DisplayObjectContainer = terms.upState as DisplayObjectContainer;
+				var underline:MovieClip;
+				var tf:*;
+				var child:*
+				if(upState)
+				{
+					for (var i:Number = 0; i < upState.numChildren; i++){
+						child = upState.getChildAt(i);
+						if(child is MovieClip) underline = child;
+						else tf = child;
+					}
+					
+					if(underline && tf) underline.width = tf.textWidth;
+				}
+				
+				var overState:DisplayObjectContainer = terms.overState as DisplayObjectContainer;
+				
+				if(overState)
+				{
+					for (i = 0; i < overState.numChildren; i++){
+						child = overState.getChildAt(i);
+						if(child is MovieClip) underline = child;
+						else tf = child;
+					}
+					
+					if(underline && tf) underline.width = tf.textWidth;
+				}
+				
+				var downState:DisplayObjectContainer = terms.downState as DisplayObjectContainer;
+				
+				if(downState)
+				{
+					for (i = 0; i < downState.numChildren; i++){
+						child = downState.getChildAt(i);
+						if(child is MovieClip) underline = child;
+						else tf = child;
+					}
+					
+					if(underline && tf) underline.width = tf.textWidth;
+				}
+				
+				var hitState:* = terms.hitTestState;
+				hitState.width = underline.width;			
+				
+			}
+		}
 		public function close_win(  ) : void
 		{
 			ui.visible = false;			
@@ -242,6 +298,12 @@
 					ExternalInterface_Proxy.call('fbTrackGMApp', 'upload-photo');
 					App.mediator.autophoto_mode_search( Auto_Photo_Search.WEIBO );
 					break;
+				case ui.btn_terms:
+					App.mediator.open_hyperlink('http://www.chevrolet.com/fc-disclaimers.html', '_blank');
+					break;
+				case ui.btn_privacy:
+					App.mediator.open_hyperlink('http://www.gm.com/toolbar/privacyStatement.html', '_blank');
+					 break;
 				case ui.btn_webcam:			
 					WSEventTracker.event("ce3");
 					App.mediator.checkOptIn(_webCamConfirm);

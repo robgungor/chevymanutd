@@ -2,6 +2,7 @@
 {
 	import code.skeleton.App;
 	
+	import com.adobe.net.URI;
 	import com.oddcast.event.AlertEvent;
 	import com.oddcast.workshop.Callback_Struct;
 	import com.oddcast.workshop.ServerInfo;
@@ -165,15 +166,30 @@
 				 * Example
 				 * http://twitter.com/share?url=http://host-d-vd.oddcast.com/php/application_UI/doorId=860/clientId=317/&mId=203509.3&text=Check%20out%20my%20Monk-E-Mail!
 				 */
+				var lang:String;
+				switch(ServerInfo.lang){
+					case 'kr':
+						lang = 'ko';
+						break;
+					case 'jp':
+						lang = 'ja';
+						break;
+					case 'mx':
+						lang = 'es';
+						break;
+					default:
+						break;
+				}
 				var asset:* = App.asset_bucket;
 				
 				var mid:String = App.asset_bucket.last_mid_saved;
 				var message_id		:String =  App.asset_bucket.last_mid_saved ? '&mId=' + App.asset_bucket.last_mid_saved + '.3' : "";
 				trace("Share_Twitter::fin::"+message_id);
 				var embed_url 		:String = ServerInfo.pickup_url + message_id;
-				var twitter_base	:String = "http://twitter.com/share";
-				var default_message	:String = escape(App.settings.TWITTER_DEFAULT_TEXT);//"Default message goes here with a link."
+				var twitter_base	:String = "http://twitter.com/intent/tweet";
+				var default_message	:String = encodeURIComponent(App.settings.TWITTER_DEFAULT_TEXT);//"Default message goes here with a link."
 				var twitter_link	:String = twitter_base+'?url='+escape(embed_url)+'&text='+default_message;
+				if(lang) twitter_link += '&lang='+lang;
 				WSEventTracker.event("edbmk");
 				App.mediator.open_hyperlink(twitter_link);
 			}

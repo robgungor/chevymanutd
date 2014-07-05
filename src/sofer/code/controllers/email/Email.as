@@ -409,7 +409,13 @@
 					App.mediator.alert_user(new AlertEvent(AlertEvent.ERROR, "f9t106", App.localizer.getTranslation(Localizer.ALERT_EMAIL_INVALID_FROM_EMAIL)));
 					return false;
 				}
-
+				
+				if (ui.tf_fromName.text == App.localizer.getTranslation('email_your_name_txt') || ui.tf_fromName.text == "" )
+				{
+					App.mediator.alert_user(new AlertEvent(AlertEvent.ERROR, "f9t106", App.localizer.getTranslation(Localizer.ALERT_EMAIL_INVALID_FROM_NAME)));
+					return false;
+				}
+	
 				var items:Array = ui.emailSelector.getItemArray();
 				var passed:Boolean;				
 				
@@ -433,6 +439,13 @@
 							else
 							{
 								tfName.text = check;
+							}
+							if(tfName.text == _defaults[i] || tfName.text == "") 
+							{
+								success = false;
+								
+								App.mediator.alert_user(new AlertEvent(AlertEvent.ERROR, "f9t106", App.localizer.getTranslation(Localizer.ALERT_EMAIL_INVALID_TO_NAME)));
+								return false;
 							}
 						}
 						

@@ -1532,7 +1532,12 @@
 			controller_pool.facebook_friend_search.close_win();
 			controller_pool.auto_photo_search.close_win();	
 		}
-		
+		public function googlePlusLoginFail():void
+		{
+			autophoto_open_mode_selector();
+			controller_pool.facebook_friend_search.close_win();
+			controller_pool.auto_photo_search.close_win();	
+		}
 		public function clearHeads():void
 		{
 //			controller_pool.auto_photo_apc.savedHeads 		= [];
