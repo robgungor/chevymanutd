@@ -165,28 +165,30 @@ package code.controllers.google_connect
 					_onLoginCallback();
 					return;
 				}
-				ExternalInterface_Proxy.call("gpGetUserPictures");//isaac
+				
 				WSEventTracker.event("edfbc");
 			}else{					
 				App.mediator.googlePlusLoginFail();	
 			}
 			
 		}
-		
+		//private const PROCESSING_LOADING_GOOGLEPLUS_DATA :String = 'Loading google plus data';
 		public function gpcGetPictures( _fin:Function, _friends_id:String=null ):void {///Isaac
 			trace("Google_Connect::gpcGetPictures - googlePlus - ");
 			
 			get_user_pictures_callback = _fin;
-			event_expiration.add_event( EVENT_GET_PHOTOS_KEY, App.settings.EVENT_TIMEOUT_MS, get_friends_timedout );
+			App.mediator.processing_start(PROCESSING_LOADING_GOOGLEPLUS_DATA,PROCESSING_LOADING_GOOGLEPLUS_DATA);
+			event_expiration.add_event( EVENT_GET_PHOTOS_KEY, App.settings.EVENT_TIMEOUT_MS+30000, get_friends_timedout );
+			
 			
 			function get_friends_timedout(  ):void 
 			{	
 				get_user_pictures_callback = null;	// remove callbacks in case it comes in later on
 				_fin(null);	// indicate there was an error
 			}
-			
-			ExternalInterface_Proxy.call("gpLogin");//isaac
-			
+				
+			ExternalInterface_Proxy.call("gpGetUserPictures");//isaac
+				
 		}
 		
 		public function login(cb:Function):void

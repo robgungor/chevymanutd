@@ -32,7 +32,7 @@ package code.controllers.weibo_connect
 	{
 		
 		private const EVENT_GET_PHOTOS_KEY	:String = 'EVENT_GET_PHOTOS_KEY';
-		private const PROCESSING_LOADING_GOOGLEPLUS_DATA :String = 'Loading GooglePlus data'
+		private const PROCESSING_LOADING_WEIBO_DATA :String = 'Loading weibo data'
 		
 		private var ui					:Facebook_Connect_Status_UI;
 		
@@ -193,7 +193,10 @@ package code.controllers.weibo_connect
 			trace("Weibo_Connect::wGetPictures - weibo - ");
 			
 			get_user_pictures_callback = _fin;
+			
+			App.mediator.processing_start(PROCESSING_LOADING_WEIBO_DATA,PROCESSING_LOADING_WEIBO_DATA);
 			event_expiration.add_event( EVENT_GET_PHOTOS_KEY, App.settings.EVENT_TIMEOUT_MS+30000, get_friends_timedout );
+			
 			
 			function get_friends_timedout(  ):void 
 			{	
@@ -201,22 +204,13 @@ package code.controllers.weibo_connect
 				_fin(null);	// indicate there was an error
 			}
 			
-			if(is_logged_in()) onLoggedIn();
-			else login(onLoggedIn);
-			
-			function onLoggedIn(e:* = null):void
-			{
-				trace("WEIBO GETTING PICTURES");
-				ExternalInterface_Proxy.call("wGetPictures");
-			}
-			//ExternalInterface_Proxy.call("gpLogin");//isaac
-			
+			ExternalInterface_Proxy.call("wGetPictures");
 		}
 		
 		public function wSetUserPictures(inputXML:String):void { ///Isaac
 			trace("Weibo_Connect::wSetUserPictures - weibo - inputXML='" + inputXML + "'");
 			
-			App.mediator.processing_ended(PROCESSING_LOADING_GOOGLEPLUS_DATA);
+			App.mediator.processing_ended(PROCESSING_LOADING_WEIBO_DATA);
 			event_expiration.remove_event( EVENT_GET_PHOTOS_KEY );
 			
 			var _xml:XML = new XML(inputXML);
@@ -350,8 +344,12 @@ package code.controllers.weibo_connect
 				var message_id		:String =  App.asset_bucket.last_mid_saved ? '&mId=' + App.asset_bucket.last_mid_saved + '.3' : "";
 				var embed_url 		:String = ServerInfo.pickup_url + message_id;
 				
-				//wSharePictureStatus(_shortUrl, postDescription, OC_Social._weiboPost.picture, _callback);
-				ExternalInterface_Proxy.call('wSharePictureStatus', embed_url, encodeURIComponent(App.settings.TWITTER_DEFAULT_TEXT), App.asset_bucket.lastPhotoSavedURL);
+//				get_weibo_shortUrl(this._weiboPost.link, postToWeibo2);
+//				
+//				function postToWeibo2(_shortUrl){
+//					wSharePictureStatus(_shortUrl, postDescription, OC_Social._weiboPost.picture, _callback);
+				
+				ExternalInterface_Proxy.call('wSharePictureStatus', encodeURIComponent(embed_url), encodeURIComponent(App.settings.TWITTER_DEFAULT_TEXT), App.asset_bucket.lastPhotoSavedURL);
 			}
 		}
 		/************************************************

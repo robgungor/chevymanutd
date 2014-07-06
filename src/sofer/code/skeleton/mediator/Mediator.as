@@ -253,6 +253,8 @@
 				return controller_pool.facebook_connect.is_logged_in();
 			return false;
 		}
+		
+		
 		public function facebook_connect_login(_callback:Function ):void
 		{
 			if (controller_pool.facebook_connect)
@@ -293,11 +295,36 @@
 			if (controller_pool.facebook_connect)
 				controller_pool.facebook_connect.fb_set_profile_image();			
 		}		
+		public function google_connect_is_logged_in():Boolean
+		{
+			if (controller_pool.google_connect)
+				return controller_pool.google_connect.is_googlePlus_logged_in();
+			return false;
+		}
 		
+		public function renren_connect_is_logged_in():Boolean
+		{
+			if (controller_pool.renren_connect)
+				return controller_pool.renren_connect.is_logged_in();
+			return false;
+		}
+		
+		public function weibo_connect_is_logged_in():Boolean
+		{
+			if (controller_pool.weibo_connect)
+				return controller_pool.weibo_connect.is_logged_in();
+			return false;
+		}
 		public function postToGooglePlus():void
 		{
 			if (controller_pool.google_connect)
 				controller_pool.google_connect.post_to_GooglePlus();
+		}
+		
+		public function google_connect_login(_cb:Function):void
+		{
+			if (controller_pool.google_connect)
+				controller_pool.google_connect.login(_cb);
 		}
 		public function twitterPostProfileImage():void
 		{

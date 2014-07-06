@@ -388,20 +388,45 @@
 		
 		private function retrieve_googlePlus_images(  ):void
 		{
-			start_search_processing();
-			image_searcher.getGooglePlusImages();
+			if (App.mediator.google_connect_is_logged_in())
+				user_logged_in_get_own_photos();
+			else	
+				App.mediator.google_connect_login(user_logged_in_get_own_photos);
+			
+			function user_logged_in_get_own_photos(  ):void 
+			{	
+				start_search_processing();
+				image_searcher.getGooglePlusImages();
+			}		
 		}
 		
 		private function retrieve_renren_images(  ):void
 		{
-			start_search_processing();
-			image_searcher.getRenRenImages();
+			if (App.mediator.renren_connect_is_logged_in())
+				user_logged_in_get_own_photos();
+			else	
+				App.mediator.renren_connect_login(user_logged_in_get_own_photos);
+			
+			function user_logged_in_get_own_photos(  ):void 
+			{	
+				start_search_processing();
+				image_searcher.getRenRenImages();
+			}		
+		
 		}
 		
 		private function retrieve_weibo_images(  ):void
 		{
-			start_search_processing();
-			image_searcher.getWeiboImages();
+			if (App.mediator.weibo_connect_is_logged_in())
+				user_logged_in_get_own_photos();
+			else	
+				App.mediator.weibo_connect_login(user_logged_in_get_own_photos);
+			
+			function user_logged_in_get_own_photos(  ):void 
+			{	
+				start_search_processing();
+				image_searcher.getWeiboImages();
+			}					
 		}
 		private function friend_selected( _e:Event ):void
 		{

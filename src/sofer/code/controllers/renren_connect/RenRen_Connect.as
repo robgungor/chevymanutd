@@ -32,7 +32,7 @@ package code.controllers.renren_connect
 	{
 		
 		private const EVENT_GET_PHOTOS_KEY	:String = 'EVENT_GET_PHOTOS_KEY';
-		private const PROCESSING_LOADING_GOOGLEPLUS_DATA :String = 'Loading GooglePlus data'
+		private const PROCESSING_LOADING_RENREN_DATA :String = 'Loading GooglePlus data'
 		
 		private var ui					:Facebook_Connect_Status_UI;
 		
@@ -191,7 +191,10 @@ package code.controllers.renren_connect
 			trace("RenRen_Connect::gpcGetPictures - googlePlus - ");
 			
 			get_user_pictures_callback = _fin;
+			
+			App.mediator.processing_start(PROCESSING_LOADING_RENREN_DATA,PROCESSING_LOADING_RENREN_DATA);
 			event_expiration.add_event( EVENT_GET_PHOTOS_KEY, App.settings.EVENT_TIMEOUT_MS+30000, get_friends_timedout );
+			
 			
 			function get_friends_timedout(  ):void 
 			{	
@@ -199,22 +202,13 @@ package code.controllers.renren_connect
 				_fin(null);	// indicate there was an error
 			}
 			
-			if(is_logged_in()) onLoggedIn();
-			else login(onLoggedIn);
-			
-			function onLoggedIn(e:* = null):void
-			{
-				trace("RENREN GETTING PICTURES");
-				ExternalInterface_Proxy.call("rGetPictures");
-			}
-			//ExternalInterface_Proxy.call("gpLogin");//isaac
-			
+			ExternalInterface_Proxy.call("rGetPictures");
 		}
 		
 		public function rSetUserPictures(inputXML:String):void { ///Isaac
 			trace("RenRen_Connect::gpSetUserPictures - googlePlus - inputXML='" + inputXML + "'");
 			
-			App.mediator.processing_ended(PROCESSING_LOADING_GOOGLEPLUS_DATA);
+			App.mediator.processing_ended(PROCESSING_LOADING_RENREN_DATA);
 			event_expiration.remove_event( EVENT_GET_PHOTOS_KEY );
 			
 			var _xml:XML = new XML(inputXML);
@@ -235,6 +229,7 @@ package code.controllers.renren_connect
 					}
 				}
 			}else if (res == "ERROR") {
+				ExternalInterface_Proxy.call('rLogout');
 				trace("RenRen_Connect::gpSetUserPictures - googlePlus - res="+res);
 				if (get_user_pictures_callback != null)		get_user_pictures_callback(null);		// possibly removed because it timed out
 			}
@@ -348,7 +343,7 @@ package code.controllers.renren_connect
 				var message_id		:String =  App.asset_bucket.last_mid_saved ? '&mId=' + App.asset_bucket.last_mid_saved + '.3' : "";
 				var embed_url 		:String = ServerInfo.pickup_url + message_id;
 				//rPostPicture(this._renrenPost.picture, postDescriptionLink, _callback);
-				ExternalInterface_Proxy.call('rPostPicture', App.asset_bucket.lastPhotoSavedURL, App.settings.FACEBOOK_POST_MESSAGE);//encodeURIComponent(App.settings.FACEBOOK_POST_MESSAGE+' '+embed_url));
+				ExternalInterface_Proxy.call('rPostPicture',App.asset_bucket.lastPhotoSavedURL, encodeURIComponent(App.settings.FACEBOOK_POST_MESSAGE+' '+encodeURIComponent(embed_url)));
 			}
 		}
 		/************************************************
