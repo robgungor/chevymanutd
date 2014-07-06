@@ -378,7 +378,7 @@
 		private function load_fonts(_continue:Function, _key:Function):void
 		{
 			// we only load these 3 (because they are the bohemiths 
-			var loadableFonts:Array = ['jp', 'cn', 'kr', 'th', 'arabic'];
+			var loadableFonts:Array = ['jp', 'cn', 'kr', 'th', 'arabic', 'arabic_uae', 'arabic_eg','arabic_row','arabic_sa'];
 			if(loadableFonts.indexOf(ServerInfo.lang) < 0) 
 			{
 				_continue(_key);

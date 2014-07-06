@@ -126,7 +126,7 @@ package code.skeleton
 				field.defaultTextFormat = tf;
 			}
 			
-			if(lang == "arabic")
+			if(lang.indexOf("arabic")>-1)
 			{
 				var tlf:TLFTextField = new TLFTextField();
 				tlf.width 				= field.width;

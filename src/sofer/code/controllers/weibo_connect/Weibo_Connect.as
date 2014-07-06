@@ -350,7 +350,8 @@ package code.controllers.weibo_connect
 				var message_id		:String =  App.asset_bucket.last_mid_saved ? '&mId=' + App.asset_bucket.last_mid_saved + '.3' : "";
 				var embed_url 		:String = ServerInfo.pickup_url + message_id;
 				
-				ExternalInterface_Proxy.call('wPostPictureStatus', App.settings.TWITTER_DEFAULT_TEXT, embed_url);
+				//wSharePictureStatus(_shortUrl, postDescription, OC_Social._weiboPost.picture, _callback);
+				ExternalInterface_Proxy.call('wSharePictureStatus', embed_url, encodeURIComponent(App.settings.TWITTER_DEFAULT_TEXT), App.asset_bucket.lastPhotoSavedURL);
 			}
 		}
 		/************************************************

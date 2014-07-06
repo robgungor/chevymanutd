@@ -1,6 +1,6 @@
 package code.skeleton
 {
-	public class Languages
+	public dynamic class Languages
 	{
 		public var kr		:Language;
 		public var jp		:Language;
