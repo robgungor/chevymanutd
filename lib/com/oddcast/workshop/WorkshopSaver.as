@@ -598,6 +598,8 @@ package com.oddcast.workshop {
 			paramsNode.door=ServerInfo.door.toString();
 			paramsNode.client=ServerInfo.client.toString();
 			paramsNode.topic = ServerInfo.topic.toString();
+			
+			
 			if (orig_saving_data.save_event.sendMode == SendEvent.EMAIL || orig_saving_data.save_event.sendMode == SendEvent.POST) paramsNode.mode = orig_saving_data.save_event.sendMode;
 			else paramsNode.mode = SendEvent.EMBED_CODE;
 			
@@ -607,6 +609,8 @@ package com.oddcast.workshop {
 				if (orig_saving_data.params.language!=null) paramsNode.lang = orig_saving_data.params.language;
 				if (orig_saving_data.params.optIn != null) paramsNode.optin = orig_saving_data.params.optIn;
 			}
+			
+			paramsNode.lang = ServerInfo.lang.toString();
 			return(paramsNode);
 		}
 		

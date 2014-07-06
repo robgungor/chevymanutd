@@ -142,6 +142,8 @@
 			_fields = [ui.tf_fromName, ui.tf_fromEmail];
 			_addBlankRecipients();
 			_setDefaults();
+			
+			App.localizer.localize(_emailSuccessWindow, "email_confirmation");
 		}
 		protected function _addBlankRecipients():void
 		{
