@@ -147,6 +147,8 @@
 		{
 			ui.emailSelector.clear();
 			_resetTabOrder();
+			_addBlankField();
+			return;
 			
 			for (var i:Number = 0; i<3; i++)
 			{
@@ -188,6 +190,7 @@
 				tf.restrict	= App.settings.EMAIL_MULTIPLE_TF_RESTRICT;
 				App.listener_manager.add(tf, FocusEvent.FOCUS_IN, _onTfFocus, this );
 				App.listener_manager.add(tf, FocusEvent.FOCUS_OUT, _onTfFocusOut, this );
+				FontManager.replaceFonts(tf, ServerInfo.lang);
 				_tabOrder.push(tf);
 				_fields.push(tf);
 			}
