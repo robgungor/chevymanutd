@@ -193,7 +193,8 @@ package code.controllers.preview
 //					break;
 				case ui.btn_back:
 					close_win();
-					App.mediator.logoutAndRestart();
+					App.asset_bucket.last_mid_saved = null;
+					App.asset_bucket.lastPhotoSavedURL = null;
 					App.mediator.autophoto_back_to_position();
 					break;
 				case ui.btn_googleplus:
