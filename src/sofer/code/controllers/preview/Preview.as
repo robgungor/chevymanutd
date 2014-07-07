@@ -193,6 +193,7 @@ package code.controllers.preview
 //					break;
 				case ui.btn_back:
 					close_win();
+					App.mediator.logoutAndRestart();
 					App.mediator.autophoto_back_to_position();
 					break;
 				case ui.btn_googleplus:
