@@ -343,7 +343,7 @@ package code.controllers.renren_connect
 				var message_id		:String =  App.asset_bucket.last_mid_saved ? '&mId=' + App.asset_bucket.last_mid_saved + '.3' : "";
 				var embed_url 		:String = ServerInfo.pickup_url + message_id;
 				//rPostPicture(this._renrenPost.picture, postDescriptionLink, _callback);
-				ExternalInterface_Proxy.call('rPostPicture',App.asset_bucket.lastPhotoSavedURL, encodeURIComponent(App.settings.FACEBOOK_POST_MESSAGE+' '+encodeURIComponent(embed_url)));
+				ExternalInterface_Proxy.call('rPostPicture',App.asset_bucket.lastPhotoSavedURL, encodeURIComponent(App.settings.FACEBOOK_POST_MESSAGE)+' '+embed_url);
 			}
 		}
 		/************************************************

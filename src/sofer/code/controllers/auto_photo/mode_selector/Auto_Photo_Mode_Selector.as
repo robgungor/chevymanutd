@@ -68,7 +68,7 @@
 				ui.btn_googleplus,
 				ui.btn_renren,
 				ui.btn_weibo,
-				ui.btn_terms,
+				ui.terms,
 				ui.btn_privacy
 				 ], MouseEvent.CLICK, btn_handler, this);
 					
@@ -132,7 +132,7 @@
 			
 			App.localizer.localize(this.ui, "homescreen");
 			//ui.btn_terms.btn_terms.underline.width = (ui.btn_terms.btn_terms.btntxt_terms ).textWidth;
-			var terms:btn_termsofuse_simple = ui.btn_terms.getChildByName("us") as btn_termsofuse_simple;
+			var terms:btn_termsofuse_simple = ui.terms.getChildByName("us") as btn_termsofuse_simple;
 			
 			// simpleButtons are the worst thing in the world
 			if(terms) 
@@ -298,7 +298,7 @@
 					ExternalInterface_Proxy.call('fbTrackGMApp', 'upload-photo');
 					App.mediator.autophoto_mode_search( Auto_Photo_Search.WEIBO );
 					break;
-				case ui.btn_terms:
+				case ui.terms:
 					App.mediator.open_hyperlink('http://www.chevrolet.com/fc-disclaimers.html', '_blank');
 					break;
 				case ui.btn_privacy:
