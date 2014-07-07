@@ -555,42 +555,45 @@
 				case 'queens':
 					return '1229';
 					break;
-				case 'queens row':
+				case 'queens_row':
 					return '1237';
 					break;
 				case 'ru':
 					return '1234';
 					break;
-				case 'spanish-row':
+				case 'sp_row':
 					return '1239';
 					break;
 				case 'th':
 					return '1232';
 					break;
-				case 'queens-mutd ' :
+				case 'queens_mutd' :
 					return '1242';
 					break;
-				case 'queens-uae':
+				case 'queens_uae':
 					return '1243';
 					break;
-				case 'queens-sa':
+				case 'queens_sa':
 					return '1244';
 					break;				
-				case 'queens-in':
+				case 'queens_in':
 					return '1245';
 					break;
-				case 'queens-eg':
+				case 'queens_eg':
 					return '1246';
 					break;
-				case 'arabic-sa':
+				case 'arabic_sa':
 					return '1247';
 					break;
-				case 'arabic-uae':
+				case 'arabic_uae':
 					return '1248';
 					break;
-				case 'arabic-eg':
+				case 'arabic_eg':
 					return '1249';
-					break				
+					break;
+				case   'us':
+					return '1221';
+					break;
 				default: 
 					return '1221';
 			}
