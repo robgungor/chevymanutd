@@ -24,14 +24,14 @@
 		private const PROCESS_SHORTENING	:String = 'PROCESS_SHORTENING for Bitly';
 		private const PROCESS_SHORTENING_MSG:String = 'Shortening url...';
 				
-		public function Bitly_Url( _btn_open:InteractiveObject ) 
+		public function Bitly_Url(  ) 
 		{
 			// listen for when the app is considered to have loaded and initialized all assets
 			var loaded_event:String = App.mediator.EVENT_WORKSHOP_LOADED;
 			App.listener_manager.add(App.mediator, loaded_event, app_initialized, this);
 			
 			// reference to controllers UI
-			btn_open		= _btn_open;
+			//btn_open		= _btn_open;
 			
 			// provide the mediator a reference to send data to this controller
 			var registered:Boolean = App.mediator.register_controller(this);
@@ -45,7 +45,7 @@
 			}
 		}
 		private function init(  ):void 
-		{	App.listener_manager.add(btn_open, MouseEvent.CLICK, save_and_shorten, this);
+		{	//App.listener_manager.add(btn_open, MouseEvent.CLICK, save_and_shorten, this);
 		}
 		/**
 		 * 
@@ -63,8 +63,9 @@
 		 * ************************************* INTERFACE *******/
 		public function shorten_url( _url:String, _callbacks:Callback_Struct ):void
 		{
+			trace("BITLY_URL:: shorten_url");
 			var retry_attempts_left:int = 3;
-			
+			shorten_url();
 			function shorten_url():void 
 			{	
 				toggle_processing( true );
@@ -90,7 +91,8 @@
 				}
 			}
 			function error( _msg:String = null ):void
-			{	
+			{
+				trace("ERROR: "+_msg);
 				retry_attempts_left--;
 				if (retry_attempts_left < 0)
 				{

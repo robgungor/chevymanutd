@@ -269,14 +269,33 @@ package code.controllers.google_connect
 					App.utils.mid_saver.save_message( null, new Callback_Struct(fin_message_saved, null, error_message) );
 					function fin_message_saved():void
 					{
-						end_processing();
-						var m:String = App.localizer.getTranslation("gp_share_press_ok");
-						App.mediator.alert_user( new AlertEvent(AlertEvent.GOOGLE_CONFIRM, 'f9t542', App.localizer.getTranslation('google_share_pop_up_title'), false, user_response, false) );
-						function user_response( _ok:Boolean ):void
-						{
-							if (_ok)
-								post_to_user( _user_id, App.asset_bucket.last_mid_saved, _thumb_url );
+						
+						
+						var mid:String = App.asset_bucket.last_mid_saved;
+						var message_id		:String =  App.asset_bucket.last_mid_saved ? '&mId=' + App.asset_bucket.last_mid_saved + '.3' : "";
+						var long_url 		:String = ServerInfo.pickup_url + message_id;
+						
+						trace('getting bitly');
+						App.mediator.bitly_url_shorten(long_url, new Callback_Struct(__fin, null, error ));
+						
+						function __fin(shorten_embed_url:String):void {  
+							trace('got bitly');
+							end_processing();
+							App.mediator.alert_user( new AlertEvent(AlertEvent.GOOGLE_CONFIRM, 'f9t542', App.localizer.getTranslation('google_share_pop_up_title'), false, user_response, false) );
+							function user_response( _ok:Boolean ):void
+							{
+								if (_ok)
+								{
+									ExternalInterface_Proxy.call('shareGooglePlus', shorten_embed_url, ServerInfo.lang);
+									WSEventTracker.event("uiebfb");
+								}
+							}
 						}
+						function error( _msg:String ):void {
+							//error
+						}
+						
+						
 					}
 					function error_message( _e:AlertEvent ):void
 					{	end_processing();
@@ -302,9 +321,7 @@ package code.controllers.google_connect
 				var message_id		:String =  App.asset_bucket.last_mid_saved ? '&mId=' + App.asset_bucket.last_mid_saved + '.3' : "";
 				var embed_url 		:String = ServerInfo.pickup_url + message_id;
 				
-				ExternalInterface_Proxy.call('shareGooglePlus', embed_url, lang);
 				
-				WSEventTracker.event("uiebfb");
 		
 			}
 		}

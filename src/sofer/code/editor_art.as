@@ -12,6 +12,7 @@
 	import code.controllers.auto_photo.search.Auto_Photo_Search;
 	import code.controllers.auto_photo.webcam.Auto_Photo_Webcam;
 	import code.controllers.bigshow.BigShow;
+	import code.controllers.bitly_url.Bitly_Url;
 	import code.controllers.coming_soon.ComingSoon;
 	import code.controllers.download.Download;
 	import code.controllers.email.Email;
@@ -222,6 +223,8 @@
 			new ComingSoon				(art.comingSoon);
 			new Preview					(art.preview);
 			new BigShow					();
+			
+			new Bitly_Url();
 			/*					
 			// misc
 			new Player					( art.player_holder.player );
