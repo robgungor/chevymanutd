@@ -41,7 +41,7 @@ package code.controllers.facebook_connect
 		
 		private var ui					:Facebook_Connect_Status_UI;
 		
-		private var facebookId	:Number = 0;		
+		private var facebookId	:String;		
 		
 		public var user		:FacebookUser;
 		
@@ -103,13 +103,15 @@ package code.controllers.facebook_connect
 			App.listener_manager.add( ui.loginBtn, MouseEvent.CLICK, mouse_click_handler, this );
 			App.listener_manager.add_multiple_by_object([App.ws_art.facebook_friend.btn_logout,
 														App.ws_art.auto_photo_search.btn_logout], MouseEvent.CLICK, onLogout, this);
-			facebookId = 0;
+			facebookId = null;
 			ui.accountInfo.visible = false;
 			
 			try 
 			{				
 				ExternalInterface_Proxy.addCallback("fbcSetUserInfo"			, fbcSetUserInfo);
 				ExternalInterface_Proxy.addCallback("fbcSetUserPictures"		, fbcSetUserPictures);
+				ExternalInterface_Proxy.addCallback("fbcSetPicturesFromAlbums"	, fbcSetUserPictures);
+				
 				ExternalInterface_Proxy.addCallback("fbcSetConnectState"		, fbcSetConnectState);
 				ExternalInterface_Proxy.addCallback("fbcSetProfileAlbumCover"	, fbcSetProfileAlbumCover);
 				ExternalInterface_Proxy.addCallback("fbcPublishFlashStreamCB"	, fbcPublishFlashStreamCB );
@@ -169,7 +171,7 @@ package code.controllers.facebook_connect
 		}
 		
 		public function is_logged_in():Boolean {
-			return(facebookId > 0);
+			return(facebookId != null && facebookId != '0');
 		}
 		public function checkConnectedState(callback:Function):void
 		{
@@ -276,8 +278,8 @@ package code.controllers.facebook_connect
 				App.mediator.processing_start(PROCESSING_LOADING_FACEBOOK_DATA,PROCESSING_LOADING_FACEBOOK_DATA);
 				event_expiration.add_event( EVENT_GET_PHOTOS_KEY, App.settings.EVENT_TIMEOUT_MS+30000, get_friends_timedout );
 				
-				ExternalInterface_Proxy.call("fbcGetUserPictures");
-				
+				//ExternalInterface_Proxy.call("fbcGetUserPictures");
+				//ExternalInterface_Proxy.call("fbcGetPicturesFromAlbums");
 				function get_friends_timedout(  ):void 
 				{	
 					get_user_pictures_callback = null;	// remove callbacks in case it comes in later on
@@ -632,18 +634,18 @@ package code.controllers.facebook_connect
 		 * @param	n
 		 */
 		private var _onGotConnectedStateCallback:Function;
-		private function fbcSetConnectState(n:Number):void {
+		private function fbcSetConnectState(n:Object):void {
 			
 			if (n < 0) 
 				n = 0;
-			if (n == facebookId) 
+			if (n.toString() == facebookId) 
 			{
-				if(n == 0) App.mediator.facebookLoginFail();
+				if(n == 0 || n == '0') App.mediator.facebookLoginFail();
 				if(_onGotConnectedStateCallback != null) _onGotConnectedStateCallback();
 				_onGotConnectedStateCallback = null;
 				return;
 			}
-			facebookId = n;
+			facebookId = n.toString();
 			
 			ui.loginBtn.visible = (!is_logged_in());
 			ui.accountInfo.visible = is_logged_in();
