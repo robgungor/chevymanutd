@@ -134,6 +134,7 @@ package code.controllers.preview
 		 */
 		private var _twitterPoint:Point;
 		private var _urlPoint:Point;
+		private var _hasBeenArranged:Boolean;
 		public function open_win(  ):void 
 		{	
 			App.ws_art.oddcast.visible = true;
@@ -150,8 +151,9 @@ package code.controllers.preview
 				ui.btn_copy_url.y = _twitterPoint.y;
 			}else
 			{
-				ui.btn_copy_url.x = _urlPoint.x;
-				ui.btn_copy_url.y = _urlPoint.y;
+				//ui.btn_copy_url.x = _urlPoint.x;
+				//ui.btn_copy_url.y = _urlPoint.y;
+				if(!_hasBeenArranged) _arrangeForIE();
 			}
 			
 			ui.btn_weibo.visible 	= ServerInfo.lang == "cn";
@@ -162,18 +164,21 @@ package code.controllers.preview
 		}
 		protected function _arrangeForIE():void
 		{
+			_hasBeenArranged = true;
 			var isIE:Object = ExternalInterface_Proxy.call('isIE');
-			trace('isIE: '+isIE);
+			
 			
 			if(isIE == 'false' || isIE == false) return;
 			if( !(isIE == '8' || isIE == '9') ) return;   
 			
-			trace('this is IE '+isIE);
+			
 			ui.btn_googleplus.visible = false;
+			
 			ui.btn_copy_url.x = ui.email_btn.x;
 			ui.email_btn.x = ui.btn_googleplus.x;
 			
-			
+			ui.btn_googleplus.x  = 0;
+			ui.btn_googleplus.y = -500;
 		}
 		/**
 		 * hides the UI

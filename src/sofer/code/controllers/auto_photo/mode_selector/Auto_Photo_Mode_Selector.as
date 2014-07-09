@@ -72,8 +72,24 @@
 				ui.btn_privacy
 				 ], MouseEvent.CLICK, btn_handler, this);
 					
+			
 		}
+		protected function _arrangeForIE():void
+		{
+			var isIE:Object = ExternalInterface_Proxy.call('isIE');
+			trace('isIE: '+isIE);
 		
+			if(isIE == 'false' || isIE == false) return;
+			if( !(isIE == '8' || isIE == '9') ) return;   
+			
+			trace('this is IE '+isIE);
+			ui.btn_googleplus.visible = false;
+			
+			ui.btn_upload.x = 447;
+			ui.btn_googleplus.y = -400; 
+			
+			
+		}
 		private function show_terms( _e:MouseEvent ):void 
 		{
 			App.mediator.open_hyperlink(App.settings.TERMS_CONDITIONS_LINK, "_blank");
@@ -188,6 +204,10 @@
 			
 			ui.btn_facebook.visible = ui.btn_googleplus.visible = ServerInfo.lang != "cn";
 			ui.btn_renren.visible = ui.btn_weibo.visible = ServerInfo.lang == "cn";
+			if(ServerInfo.lang != "cn")
+			{
+				_arrangeForIE();
+			}
 		}
 		private function _fixPrivacyUnderline():void
 		{
