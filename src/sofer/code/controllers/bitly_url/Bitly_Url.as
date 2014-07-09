@@ -19,8 +19,8 @@
 	public class Bitly_Url implements IBitly_Url
 	{
 		private var btn_open	:InteractiveObject;
-		private const LOGIN		:String = 'oddcast';
-		private const API_KEY	:String = 'R_f6d82bec8135f3dfa7c1802b5d659302';
+		private const LOGIN		:String = 'oddcast2';
+		private const API_KEY	:String = 'R_262f598a4e474911bd84c6e234430df4';
 		private const PROCESS_SHORTENING	:String = 'PROCESS_SHORTENING for Bitly';
 		private const PROCESS_SHORTENING_MSG:String = 'Shortening url...';
 				

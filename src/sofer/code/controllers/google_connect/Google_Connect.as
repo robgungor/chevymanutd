@@ -276,46 +276,33 @@ package code.controllers.google_connect
 						var message_id		:String =  App.asset_bucket.last_mid_saved ? '&mId=' + App.asset_bucket.last_mid_saved + '.3' : "";
 						var long_url 		:String = ServerInfo.pickup_url + message_id;
 						
-						App.ws_art.alert.btn_ok.setText( App.localizer.getTranslation('google_share_pop_up_btn_ok'), ServerInfo.lang, false, FontManager.replaceFonts);
+						trace('getting bitly');
+						App.mediator.bitly_url_shorten(long_url, new Callback_Struct(__fin, null, error ));
 						
-						App.mediator.alert_user( new AlertEvent(AlertEvent.GOOGLE_CONFIRM, 'f9t542', App.localizer.getTranslation('google_share_pop_up_title'), false, user_response, false) );
-						
-						App.ws_art.alert.tf_title.text 	= App.localizer.getTranslation('google_share_pop_up_title');
-						App.ws_art.alert.tf_msg.text 	= App.localizer.getTranslation('google_share_pop_up_subtitle');
-						function user_response( _ok:Boolean ):void
-						{
-							if (_ok)
+						function __fin(shorten_embed_url:String):void {  
+							trace('got bitly');
+							end_processing();
+							
+							App.ws_art.alert.btn_ok.setText( App.localizer.getTranslation('google_share_pop_up_btn_ok'), ServerInfo.lang, false, FontManager.replaceFonts);
+							
+							App.mediator.alert_user( new AlertEvent(AlertEvent.GOOGLE_CONFIRM, 'f9t542', App.localizer.getTranslation('google_share_pop_up_title'), false, user_response, false) );
+							
+							App.ws_art.alert.tf_title.text 	= App.localizer.getTranslation('google_share_pop_up_title');
+							App.ws_art.alert.tf_msg.text 	= App.localizer.getTranslation('google_share_pop_up_subtitle');
+							function user_response( _ok:Boolean ):void
 							{
-								ExternalInterface_Proxy.call('shareGooglePlus', long_url, ServerInfo.lang);
-								WSEventTracker.event("uiebfb");
+								if (_ok)
+								{
+									ExternalInterface_Proxy.call('shareGooglePlus', shorten_embed_url, ServerInfo.lang);
+									WSEventTracker.event("uiebfb");
+									end_processing();
+								}
 							}
 						}
-						
-						//App.mediator.bitly_url_shorten(long_url, new Callback_Struct(__fin, null, error ));
-						
-//						function __fin(shorten_embed_url:String):void {  
-//							trace('got bitly');
-//							end_processing();
-//							
-//							App.ws_art.alert.btn_ok.setText( App.localizer.getTranslation('google_share_pop_up_btn_ok'), ServerInfo.lang, false, FontManager.replaceFonts);
-//							
-//							App.mediator.alert_user( new AlertEvent(AlertEvent.GOOGLE_CONFIRM, 'f9t542', App.localizer.getTranslation('google_share_pop_up_title'), false, user_response, false) );
-//							
-//							App.ws_art.alert.tf_title.text 	= App.localizer.getTranslation('google_share_pop_up_title');
-//							App.ws_art.alert.tf_msg.text 	= App.localizer.getTranslation('google_share_pop_up_subtitle');
-//							function user_response( _ok:Boolean ):void
-//							{
-//								if (_ok)
-//								{
-//									ExternalInterface_Proxy.call('shareGooglePlus', shorten_embed_url, ServerInfo.lang);
-//									WSEventTracker.event("uiebfb");
-//								}
-//							}
-//						}
-//						function error( _msg:String ):void {
-//							//error
-//							trace('bitly error:'+_msg);
-//						}
+						function error( _msg:String ):void {
+							//error
+							trace('bitly error:'+_msg);
+						}
 						
 						
 					}
