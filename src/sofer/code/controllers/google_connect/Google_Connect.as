@@ -37,7 +37,7 @@ package code.controllers.google_connect
 		
 		private var ui					:Facebook_Connect_Status_UI;
 		
-		private var GoogleplusId					:Number = 0;//isaac
+		private var GoogleplusId					:String;//isaac
 		
 		
 		/** current user thumb */
@@ -148,16 +148,16 @@ package code.controllers.google_connect
 		private var _onLoginCallback:Function;
 		
 		public function is_googlePlus_logged_in():Boolean { ///Isaac
-			trace( "gpcGetPictures::is_googlePlus_logged_in - googlePlus - "+(GoogleplusId > 0) );
-			return(GoogleplusId > 0);
+			
+			return(GoogleplusId != '0' && GoogleplusId != null);
 		}
 		
-		public function gpSetConnectState(n:Number):void { ///Isaac
+		public function gpSetConnectState(n:Object):void { ///Isaac
 			trace("Google_Connect::gpSetConnectState - googlePlus - n='"+n+"'");
-			if (n < 0) 				n = 0;
+			//if (n.valueOf() < 0) 				n = '0';
 			//if (n == GoogleplusId) 	return;
 			
-			GoogleplusId = n;	
+			GoogleplusId = n.toString();	
 			trace("Google_Connect::gpSetConnectState - GoogleplusId = '"+GoogleplusId+"'");
 			
 			if ( is_googlePlus_logged_in() ) {
@@ -240,7 +240,7 @@ package code.controllers.google_connect
 			
 			function user_is_logged_in():void 
 			{
-				if (GoogleplusId > 0)	// indicated user id
+				if (GoogleplusId != null && GoogleplusId != '0')	// indicated user id
 					create_thumbnail( GoogleplusId );
 //				else	// post to own wall
 //					create_thumbnail( GoogleplusId() );
@@ -276,31 +276,46 @@ package code.controllers.google_connect
 						var message_id		:String =  App.asset_bucket.last_mid_saved ? '&mId=' + App.asset_bucket.last_mid_saved + '.3' : "";
 						var long_url 		:String = ServerInfo.pickup_url + message_id;
 						
-						trace('getting bitly');
-						App.mediator.bitly_url_shorten(long_url, new Callback_Struct(__fin, null, error ));
+						App.ws_art.alert.btn_ok.setText( App.localizer.getTranslation('google_share_pop_up_btn_ok'), ServerInfo.lang, false, FontManager.replaceFonts);
 						
-						function __fin(shorten_embed_url:String):void {  
-							trace('got bitly');
-							end_processing();
-							
-							App.ws_art.alert.btn_ok.setText( App.localizer.getTranslation('google_share_pop_up_btn_ok'), ServerInfo.lang, false, FontManager.replaceFonts);
-							
-							App.mediator.alert_user( new AlertEvent(AlertEvent.GOOGLE_CONFIRM, 'f9t542', App.localizer.getTranslation('google_share_pop_up_title'), false, user_response, false) );
-							
-							App.ws_art.alert.tf_title.text 	= App.localizer.getTranslation('google_share_pop_up_title');
-							App.ws_art.alert.tf_msg.text 	= App.localizer.getTranslation('google_share_pop_up_subtitle');
-							function user_response( _ok:Boolean ):void
+						App.mediator.alert_user( new AlertEvent(AlertEvent.GOOGLE_CONFIRM, 'f9t542', App.localizer.getTranslation('google_share_pop_up_title'), false, user_response, false) );
+						
+						App.ws_art.alert.tf_title.text 	= App.localizer.getTranslation('google_share_pop_up_title');
+						App.ws_art.alert.tf_msg.text 	= App.localizer.getTranslation('google_share_pop_up_subtitle');
+						function user_response( _ok:Boolean ):void
+						{
+							if (_ok)
 							{
-								if (_ok)
-								{
-									ExternalInterface_Proxy.call('shareGooglePlus', shorten_embed_url, ServerInfo.lang);
-									WSEventTracker.event("uiebfb");
-								}
+								ExternalInterface_Proxy.call('shareGooglePlus', long_url, ServerInfo.lang);
+								WSEventTracker.event("uiebfb");
 							}
 						}
-						function error( _msg:String ):void {
-							//error
-						}
+						
+						//App.mediator.bitly_url_shorten(long_url, new Callback_Struct(__fin, null, error ));
+						
+//						function __fin(shorten_embed_url:String):void {  
+//							trace('got bitly');
+//							end_processing();
+//							
+//							App.ws_art.alert.btn_ok.setText( App.localizer.getTranslation('google_share_pop_up_btn_ok'), ServerInfo.lang, false, FontManager.replaceFonts);
+//							
+//							App.mediator.alert_user( new AlertEvent(AlertEvent.GOOGLE_CONFIRM, 'f9t542', App.localizer.getTranslation('google_share_pop_up_title'), false, user_response, false) );
+//							
+//							App.ws_art.alert.tf_title.text 	= App.localizer.getTranslation('google_share_pop_up_title');
+//							App.ws_art.alert.tf_msg.text 	= App.localizer.getTranslation('google_share_pop_up_subtitle');
+//							function user_response( _ok:Boolean ):void
+//							{
+//								if (_ok)
+//								{
+//									ExternalInterface_Proxy.call('shareGooglePlus', shorten_embed_url, ServerInfo.lang);
+//									WSEventTracker.event("uiebfb");
+//								}
+//							}
+//						}
+//						function error( _msg:String ):void {
+//							//error
+//							trace('bitly error:'+_msg);
+//						}
 						
 						
 					}

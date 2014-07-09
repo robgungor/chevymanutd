@@ -1511,7 +1511,7 @@
 		public function open_hyperlink( _url:String, _window:String = null ):void 
 		{	if (_window)	URL_Opener.open_url( _url, _window );
 			else			URL_Opener.open_url( _url );
-		
+			
 			if (App.settings.ALERT_ON_LINK)
 			{	
 				var alert:AlertEvent = new AlertEvent(AlertEvent.CONFIRM, 'f9t551', App.localizer.getTranslation(Localizer.ALERT_BLOCKED_LINK)+'\n\n' + _url, null, user_response );

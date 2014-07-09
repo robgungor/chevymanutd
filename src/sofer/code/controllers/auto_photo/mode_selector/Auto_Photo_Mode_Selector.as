@@ -9,6 +9,7 @@
 	
 	import com.oddcast.data.ThumbSelectorData;
 	import com.oddcast.event.SelectorEvent;
+	import com.oddcast.utils.URL_Opener;
 	import com.oddcast.workshop.ExternalInterface_Proxy;
 	import com.oddcast.workshop.Persistent_Image.IPersistent_Image_Item;
 	import com.oddcast.workshop.ServerInfo;
@@ -77,17 +78,14 @@
 		protected function _arrangeForIE():void
 		{
 			var isIE:Object = ExternalInterface_Proxy.call('isIE');
-			trace('isIE: '+isIE);
 		
 			if(isIE == 'false' || isIE == false) return;
 			if( !(isIE == '8' || isIE == '9') ) return;   
 			
-			trace('this is IE '+isIE);
 			ui.btn_googleplus.visible = false;
 			
 			ui.btn_upload.x = 447;
 			ui.btn_googleplus.y = -400; 
-			
 			
 		}
 		private function show_terms( _e:MouseEvent ):void 
@@ -319,10 +317,12 @@
 					App.mediator.autophoto_mode_search( Auto_Photo_Search.WEIBO );
 					break;
 				case ui.btn_terms:
-					App.mediator.open_hyperlink('http://www.chevrolet.com/fc-disclaimers.html', '_blank');
+					URL_Opener.open_url('http://www.chevrolet.com/fc-disclaimers.html', '_blank');
+					//App.mediator.open_hyperlink('http://www.chevrolet.com/fc-disclaimers.html', '_blank');
 					break;
 				case ui.btn_privacy:
-					App.mediator.open_hyperlink('http://www.gm.com/toolbar/privacyStatement.html', '_blank');
+					URL_Opener.open_url('http://www.gm.com/toolbar/privacyStatement.html', '_blank');
+					//App.mediator.open_hyperlink('http://www.gm.com/toolbar/privacyStatement.html', '_blank');
 					 break;
 				case ui.btn_webcam:			
 					WSEventTracker.event("ce3");
