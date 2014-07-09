@@ -1514,7 +1514,8 @@
 		
 			if (App.settings.ALERT_ON_LINK)
 			{	
-				var alert:AlertEvent = new AlertEvent(AlertEvent.CONFIRM, '', App.localizer.getTranslation(Localizer.ALERT_BLOCKED_LINK)+'\n\n' + _url, null, user_response );
+				var alert:AlertEvent = new AlertEvent(AlertEvent.CONFIRM, 'f9t551', App.localizer.getTranslation(Localizer.ALERT_BLOCKED_LINK)+'\n\n' + _url, null, user_response );
+				//App.ws_art.alert.tf_msg.text = App.localizer.getTranslation(Localizer.ALERT_BLOCKED_LINK);
 				alert.report_error = false;
 				alert_user( alert );
 				

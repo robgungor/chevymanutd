@@ -2,6 +2,7 @@ package code.controllers.preview
 {
 	import code.skeleton.App;
 	
+	import com.oddcast.workshop.ExternalInterface_Proxy;
 	import com.oddcast.workshop.ServerInfo;
 	import com.oddcast.workshop.WSEventTracker;
 	
@@ -83,8 +84,11 @@ package code.controllers.preview
 			_faceSize 		= new Rectangle( ui.photo.face.x, ui.photo.face.y, ui.photo.face.width, ui.photo.face.height );
 			_twitterPoint 	= new Point(ui.twitter_btn.x, ui.twitter_btn.y);
 			_urlPoint		= new Point(ui.btn_copy_url.x, ui.btn_copy_url.y);
+			
 			init_shortcuts();
 			set_ui_listeners();
+			
+			_arrangeForIE();
 		}
 		/************************************************
 		 * 
@@ -153,6 +157,21 @@ package code.controllers.preview
 			ui.btn_weibo.visible 	= ServerInfo.lang == "cn";
 			App.localizer.localize(ui, "preview");
 			
+			
+			
+		}
+		protected function _arrangeForIE():void
+		{
+			var isIE:Object = ExternalInterface_Proxy.call('isIE');
+			trace('isIE: '+isIE);
+			
+			if(isIE == 'false' || isIE == false) return;
+			if( !(isIE == '8' || isIE == '9') ) return;   
+			
+			trace('this is IE '+isIE);
+			ui.btn_googleplus.visible = false;
+			ui.btn_copy_url.x = ui.email_btn.x;
+			ui.email_btn.x = ui.btn_googleplus.x;
 			
 			
 		}

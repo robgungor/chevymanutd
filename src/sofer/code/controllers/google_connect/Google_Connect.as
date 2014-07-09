@@ -2,6 +2,7 @@ package code.controllers.google_connect
 {
 	
 	import code.skeleton.App;
+	import code.skeleton.FontManager;
 	
 	import com.adobe.utils.ArrayUtil;
 	import com.oddcast.event.AlertEvent;
@@ -281,7 +282,13 @@ package code.controllers.google_connect
 						function __fin(shorten_embed_url:String):void {  
 							trace('got bitly');
 							end_processing();
+							
+							App.ws_art.alert.btn_ok.setText( App.localizer.getTranslation('google_share_pop_up_btn_ok'), ServerInfo.lang, false, FontManager.replaceFonts);
+							
 							App.mediator.alert_user( new AlertEvent(AlertEvent.GOOGLE_CONFIRM, 'f9t542', App.localizer.getTranslation('google_share_pop_up_title'), false, user_response, false) );
+							
+							App.ws_art.alert.tf_title.text 	= App.localizer.getTranslation('google_share_pop_up_title');
+							App.ws_art.alert.tf_msg.text 	= App.localizer.getTranslation('google_share_pop_up_subtitle');
 							function user_response( _ok:Boolean ):void
 							{
 								if (_ok)

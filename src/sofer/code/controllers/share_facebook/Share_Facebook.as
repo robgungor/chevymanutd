@@ -140,7 +140,7 @@ package code.controllers.share_facebook
 		}
 		private function _onFacebookLogin(e:* = null):void
 		{
-			event_expiration.remove_event('fblogin');
+			//event_expiration.remove_event('fblogin');
 					
 			App.utils.mid_saver.save_message( null, new Callback_Struct(fin_message_saved, null, error_message) );
 			function fin_message_saved():void

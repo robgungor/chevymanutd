@@ -2,6 +2,7 @@ package code.controllers.twitter_connect
 {
 	
 	import code.skeleton.App;
+	import code.skeleton.FontManager;
 	
 	import com.adobe.utils.ArrayUtil;
 	import com.oddcast.event.AlertEvent;
@@ -201,10 +202,16 @@ package code.controllers.twitter_connect
 				function fin_message_saved():void
 				{
 					end_processing();
-					
-					App.mediator.alert_user( new AlertEvent(AlertEvent.TWITTER_CONFIRM, 'f9t542', 'Press OK to share on Twitter.', false, user_response, false) );
+					App.ws_art.alert.btn_ok.setText( App.localizer.getTranslation('twitter_share_pop_up_btn_ok'), ServerInfo.lang, false, FontManager.replaceFonts);
+
+					App.mediator.alert_user( new AlertEvent(AlertEvent.TWITTER_CONFIRM, 'f9t542', App.localizer.getTranslation('twitter_share_pop_up_subtitle'), false, user_response, false) );
+
+					App.ws_art.alert.tf_title.text 	= App.localizer.getTranslation('twitter_share_pop_up_title');
+					App.ws_art.alert.tf_msg.text 	= App.localizer.getTranslation('twitter_share_pop_up_subtitle');
+
 					function user_response( _ok:Boolean ):void
 					{
+						
 						if (_ok)
 							post();
 					}

@@ -95,11 +95,15 @@
 		private function close_win(  ):void 
 		{	
 			ui.visible = false;
+			
+			// reset if we did something else
+			App.localizer.localize(ui, "alert_");
 		}
 		
 		private function btn_handler( _e:MouseEvent ):void 
 		{	close_win();
 		
+			
 			/* example for your convenience
 			switch (_e.target) 
 			{	case btn_ok:		break;
@@ -144,7 +148,8 @@
 			
 			
 			ui.tf_msg.text = alert_pretext(_e.code) + alertText.split("Alert").join("ALERT");
-			//if(_e.code == 'f9t542') ui.tf_title.text	= _e.text;//ui.tf_msg.text = 	'Press OK to share on Facebook.';
+			if(_e.code == 'f9t542') ui.tf_msg.text	= _e.text;//ui.tf_msg.text = 	'Press OK to share on Facebook.';
+			
 			// save callback
 			callback = _e.callback;
 			
@@ -157,6 +162,7 @@
 			ui.btn_close.visible 	= 
 			ui.btn_ok.visible 		= !_e.block_user_feedback;
 			//ui.btn_close.visible 	= 
+			
 			
 			
 			// kazaaaam

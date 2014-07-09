@@ -298,7 +298,7 @@
 					ExternalInterface_Proxy.call('fbTrackGMApp', 'upload-photo');
 					App.mediator.autophoto_mode_search( Auto_Photo_Search.WEIBO );
 					break;
-				case ui.terms:
+				case ui.btn_terms:
 					App.mediator.open_hyperlink('http://www.chevrolet.com/fc-disclaimers.html', '_blank');
 					break;
 				case ui.btn_privacy:

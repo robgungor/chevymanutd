@@ -2,6 +2,7 @@ package code.controllers.facebook_connect
 {
 	
 	import code.skeleton.App;
+	import code.skeleton.FontManager;
 	
 	import com.adobe.utils.ArrayUtil;
 	import com.oddcast.event.AlertEvent;
@@ -420,7 +421,12 @@ package code.controllers.facebook_connect
 					function fin_message_saved():void
 					{
 						end_processing();						
-						App.mediator.alert_user( new AlertEvent(AlertEvent.FACEBOOK_CONFIRM, 'f9t542', App.localizer.getTranslation('fb_share_pop_up_title'), false, user_response, false) );
+						App.ws_art.alert.btn_ok.setText( App.localizer.getTranslation('fb_share_pop_up_btn_ok'), ServerInfo.lang, false, FontManager.replaceFonts);
+						App.mediator.alert_user( new AlertEvent(AlertEvent.FACEBOOK_CONFIRM, 'f9t542', App.localizer.getTranslation('fb_share_pop_up_title'), false, user_response, false) );						
+						
+						App.ws_art.alert.tf_title.text 	= App.localizer.getTranslation('fb_share_pop_up_title');
+						App.ws_art.alert.tf_msg.text 	= App.localizer.getTranslation('fb_share_pop_up_subtitle');
+						
 						function user_response( _ok:Boolean ):void
 						{
 							if (_ok)
@@ -581,7 +587,11 @@ package code.controllers.facebook_connect
 			var img_id:String = _xml.id.toString();
 			
 			trace("Facebook_Connect::fb_profileResponse - img_id=" + img_id);
-			App.mediator.alert_user( new AlertEvent(AlertEvent.FACEBOOK_CONFIRM, 'f9t542', 'Press OK to share on Facebook.', false, user_response, false) );
+			App.ws_art.alert.btn_ok.setText( App.localizer.getTranslation('fb_share_pop_up_btn_ok'), ServerInfo.lang, false, FontManager.replaceFonts);
+			App.mediator.alert_user( new AlertEvent(AlertEvent.FACEBOOK_CONFIRM, 'f9t542', App.localizer.getTranslation('fb_share_pop_up_subtitle'), false, user_response, false) );											
+			
+			App.ws_art.alert.tf_title.text 	= App.localizer.getTranslation('fb_share_pop_up_title');
+			App.ws_art.alert.tf_msg.text 	= App.localizer.getTranslation('fb_share_pop_up_subtitle');
 			
 			function user_response( _ok:Boolean ):void
 			{
