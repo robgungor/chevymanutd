@@ -88,7 +88,7 @@ package code.controllers.preview
 			init_shortcuts();
 			set_ui_listeners();
 			
-			_arrangeForIE();
+			//_arrangeForIE();
 		}
 		/************************************************
 		 * 
