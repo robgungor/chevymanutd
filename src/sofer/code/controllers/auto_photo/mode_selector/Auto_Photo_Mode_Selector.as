@@ -201,9 +201,13 @@
 			if(ServerInfo.lang == "jp") ui.title_upload.y = 25;
 			
 			//if(ServerInfo.lang == "kr") ui.subtitle_upload.y = 100;
-			
+			ui.btn_weibo.visible = false;
 			ui.btn_facebook.visible = ui.btn_googleplus.visible = ServerInfo.lang != "cn";
-			ui.btn_renren.visible = ui.btn_weibo.visible = ServerInfo.lang == "cn";
+			ui.btn_renren.visible = /*ui.btn_weibo.visible = */ServerInfo.lang == "cn";
+			if(ServerInfo.lang == 'cn')
+			{
+				ui.btn_upload.x = 447;
+			}
 		}
 		private function _fixPrivacyUnderline():void
 		{
