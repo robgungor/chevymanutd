@@ -294,12 +294,13 @@ package code.controllers.weibo_connect
 		
 		public function update_status( ):void
 		{
-			trace("UPDATING WEIBO STATUS:");
-			if (is_logged_in())
-				user_is_logged_in();
-			else
-				login( user_is_logged_in );
-			
+			user_is_logged_in();
+//			
+//			if (is_logged_in())
+//				user_is_logged_in();
+//			else
+//				login( user_is_logged_in );
+//			
 			function user_is_logged_in():void 
 			{
 				if(App.asset_bucket.last_mid_saved) {
@@ -314,7 +315,7 @@ package code.controllers.weibo_connect
 				{
 					end_processing();
 					
-					App.mediator.alert_user( new AlertEvent(AlertEvent.GOOGLE_CONFIRM, 'f9t542', App.localizer.getTranslation('weibo_share_pop_up_title'), false, user_response, false) );
+					App.mediator.alert_user( new AlertEvent(AlertEvent.WEIBO_CONFIRM, 'f9t542', App.localizer.getTranslation('weibo_share_pop_up_title'), false, user_response, false) );
 					function user_response( _ok:Boolean ):void
 					{
 						if (_ok)
