@@ -7,7 +7,7 @@ package workshop.fbconnect {
 	 * @author Sam Myer
 	 */
 	public class FacebookUser implements IThumbSelectorData {
-		public var id:Number;
+		public var id:String;
 		public var name:String
 		public var city:String;
 		public var state:String;
@@ -41,7 +41,7 @@ package workshop.fbconnect {
 				}
 				//trace(prop.name()+": "+this[prop.name()]);
 			}
-			id = parseFloat(data.uid.toString());
+			id = data.uid.toString();//parseFloat(data.uid.toString());
 			if(this.family)
 			{
 				_familyMembers = [];
