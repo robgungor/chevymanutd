@@ -837,7 +837,7 @@
 				
 			if (controller_pool.auto_photo_browse)	
 			{	
-				WSEventTracker.event("ce1");  
+				//WSEventTracker.event("ce1");  
 				controller_pool.auto_photo_browse.open_win();
 				autophoto_used_to_upload = controller_pool.auto_photo_mode_selector;
 			}
