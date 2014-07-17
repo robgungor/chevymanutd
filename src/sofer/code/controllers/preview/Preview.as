@@ -155,11 +155,19 @@ package code.controllers.preview
 				//ui.btn_copy_url.y = _urlPoint.y;
 				if(!_hasBeenArranged) _arrangeForIE();
 			}
+					
 			
 			ui.btn_weibo.visible 	= ServerInfo.lang == "cn";
 			App.localizer.localize(ui, "preview");
 			
-			
+			if(ServerInfo.lang == 'ru')
+			{
+				var format:TextFormat = ui.title.defaultTextFormat;				
+				format.size = format.size.valueOf() - 5;
+				format.leading = format.leading.valueOf()+12;
+				ui.title.setTextFormat(format, 0, ui.title.text.length);
+				//ui.subtitle_upload.y = 135;
+			}
 			
 		}
 		protected function _arrangeForIE():void

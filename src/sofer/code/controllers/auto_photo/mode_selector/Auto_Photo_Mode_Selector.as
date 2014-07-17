@@ -208,6 +208,15 @@
 			{
 				ui.btn_upload.x = 447;
 			}
+			
+			if(ServerInfo.lang == 'th' || ServerInfo.lang == 'ru')
+			{
+				var format:TextFormat = ui.title_upload.defaultTextFormat;				
+				format.size = format.size.valueOf() - 5;
+				format.leading = format.leading.valueOf()+12;
+				ui.title_upload.setTextFormat(format, 0, ui.title_upload.text.length);
+				ui.subtitle_upload.y = 135;
+			}
 		}
 		private function _fixPrivacyUnderline():void
 		{

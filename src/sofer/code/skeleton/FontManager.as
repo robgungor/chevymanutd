@@ -120,8 +120,9 @@ package code.skeleton
 					field.gridFitType 	= GridFitType.PIXEL;
 				}
 				
-				if(lang == "th" ) {								
-					//tf.size 			= tf.size.valueOf()*1.3;					
+				if(lang == "ru" && fontStyle == "bolditalic") {								
+					tf.size 			= tf.size.valueOf()*.65;
+					tf.leading 			= tf.leading+5;
 				}
 				field.defaultTextFormat = tf;
 			}

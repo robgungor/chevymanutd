@@ -7,6 +7,7 @@
 	import com.oddcast.event.*;
 	import com.oddcast.photo.OFCWrapper;
 	import com.oddcast.utils.*;
+	import com.oddcast.workshop.ServerInfo;
 	import com.oddcast.workshop.WSEventTracker;
 	
 	import custom.SlideBar;
@@ -18,6 +19,8 @@
 	import flash.display.Sprite;
 	import flash.events.*;
 	import flash.geom.*;
+	import flash.text.TextField;
+	import flash.text.TextFormat;
 	import flash.utils.*;
 	
 	import org.casalib.util.NumberUtil;
@@ -200,6 +203,22 @@
 		{	
 			ui.visible = true;
 			App.localizer.localize(this.ui, "adjust");
+			
+			if(ServerInfo.lang == 'ru')
+			{
+				adjustSize(ui.hairstyle, .8);
+				adjustSize(ui.rotate, .8);
+				adjustSize(ui.zoom, .8);
+				adjustSize(ui.contrast, .8);
+			}
+			
+			function adjustSize(tf:TextField, amount:Number):void
+			{
+				var format:TextFormat = tf.defaultTextFormat;
+				format.size = format.size.valueOf()*amount;
+				tf.defaultTextFormat = format;
+				if(tf.text) tf.setTextFormat(format, 0, tf.text.length);
+			}
 			App.ws_art.oddcast.visible = false;
 			if(_imageHold.numChildren > 0)
 			{

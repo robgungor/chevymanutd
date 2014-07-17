@@ -138,7 +138,11 @@
 			
 			ui.tf_fromName.text 	= App.localizer.getTranslation('email_your_name_txt');
 			ui.tf_fromEmail.text 	= App.localizer.getTranslation('email_your_email_txt');
-			
+			if(ServerInfo.lang != "us"){
+				_fixInput(ui.tf_fromEmail);
+				_fixInput(ui.tf_fromName);
+				
+			}
 			_fields = [ui.tf_fromName, ui.tf_fromEmail];
 			_addBlankRecipients();
 			_setDefaults();
@@ -189,14 +193,34 @@
 			function setupTextField(tf:TextField):void
 			{
 				tf.maxChars	= 50;
-				tf.restrict	= App.settings.EMAIL_MULTIPLE_TF_RESTRICT;
+				if(tf.name == "tf_email"){
+					tf.restrict	= App.settings.EMAIL_MULTIPLE_TF_RESTRICT;
+				}
 				App.listener_manager.add(tf, FocusEvent.FOCUS_IN, _onTfFocus, this );
 				App.listener_manager.add(tf, FocusEvent.FOCUS_OUT, _onTfFocusOut, this );
 				FontManager.replaceFonts(tf, ServerInfo.lang);
+				if(ServerInfo.lang != "us")
+				{
+					_fixInput(tf);
+				}
 				_tabOrder.push(tf);
 				_fields.push(tf);
 			}
 			App.utils.tab_order.set_order( _tabOrder, 100 );
+		}
+		protected function _fixInput(tf:TextField):void
+		{
+			tf.embedFonts = false;
+			var format:TextFormat = tf.defaultTextFormat;
+			format.font = '_sans';		
+			format.letterSpacing = 0;
+			
+			tf.type = TextFieldType.INPUT;
+			
+			if(tf.text){
+				tf.setTextFormat(format, 0, tf.text.length);
+			}
+			tf.defaultTextFormat = format;		
 		}
 		protected function _setDefaults():void
 		{
