@@ -162,11 +162,11 @@ package code.controllers.preview
 			
 			if(ServerInfo.lang == 'ru')
 			{
-				var format:TextFormat = ui.title.defaultTextFormat;				
-				format.size = format.size.valueOf() - 5;
-				format.leading = format.leading.valueOf()+12;
-				ui.title.setTextFormat(format, 0, ui.title.text.length);
-				//ui.subtitle_upload.y = 135;
+//				var format:TextFormat = ui.title.defaultTextFormat;				
+//				format.size = format.size.valueOf() - 5;
+//				format.leading = format.leading.valueOf()+12;
+//				ui.title.setTextFormat(format, 0, ui.title.text.length);
+				ui.subtitle.y = 130;
 			}
 			
 		}

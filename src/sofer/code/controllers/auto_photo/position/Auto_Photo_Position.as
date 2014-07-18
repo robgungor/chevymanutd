@@ -210,6 +210,7 @@
 				adjustSize(ui.rotate, .8);
 				adjustSize(ui.zoom, .8);
 				adjustSize(ui.contrast, .8);
+				ui.subtitle.y = 90;
 			}
 			
 			function adjustSize(tf:TextField, amount:Number):void

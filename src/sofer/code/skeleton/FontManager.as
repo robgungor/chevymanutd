@@ -94,11 +94,28 @@ package code.skeleton
 			
 			// if we recognize it as 
 			var newFont:Font	 = language.hasOwnProperty(fontStyle) ? language[fontStyle] : language['regular'];
+			
 			if(newFont)	
 			{							
 				tf.font = newFont.fontName;
 				tf.kerning = false;
-			
+				if(newFont.fontName == "Arial")
+				{
+					if(fontStyle == "bolditalic")
+					{
+						tf.bold = true;
+						tf.italic = true;
+					} else if(fontStyle == "bold")
+					{
+						tf.bold = true;
+						tf.italic = false;
+					}else if(fontStyle == "italic")
+					{
+						tf.bold = false;
+						tf.italic = true;
+					}
+					
+				}
 				if(lang == "cn") {
 					
 					tf.letterSpacing 	= tf.size.valueOf()/3;
@@ -120,9 +137,11 @@ package code.skeleton
 					field.gridFitType 	= GridFitType.PIXEL;
 				}
 				
-				if(lang == "ru" && fontStyle == "bolditalic") {								
-					tf.size 			= tf.size.valueOf()*.65;
-					tf.leading 			= tf.leading+5;
+				if(lang == "ru" && fontStyle == "bolditalic") {
+					if(tf.size.valueOf() > 14){
+						tf.size 			= tf.size.valueOf()*.6;
+						tf.leading 			= tf.leading+12;
+					}
 				}
 				field.defaultTextFormat = tf;
 			}

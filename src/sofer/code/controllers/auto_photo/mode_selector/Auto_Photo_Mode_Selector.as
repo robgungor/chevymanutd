@@ -21,6 +21,7 @@
 	import flash.display.MovieClip;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
+	import flash.text.TextFieldAutoSize;
 	import flash.text.TextFormat;
 	
 	import workshop.persistent_image.Persistent_Image_Selector_Item;
@@ -209,13 +210,20 @@
 				ui.btn_upload.x = 447;
 			}
 			
-			if(ServerInfo.lang == 'th' || ServerInfo.lang == 'ru')
+			if(ServerInfo.lang == 'th')
 			{
-				var format:TextFormat = ui.title_upload.defaultTextFormat;				
+				var format:TextFormat = ui.title_upload.defaultTextFormat;						
 				format.size = format.size.valueOf() - 5;
 				format.leading = format.leading.valueOf()+12;
 				ui.title_upload.setTextFormat(format, 0, ui.title_upload.text.length);
 				ui.subtitle_upload.y = 135;
+				
+			}
+			
+			if(ServerInfo.lang == 'ru')
+			{
+				ui.title_upload.y = 40;
+				ui.subtitle_upload.y = 115;
 			}
 		}
 		private function _fixPrivacyUnderline():void
@@ -225,50 +233,36 @@
 			// simpleButtons are the worst thing in the world
 			if(terms) 
 			{
-				var upState:DisplayObjectContainer = terms.upState as DisplayObjectContainer;
-				var underline:MovieClip;
-				var tf:*;
-				var child:*
-				if(upState)
+				var upState:DisplayObjectContainer = terms.upState as DisplayObjectContainer;				
+				if(upState) fixState(upState);
+				
+				var overState:DisplayObjectContainer = terms.overState as DisplayObjectContainer;				
+				if(overState) fixState(overState);
+				
+				var downState:DisplayObjectContainer = terms.downState as DisplayObjectContainer;				
+				if(downState) fixState(downState);
+									
+				function fixState(state:DisplayObjectContainer):void
 				{
-					for (var i:Number = 0; i < upState.numChildren; i++){
-						child = upState.getChildAt(i);
+					var underline:MovieClip;
+					var tf:*;
+					var child:*
+						
+					for (var i:Number = 0; i < state.numChildren; i++){
+						child = state.getChildAt(i);
 						if(child is MovieClip) underline = child;
 						else tf = child;
 					}
 					
-					if(underline && tf) underline.width = tf.textWidth;
-				}
-				
-				var overState:DisplayObjectContainer = terms.overState as DisplayObjectContainer;
-				
-				if(overState)
-				{
-					for (i = 0; i < overState.numChildren; i++){
-						child = overState.getChildAt(i);
-						if(child is MovieClip) underline = child;
-						else tf = child;
-					}
+					if(underline && tf) 
+					{						
+						tf.width = tf.textWidth+250;						
+						underline.width = tf.textWidth;
+					}	
 					
-					if(underline && tf) underline.width = tf.textWidth;
+					var hitState:* = terms.hitTestState;
+					hitState.width = underline.width;		
 				}
-				
-				var downState:DisplayObjectContainer = terms.downState as DisplayObjectContainer;
-				
-				if(downState)
-				{
-					for (i = 0; i < downState.numChildren; i++){
-						child = downState.getChildAt(i);
-						if(child is MovieClip) underline = child;
-						else tf = child;
-					}
-					
-					if(underline && tf) underline.width = tf.textWidth;
-				}
-				
-				var hitState:* = terms.hitTestState;
-				hitState.width = underline.width;			
-				
 			}
 		}
 		public function close_win(  ) : void
